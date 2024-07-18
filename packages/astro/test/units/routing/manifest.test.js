@@ -7,10 +7,11 @@ import { createBasicSettings, createFs } from '../test-utils.js';
 
 const root = new URL('../../fixtures/alias/', import.meta.url);
 
-function getManifestRoutes(manifest) {
+function getManifestRoutes(manifest, includeRedirect = false) {
 	return manifest.routes.map((route) => ({
 		type: route.type,
 		route: route.route,
+		...(includeRedirect ? { redirectRoute: route.redirectRoute } : {}),
 	}));
 }
 
@@ -465,6 +466,158 @@ describe('routing - createRouteManifest', () => {
 			},
 			{
 				route: '/',
+				type: 'page',
+			},
+		]);
+	});
+
+	it('redirect routes are correctly resolved', async () => {
+		const fs = createFs(
+			{
+				'/src/pages/[category]/page/[page].astro': `<h1>test</h1>`,
+				'/src/pages/[category]/[...slug].astro': `<h1>test</h1>`,
+			},
+			root
+		);
+
+		const settings = await createBasicSettings({
+			root: fileURLToPath(root),
+			output: 'server',
+			base: '/blog',
+			trailingSlash: 'never',
+			redirects: {
+				'/[category]': '/[category]/page/1',
+				'/[category]/old-pages/[page]': '/[category]/page/[page]',
+			},
+			integrations: [],
+			experimental: {
+				globalRoutePriority: true,
+			},
+		});
+
+		const manifest = createRouteManifest({
+			cwd: fileURLToPath(root),
+			settings,
+			fsMod: fs,
+		});
+
+		const targetRoute = manifest.routes.find((route) => route.route === '/[category]/page/[page]');
+
+		assert.deepEqual(getManifestRoutes(manifest, true), [
+			{
+				route: '/[category]/old-pages/[page]',
+				type: 'redirect',
+				redirectRoute: targetRoute,
+			},
+			{
+				route: '/[category]/page/[page]',
+				type: 'page',
+				redirectRoute: undefined,
+			},
+			{
+				route: '/[category]',
+				type: 'redirect',
+				redirectRoute: targetRoute,
+			},
+			{
+				route: '/[category]/[...slug]',
+				type: 'page',
+				redirectRoute: undefined,
+			},
+		]);
+	});
+
+	it('redirect routes target params should exist in old route', async () => {
+		const fs = createFs(
+			{
+				'/src/pages/[category]/page/[page].astro': `<h1>test</h1>`,
+				'/src/pages/[category]/[...slug].astro': `<h1>test</h1>`,
+			},
+			root
+		);
+		async function createWithRedirect(redirects) {
+			const settings = await createBasicSettings({
+				root: fileURLToPath(root),
+				output: 'server',
+				base: '/blog',
+				trailingSlash: 'never',
+				redirects,
+				integrations: [],
+				experimental: {
+					globalRoutePriority: true,
+				},
+			});
+			return createRouteManifest({
+				cwd: fileURLToPath(root),
+				settings,
+				fsMod: fs,
+			});
+		}
+
+		await assert.rejects(
+			async () =>
+				await createWithRedirect({
+					'/[category]': '/[category]/page/[page]',
+				}),
+			(err) => {
+				assert.match(err.message, /Parameter \[page\] must also be present in the old route/);
+				return true;
+			}
+		);
+
+		await assert.rejects(
+			async () =>
+				await createWithRedirect({
+					'/[category]': '/[category]/page/[...slug]',
+				}),
+			(err) => {
+				assert.match(err.message, /Parameter \[\.{3}slug\] must also be present in the old route/);
+				return true;
+			}
+		);
+
+		const omitDynamicManifest = await createWithRedirect({
+			'/[category]/old/[omit]': '/[category]/page/1',
+		});
+
+		assert.deepEqual(getManifestRoutes(omitDynamicManifest, true), [
+			{
+				route: '/[category]/old/[omit]',
+				type: 'redirect',
+				redirectRoute: omitDynamicManifest.routes.find(
+					(route) => route.route === '/[category]/page/[page]'
+				),
+			},
+			{
+				redirectRoute: undefined,
+				route: '/[category]/page/[page]',
+				type: 'page',
+			},
+			{
+				redirectRoute: undefined,
+				route: '/[category]/[...slug]',
+				type: 'page',
+			},
+		]);
+
+		const omitSlug = await createWithRedirect({
+			'/[category]/old/[...omit]': '/[category]/page/1',
+		});
+
+		assert.deepEqual(getManifestRoutes(omitSlug, true), [
+			{
+				route: '/[category]/old/[...omit]',
+				type: 'redirect',
+				redirectRoute: omitSlug.routes.find((route) => route.route === '/[category]/page/[page]'),
+			},
+			{
+				redirectRoute: undefined,
+				route: '/[category]/page/[page]',
+				type: 'page',
+			},
+			{
+				redirectRoute: undefined,
+				route: '/[category]/[...slug]',
 				type: 'page',
 			},
 		]);

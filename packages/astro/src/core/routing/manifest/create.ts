@@ -140,6 +140,16 @@ export function validateSegment(segment: string, file = '') {
 	}
 }
 
+export function getSegmentsFromRoutePath(routePath: string, file = routePath) {
+	return removeLeadingForwardSlash(routePath)
+		.split(path.posix.sep)
+		.filter(Boolean)
+		.map((s: string) => {
+			validateSegment(s);
+			return getParts(s, file);
+		});
+}
+
 /**
  * Checks whether two route segments are semantically equivalent.
  *
@@ -350,13 +360,7 @@ function createInjectedRoutes({ settings, cwd }: CreateRouteManifestParams): Pri
 		}
 		const component = slash(path.relative(cwd || fileURLToPath(config.root), resolved));
 
-		const segments = removeLeadingForwardSlash(name)
-			.split(path.posix.sep)
-			.filter(Boolean)
-			.map((s: string) => {
-				validateSegment(s);
-				return getParts(s, component);
-			});
+		const segments = getSegmentsFromRoutePath(name, component);
 
 		const type = resolved.endsWith('.astro') ? 'page' : 'endpoint';
 		const isPage = type === 'page';
@@ -392,6 +396,28 @@ function createInjectedRoutes({ settings, cwd }: CreateRouteManifestParams): Pri
 	return routes;
 }
 
+function validateRedirectPaths(from: string, to: string) {
+	const fromSegments = getSegmentsFromRoutePath(from);
+	const toSegments = getSegmentsFromRoutePath(to);
+	if (!fromSegments.length && toSegments.length) return true;
+
+	const nonStaticFromParts = fromSegments.filter((segment) => !isStaticSegment(segment)).flat();
+	const nonStaticToParts = toSegments.filter((segment) => !isStaticSegment(segment)).flat();
+	return nonStaticToParts.every((toPart) => {
+		const found = nonStaticFromParts.find(
+			(fromPart) =>
+				fromPart.content === toPart.content &&
+				fromPart.dynamic === toPart.dynamic &&
+				fromPart.spread === toPart.spread
+		);
+		if (!found)
+			throw new Error(
+				`Invalid redirect target "${to}" \u2014 Parameter [${toPart.content}] must also be present in the old route "${from}"`
+			);
+		return found;
+	});
+}
+
 /**
  * Create route data for all configured redirects.
  */
@@ -410,14 +436,7 @@ function createRedirectRoutes(
 
 	const priority = computeRoutePriority(settings.config);
 	for (const [from, to] of Object.entries(settings.config.redirects)) {
-		const segments = removeLeadingForwardSlash(from)
-			.split(path.posix.sep)
-			.filter(Boolean)
-			.map((s: string) => {
-				validateSegment(s);
-				return getParts(s, from);
-			});
-
+		const segments = getSegmentsFromRoutePath(from);
 		const pattern = getPattern(segments, settings.config.base, trailingSlash);
 		const generate = getRouteGenerator(segments, trailingSlash);
 		const pathname = segments.every((segment) => segment.length === 1 && !segment[0].dynamic)
@@ -443,6 +462,18 @@ function createRedirectRoutes(
 			);
 		}
 
+		validateRedirectPaths(from, destination);
+
+		const redirectRoute =
+			routeMap.get(destination) ??
+			[...routeMap.values()]
+				.sort(routeComparator)
+				.find(
+					(route) =>
+						route.pattern.test(destination) ||
+						route.fallbackRoutes.some((fallbackRoute) => fallbackRoute.pattern.test(destination))
+				);
+
 		routes[priority].push({
 			type: 'redirect',
 			// For backwards compatibility, a redirect is never considered an index route.
@@ -456,7 +487,7 @@ function createRedirectRoutes(
 			pathname: pathname || void 0,
 			prerender: false,
 			redirect: to,
-			redirectRoute: routeMap.get(destination),
+			redirectRoute,
 			fallbackRoutes: [],
 		});
 	}
@@ -673,14 +704,7 @@ export function createRouteManifest(
 					const pathname = '/';
 					const route = '/';
 
-					const segments = removeLeadingForwardSlash(route)
-						.split(path.posix.sep)
-						.filter(Boolean)
-						.map((s: string) => {
-							validateSegment(s);
-							return getParts(s, route);
-						});
-
+					const segments = getSegmentsFromRoutePath(route);
 					routes.push({
 						...indexDefaultRoute,
 						pathname,
@@ -747,13 +771,7 @@ export function createRouteManifest(
 									.replace(`/${fallbackToLocale}`, `/${fallbackFromLocale}`)
 									.replace(`/${fallbackToLocale}/`, `/${fallbackFromLocale}/`);
 							}
-							const segments = removeLeadingForwardSlash(route)
-								.split(path.posix.sep)
-								.filter(Boolean)
-								.map((s: string) => {
-									validateSegment(s);
-									return getParts(s, route);
-								});
+							const segments = getSegmentsFromRoutePath(route);
 							const generate = getRouteGenerator(segments, config.trailingSlash);
 							const index = routes.findIndex((r) => r === fallbackToRoute);
 							if (index >= 0) {

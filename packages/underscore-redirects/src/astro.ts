@@ -1,7 +1,7 @@
 import { posix } from 'node:path';
 import type { AstroConfig, RouteData, ValidRedirectStatus } from 'astro';
 import { Redirects } from './redirects.js';
-
+import { getSegmentsFromRoutePath } from 'astro/app';
 const pathJoin = posix.join;
 
 function getRedirectStatus(route: RouteData): ValidRedirectStatus {
@@ -41,7 +41,7 @@ export function createRedirectsFromAstroRoutes({
 		// A route with a `pathname` is as static route.
 		if (route.pathname) {
 			if (route.redirect) {
-				// A redirect route without dynami§c parts. Get the redirect status
+				// A redirect route without dynamic parts. Get the redirect status
 				// from the user if provided.
 				_redirects.add({
 					dynamic: false,
@@ -88,10 +88,23 @@ export function createRedirectsFromAstroRoutes({
 			// route formatted with *s in place of the Astro dynamic/spread syntax.
 			const pattern = generateDynamicPattern(route);
 
-			// This route was prerendered and should be forwarded to the HTML file.
-			if (route.distURL) {
-				const targetRoute = route.redirectRoute ?? route;
-				const targetPattern = generateDynamicPattern(targetRoute);
+			const targetRoute = route.redirectRoute ?? route;
+			// The target route was prerendered and should be forwarded to the HTML file.
+			if (targetRoute.distURL) {
+				// The target path is the path as written, which could be a partially 
+				// resolved route path. e.g. the redirectRoute Route could be 
+				// [foo]/[bar], and the written target path could be [foo]/1.
+				const targetPath =
+					typeof route.redirect === 'object'
+						? route.redirect.destination
+						: route.redirect // this should never be empty
+					?? targetRoute.route // but we fallback to the redirect route anyway;
+
+				const targetPattern = generateDynamicPattern({
+					...targetRoute,
+					segments: getSegmentsFromRoutePath(targetPath),
+				}, true);
+
 				let target = targetPattern;
 				if (config.build.format === 'directory') {
 					target = pathJoin(target, 'index.html');
@@ -125,7 +138,7 @@ export function createRedirectsFromAstroRoutes({
  * /team/articles/*
  * With stars replacing spread and :id syntax replacing [id]
  */
-function generateDynamicPattern(route: RouteData) {
+function generateDynamicPattern(route: RouteData, forTarget = false) {
 	const pattern =
 		'/' +
 		route.segments
@@ -133,7 +146,7 @@ function generateDynamicPattern(route: RouteData) {
 				//(part.dynamic ? '*' : part.content)
 				if (part.dynamic) {
 					if (part.spread) {
-						return '*';
+						return forTarget ? ':splat': '*';
 					} else {
 						return ':' + part.content;
 					}

@@ -1,4 +1,3 @@
-import { posix } from 'node:path';
 import type {
 	AstroConfig,
 	AstroUserConfig,
@@ -18,9 +17,8 @@ import { ASTRO_CONFIG_DEFAULTS } from '../core/config/schema.js';
 import { validateConfig } from '../core/config/validate.js';
 import { Logger } from '../core/logger/core.js';
 import { nodeLogDestination } from '../core/logger/node.js';
-import { removeLeadingForwardSlash } from '../core/path.js';
 import { RenderContext } from '../core/render-context.js';
-import { getParts, getPattern, validateSegment } from '../core/routing/manifest/create.js';
+import { getSegmentsFromRoutePath, getPattern } from '../core/routing/manifest/create.js';
 import type { AstroComponentFactory } from '../runtime/server/index.js';
 import { ContainerPipeline } from './pipeline.js';
 
@@ -446,13 +444,7 @@ export class experimental_AstroContainer {
 	}
 
 	#createRoute(url: URL, params: Record<string, string | undefined>, type: RouteType): RouteData {
-		const segments = removeLeadingForwardSlash(url.pathname)
-			.split(posix.sep)
-			.filter(Boolean)
-			.map((s: string) => {
-				validateSegment(s);
-				return getParts(s, url.pathname);
-			});
+		const segments = getSegmentsFromRoutePath(url.pathname);
 		return {
 			route: url.pathname,
 			component: '',
