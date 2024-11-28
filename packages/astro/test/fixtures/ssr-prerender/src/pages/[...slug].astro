@@ -1,0 +1,11 @@
+---
+export const prerender = true;
+
+export const getStaticPaths = () => ([
+	{ params: { slug: 'static' } },
+	{ params: { slug: 'not-prerendered' } },
+]);
+---
+<div>
+  <p>Prerendered dynamic route.</p>
+</div>

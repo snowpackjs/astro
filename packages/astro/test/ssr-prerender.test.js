@@ -37,6 +37,22 @@ describe('SSR: prerender', () => {
 			/** @type {Set<string>} */
 			const assets = app.manifest.assets;
 			assert.equal(assets.has('/static/index.html'), true);
+			const content = await fixture.readFile('/client/static/index.html');
+			const $ = cheerio.load(content);
+			assert.equal($('h1#greeting').text(), 'Hello world!');
+		});
+
+
+		it('skips prerendering for pages conflicting with a higher priority SSR route', async () => {
+			const app = await fixture.loadTestAdapterApp();
+			/** @type {Set<string>} */
+			const assets = app.manifest.assets;
+			assert.equal(assets.has('/non-prerendered/index.html'), false);
+
+			// Skipped page should not exist in the output
+			// test for bug where it was removed from the assets but stil rendered.
+			const generated = await fixture.readdir('/client');
+			assert.equal(generated.includes('not-prerendered'), false);
 		});
 	});
 
