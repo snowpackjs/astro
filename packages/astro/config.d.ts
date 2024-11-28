@@ -1,10 +1,12 @@
 type ViteUserConfig = import('vite').UserConfig;
 type ViteUserConfigFn = import('vite').UserConfigFn;
+type AstroConfig = import('./dist/@types/astro.js').AstroConfig;
 type AstroUserConfig = import('./dist/@types/astro.js').AstroUserConfig;
 type AstroInlineConfig = import('./dist/@types/astro.js').AstroInlineConfig;
 type ImageServiceConfig = import('./dist/@types/astro.js').ImageServiceConfig;
 type SharpImageServiceConfig = import('./dist/assets/services/sharp.js').SharpImageServiceConfig;
 type EnvField = typeof import('./dist/env/config.js').envField;
+type DeepPartial<T> = import('./dist/type-utils.js').DeepPartial<T>;
 
 /**
  * See the full Astro Configuration API Documentation
@@ -46,3 +48,22 @@ export function passthroughImageService(): ImageServiceConfig;
  * Return a valid env field to use in this Astro config for `experimental.env.schema`.
  */
 export const envField: EnvField;
+
+/**
+ * Recursively merges a partial configuration object into a valid default.
+ *
+ * Configuration can be merged both before and after being resolved.
+ */
+export function mergeConfig<C extends AstroConfig | AstroInlineConfig>(
+	defaults: C,
+	overrides: DeepPartial<C>,
+): C;
+
+/**
+ * Turn raw config values into normalized values
+ */
+export function validateConfig(
+	userConfig: any,
+	root: string,
+	cmd: string,
+): Promise<AstroConfig>;

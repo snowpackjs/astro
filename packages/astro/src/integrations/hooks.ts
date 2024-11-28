@@ -3,6 +3,7 @@ import type { AddressInfo } from 'node:net';
 import { fileURLToPath } from 'node:url';
 import { bold } from 'kleur/colors';
 import type { InlineConfig, ViteDevServer } from 'vite';
+import { mergeConfig as mergeViteConfig } from 'vite';
 import type {
 	AstroAdapter,
 	AstroConfig,
@@ -183,7 +184,7 @@ export async function runHookConfigSetup({
 					updatedSettings.scripts.push({ stage, content });
 				},
 				updateConfig: (newConfig) => {
-					updatedConfig = mergeConfig(updatedConfig, newConfig) as AstroConfig;
+					updatedConfig = mergeConfig(updatedConfig, newConfig);
 					return { ...updatedConfig };
 				},
 				injectRoute: (injectRoute) => {
@@ -480,7 +481,7 @@ export async function runHookBuildSetup({
 					pages,
 					target,
 					updateConfig: (newConfig) => {
-						updatedConfig = mergeConfig(updatedConfig, newConfig);
+						updatedConfig = mergeViteConfig(updatedConfig, newConfig);
 						return { ...updatedConfig };
 					},
 					logger: getLogger(integration, logger),

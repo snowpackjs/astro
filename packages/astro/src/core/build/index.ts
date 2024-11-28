@@ -40,7 +40,9 @@ export interface BuildOptions {
 	 * Teardown the compiler WASM instance after build. This can improve performance when
 	 * building once, but may cause a performance hit if building multiple times in a row.
 	 *
-	 * @internal only used for testing
+	 * When building multiple projects in the same execution (e.g. during tests), disabling
+	 * this option can greatly improve performance at the cost of some extra memory usage.
+	 *
 	 * @default true
 	 */
 	teardownCompiler?: boolean;
