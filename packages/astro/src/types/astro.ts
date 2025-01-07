@@ -64,7 +64,8 @@ export interface AstroSettings {
 	latestAstroVersion: string | undefined;
 	serverIslandMap: NonNullable<SSRManifest['serverIslandMap']>;
 	serverIslandNameMap: NonNullable<SSRManifest['serverIslandNameMap']>;
-	injectedTypes: Array<InjectedType>;
+	// This makes content optional. Internal only so it's not optional on InjectedType
+	injectedTypes: Array<Omit<InjectedType, 'content'> & Partial<Pick<InjectedType, 'content'>>>;
 	/**
 	 * Determine if the build output should be a static, dist folder or a adapter-based server output
 	 * undefined when unknown

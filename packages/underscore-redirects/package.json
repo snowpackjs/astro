@@ -1,7 +1,7 @@
 {
   "name": "@astrojs/underscore-redirects",
   "description": "Utilities to generate _redirects files in Astro projects",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "type": "module",
   "author": "withastro",
   "license": "MIT",

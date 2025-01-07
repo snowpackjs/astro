@@ -1,29 +1,15 @@
 import type { NamedSSRLoadedRendererValue } from 'astro';
 import { AstroError } from 'astro/errors';
-import { AstroJSX, jsx } from 'astro/jsx-runtime';
+import { jsx } from 'astro/jsx-runtime';
 import { renderJSX } from 'astro/runtime/server/index.js';
 
 const slotName = (str: string) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
 
-// NOTE: In practice, MDX components are always tagged with `__astro_tag_component__`, so the right renderer
-// is used directly, and this check is not often used to return true.
-export async function check(
-	Component: any,
-	props: any,
-	{ default: children = null, ...slotted } = {},
-) {
-	if (typeof Component !== 'function') return false;
-	const slots: Record<string, any> = {};
-	for (const [key, value] of Object.entries(slotted)) {
-		const name = slotName(key);
-		slots[name] = value;
-	}
-	try {
-		const result = await Component({ ...props, ...slots, children });
-		return result[AstroJSX];
-	} catch (e) {
-		throwEnhancedErrorIfMdxComponent(e as Error, Component);
-	}
+// MDX components are tagged with `__astro_tag_component__` in `vite-plugin-mdx-postprocess.ts`
+// and tagged componenets can directly tell Astro which renderer to use in build-time, rather
+// than checking the components in runtime. So this function is made a no-op as any untagged
+// component wouldn't have belonged to MDX.
+export async function check() {
 	return false;
 }
 

@@ -11,7 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "astro": "^5.1.2",
+    "astro": "^5.1.3",
     "vitest": "^3.0.0-beta.3"
   }
 }

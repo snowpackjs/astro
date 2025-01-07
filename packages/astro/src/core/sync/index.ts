@@ -150,17 +150,15 @@ export async function syncInternal({
 		settings.timer.end('Sync content layer');
 	} else {
 		const paths = getContentPaths(settings.config, fs);
-		// Content is synced after writeFiles. That means references are not created
-		// To work around it, we create a stub so the reference is created and content
-		// sync will override the empty file
 		if (
 			paths.config.exists ||
 			// Legacy collections don't require a config file
 			(settings.config.legacy?.collections && fs.existsSync(paths.contentDir))
 		) {
+			// We only create the reference, without a stub to avoid overriding the
+			// already generated types
 			settings.injectedTypes.push({
 				filename: CONTENT_TYPES_FILE,
-				content: '',
 			});
 		}
 	}
@@ -182,7 +180,9 @@ function writeInjectedTypes(settings: AstroSettings, fs: typeof fsMod) {
 	for (const { filename, content } of settings.injectedTypes) {
 		const filepath = fileURLToPath(new URL(filename, settings.dotAstroDir));
 		fs.mkdirSync(dirname(filepath), { recursive: true });
-		fs.writeFileSync(filepath, content, 'utf-8');
+		if (content) {
+			fs.writeFileSync(filepath, content, 'utf-8');
+		}
 		references.push(normalizePath(relative(fileURLToPath(settings.dotAstroDir), filepath)));
 	}
 

@@ -1,5 +1,11 @@
 # @astrojs/underscore-redirects
 
+## 0.5.1
+
+### Patch Changes
+
+- [#12904](https://github.com/withastro/astro/pull/12904) [`7fdbd43`](https://github.com/withastro/astro/commit/7fdbd4384dea186b9bbc2c6b130e8aba2a2c1e89) Thanks [@florian-lefebvre](https://github.com/florian-lefebvre)! - Fixes the type of `force`
+
 ## 0.5.0
 
 ### Minor Changes

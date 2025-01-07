@@ -37,8 +37,8 @@ export async function compileAstro({
 		// Compile all TypeScript to JavaScript.
 		// Also, catches invalid JS/TS in the compiled output before returning.
 		esbuildResult = await transformWithEsbuild(transformResult.code, compileProps.filename, {
+			...compileProps.viteConfig.esbuild,
 			loader: 'ts',
-			target: 'esnext',
 			sourcemap: 'external',
 			tsconfigRaw: {
 				compilerOptions: {

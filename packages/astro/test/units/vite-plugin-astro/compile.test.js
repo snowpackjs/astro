@@ -5,13 +5,12 @@ import { init, parse } from 'es-module-lexer';
 import { resolveConfig } from 'vite';
 import { compileAstro } from '../../../dist/vite-plugin-astro/compile.js';
 
-const viteConfig = await resolveConfig({ configFile: false }, 'serve');
-
 /**
  * @param {string} source
  * @param {string} id
  */
-async function compile(source, id) {
+async function compile(source, id, inlineConfig = {}) {
+	const viteConfig = await resolveConfig({ configFile: false, ...inlineConfig }, 'serve');
 	return await compileAstro({
 		compileProps: {
 			astroConfig: { root: pathToFileURL('/'), base: '/', experimental: {} },
@@ -68,5 +67,24 @@ const name = 'world
 		assert.equal(names.includes('default'), true);
 		assert.equal(names.includes('file'), true);
 		assert.equal(names.includes('url'), true);
+	});
+
+	describe('when the code contains syntax that is transformed by esbuild', () => {
+		let code = `\
+---
+using x = {}
+---`;
+
+		it('should not transform the syntax by default', async () => {
+			const result = await compile(code, '/src/components/index.astro');
+			assert.equal(result.code.includes('using x = {}'), true);
+		});
+
+		it('should transform the syntax by esbuild.target', async () => {
+			const result = await compile(code, '/src/components/index.astro', {
+				esbuild: { target: 'es2018' },
+			});
+			assert.equal(result.code.includes('using x = {}'), false);
+		});
 	});
 });
