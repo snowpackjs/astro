@@ -6,6 +6,7 @@ import StaticHtml from './static-html.js';
 
 const slotName = (str) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
 const reactTypeof = Symbol.for('react.element');
+const reactTransitionalTypeof = Symbol.for('react.transitional.element');
 
 async function check(Component, props, children) {
 	// Note: there are packages that do some unholy things to create "components".
@@ -28,7 +29,10 @@ async function check(Component, props, children) {
 	function Tester(...args) {
 		try {
 			const vnode = Component(...args);
-			if (vnode && vnode['$$typeof'] === reactTypeof) {
+			if (
+				vnode &&
+				(vnode['$$typeof'] === reactTypeof || vnode['$$typeof'] === reactTransitionalTypeof)
+			) {
 				isReactComponent = true;
 			}
 		} catch {}
@@ -37,7 +41,6 @@ async function check(Component, props, children) {
 	}
 
 	await renderToStaticMarkup(Tester, props, children, {});
-
 	return isReactComponent;
 }
 
