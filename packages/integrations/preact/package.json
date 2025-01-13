@@ -37,7 +37,7 @@
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.25.9",
     "@babel/plugin-transform-react-jsx-development": "^7.25.9",
-    "@preact/preset-vite": "2.8.2",
+    "@preact/preset-vite": "^2.9.4",
     "@preact/signals": "^2.0.0",
     "babel-plugin-transform-hook-names": "^1.0.2",
     "preact-render-to-string": "^6.5.11",
