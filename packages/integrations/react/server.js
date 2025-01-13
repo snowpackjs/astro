@@ -5,8 +5,9 @@ import { incrementId } from './context.js';
 import StaticHtml from './static-html.js';
 
 const slotName = (str) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
-const reactTypeof = Symbol.for('react.element');
-const reactTransitionalTypeof = Symbol.for('react.transitional.element');
+const reactLegacyTypeof = Symbol.for('react.element');
+const reactTypeof = Symbol.for('react.transitional.element');
+const supportedReactElementTypeofs = new Set([reactLegacyTypeof, reactTypeof]);
 
 async function check(Component, props, children) {
 	// Note: there are packages that do some unholy things to create "components".
@@ -29,10 +30,7 @@ async function check(Component, props, children) {
 	function Tester(...args) {
 		try {
 			const vnode = Component(...args);
-			if (
-				vnode &&
-				(vnode['$$typeof'] === reactTypeof || vnode['$$typeof'] === reactTransitionalTypeof)
-			) {
+			if (vnode && supportedReactElementTypeofs.has(vnode['$$typeof'])) {
 				isReactComponent = true;
 			}
 		} catch {}

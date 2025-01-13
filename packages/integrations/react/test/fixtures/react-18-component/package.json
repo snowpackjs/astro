@@ -1,5 +1,5 @@
 {
-  "name": "@test/react-component",
+  "name": "@test/react-18-component",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -7,8 +7,8 @@
     "@astrojs/solid-js": "workspace:*",
     "@astrojs/vue": "workspace:*",
     "astro": "workspace:*",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "solid-js": "^1.9.3",
     "vue": "^3.5.13"
   }

@@ -5,10 +5,10 @@ import { isWindows, loadFixture } from '../../../astro/test/test-utils.js';
 
 let fixture;
 
-describe('React Components', () => {
+describe('React 18 Components', () => {
 	before(async () => {
 		fixture = await loadFixture({
-			root: new URL('./fixtures/react-component/', import.meta.url),
+			root: new URL('./fixtures/react-18-component/', import.meta.url),
 		});
 	});
 
@@ -43,11 +43,11 @@ describe('React Components', () => {
 			assert.equal($('#pure').length, 1);
 
 			// test 8: Check number of islands
-			assert.equal($('astro-island[uid]').length, 9);
+			assert.equal($('astro-island[uid]').length, 10);
 
 			// test 9: Check island deduplication
 			const uniqueRootUIDs = new Set($('astro-island').map((_i, el) => $(el).attr('uid')));
-			assert.equal(uniqueRootUIDs.size, 8);
+			assert.equal(uniqueRootUIDs.size, 9);
 
 			// test 10: Should properly render children passed as props
 			const islandsWithChildren = $('.with-children');
@@ -67,6 +67,12 @@ describe('React Components', () => {
 			const html = await fixture.readFile('/index.html');
 			const $ = cheerioLoad(html);
 			assert.equal($('#vue-h2').text(), 'Hasta la vista, baby');
+		});
+
+		it('Can load Solid', async () => {
+			const html = await fixture.readFile('/index.html');
+			const $ = cheerioLoad(html);
+			assert.equal($('#solid-sir').text(), 'Greetings sir!');
 		});
 
 		it('Can use a pragma comment', async () => {
