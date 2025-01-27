@@ -1,0 +1,4 @@
+/* this css is imported in both .astro and .jsx component, make sure CSS is deduped */
+.astro-jsx {
+  color: red;
+}

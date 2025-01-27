@@ -1,0 +1,8 @@
+{
+  "name": "@test/route-manifest",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

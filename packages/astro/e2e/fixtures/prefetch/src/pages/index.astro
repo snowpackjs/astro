@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1>Prefetch</h1>
+    <a id="prefetch-default" href="/prefetch-default">default</a>
+    <br>
+    <a id="prefetch-false" href="/prefetch-false" data-astro-prefetch="false">false</a>
+    <br>
+    <a id="prefetch-search-param" href="?search-param=true" data-astro-prefetch="hover">search param</a>
+    <br>
+    <a id="prefetch-tap" href="/prefetch-tap" data-astro-prefetch="tap">tap</a>
+    <br>
+    <a id="prefetch-hover" href="/prefetch-hover" data-astro-prefetch="hover">hover</a>
+    <br>
+    <button id="prefetch-manual">manual</button>
+    <br>
+    <span>Scroll down to trigger viewport prefetch</span>
+    <!-- Large empty space to test viewport -->
+    <div style="height: 1000px;"></div>
+    <a id="prefetch-load" href="/prefetch-load" data-astro-prefetch="load">load</a>
+    <br>
+    <a id="prefetch-viewport" href="/prefetch-viewport" data-astro-prefetch="viewport">viewport</a>
+    <script>
+      // @ts-nocheck
+      import { prefetch } from 'astro:prefetch'
+      document.getElementById('prefetch-manual').addEventListener('click', () => {
+        prefetch('/prefetch-manual', { with: 'link' })
+      })
+    </script>
+  </body>
+</html>

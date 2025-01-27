@@ -1,0 +1,17 @@
+---
+import { Image } from 'astro:assets';
+const data = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAACQCAQAAABNan0aAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQflBAsNKgIhYT8HAAAAXklEQVR42u3BMQEAAADCoPVPbQlPoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4G8gnwABm4i4EAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMS0wNC0xMVQxMzo0MjowMiswMDowMNhkaiwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjEtMDQtMTFUMTM6NDI6MDIrMDA6MDCpOdKQAAAAAElFTkSuQmCC"
+---
+<html>
+<head>
+
+</head>
+<body>
+	<div id="data-url">
+		<Image src={data} alt="transparent" width="128" height="72" />
+	</div>
+	<div id="data-url-no-size">
+		<Image src={data} inferSize={true} alt="transparent" />
+	</div>
+</body>
+</html>

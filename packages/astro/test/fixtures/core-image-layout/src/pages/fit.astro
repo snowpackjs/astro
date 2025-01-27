@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import penguin from "../assets/penguin.jpg";
+---
+
+<div id="local-both">
+	<Image src={penguin} alt="a penguin" width={300} height={400}/>
+</div>
+<div id="fit-default">
+	<Image src={penguin} alt="a penguin" />
+</div>
+<div id="fit-fill">
+	<Image src={penguin} alt="a penguin" fit="fill" />
+</div>
+<div id="fit-contain">
+	<Image src={penguin} alt="a penguin" fit="contain" />
+</div>
+<div id="fit-cover">
+	<Image src={penguin} alt="a penguin" fit="cover" />
+</div>
+<div id="fit-scale-down">
+	<Image src={penguin} alt="a penguin" fit="scale-down" />
+</div>
+<div id="fit-inside">
+	<Image src={penguin} alt="a penguin" fit="inside" />
+</div>
+<div id="fit-none">
+	<Image src={penguin} alt="a penguin" fit="none" />
+</div>
+<div id="fit-unsupported">
+	<Image src={penguin} alt="a penguin" fit="unsupported" />
+</div>
+<div id="position">
+	<Image src={penguin} alt="a penguin" position="right top" />
+</div>

@@ -1,0 +1,13 @@
+{
+  "name": "@test/core-image-deletion",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/mdx": "workspace:*",
+    "@astrojs/markdoc": "workspace:*"
+  },
+  "scripts": {
+    "dev": "astro dev"
+  }
+}

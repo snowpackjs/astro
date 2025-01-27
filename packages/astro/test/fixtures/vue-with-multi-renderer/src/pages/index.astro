@@ -1,0 +1,55 @@
+---
+import Counter from '../components/Counter.vue';
+import CounterWithScriptSetup from '../components/CounterWithScriptSetup.vue';
+
+const someProps = {
+	count: 0,
+};
+---
+
+<html>
+	<head>
+		<!-- Head Stuff -->
+	</head>
+	<body>
+		<Counter id="server-only" {...someProps}>
+			<h1>Hello, server!</h1>
+		</Counter>
+
+		<Counter id="client-idle" {...someProps} client:idle>
+			<h1>Hello, client:idle!</h1>
+		</Counter>
+
+		<Counter id="client-load" {...someProps} client:load>
+			<h1>Hello, client:load!</h1>
+		</Counter>
+
+		<Counter id="client-visible" {...someProps} client:visible>
+			<h1>Hello, client:visible!</h1>
+		</Counter>
+
+		<Counter id="client-media" {...someProps} client:media="(max-width: 50em)">
+			<h1>Hello, client:media!</h1>
+		</Counter>
+
+		<CounterWithScriptSetup id="server-only" {...someProps}>
+			<h1>Hello, server!</h1>
+		</CounterWithScriptSetup>
+
+		<CounterWithScriptSetup id="client-idle" {...someProps} client:idle>
+			<h1>Hello, client:idle!</h1>
+		</CounterWithScriptSetup>
+
+		<CounterWithScriptSetup id="client-load" {...someProps} client:load>
+			<h1>Hello, client:load!</h1>
+		</CounterWithScriptSetup>
+
+		<CounterWithScriptSetup id="client-visible" {...someProps} client:visible>
+			<h1>Hello, client:visible!</h1>
+		</CounterWithScriptSetup>
+
+		<CounterWithScriptSetup id="client-media" {...someProps} client:media="(max-width: 50em)">
+			<h1>Hello, client:media!</h1>
+		</CounterWithScriptSetup>
+	</body>
+</html>

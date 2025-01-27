@@ -1,0 +1,16 @@
+---
+const components = await Astro.glob('/src/components/Glob/*');
+const MyComponent = components[0].default;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Astro</title>
+	</head>
+	<body>
+		<p>My Component is below...</p>
+		<MyComponent />
+	</body>
+</html>

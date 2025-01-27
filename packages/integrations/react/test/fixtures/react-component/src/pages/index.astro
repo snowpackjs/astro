@@ -1,0 +1,41 @@
+---
+import ArrowFunction from '../components/ArrowFunction.jsx';
+import CloneElement from '../components/CloneElement';
+import Later from '../components/Goodbye.vue';
+import Hello from '../components/Hello.jsx';
+import PropsSpread from '../components/PropsSpread.jsx';
+import Pure from '../components/Pure.jsx';
+import {Research2} from '../components/Research.jsx';
+import TypeScriptComponent from '../components/TypeScriptComponent';
+import WithChildren from '../components/WithChildren';
+import WithId from '../components/WithId';
+
+const someProps = {
+  text: 'Hello world!',
+};
+---
+
+<html>
+  <head>
+    <!-- Head Stuff -->
+  </head>
+  <body>
+    <Hello name="static" />
+    <Hello name="load" client:load />
+    <!-- Test island deduplication, i.e. same UID as the component above. -->
+    <Hello name="load" client:load />
+    <!-- Test island deduplication account for non-render affecting props. -->
+    <Hello name="load" unused="" client:load />
+    <Later name="baby" />
+    <ArrowFunction />
+    <PropsSpread {...someProps}/>
+    <Research2 client:idle />
+    <TypeScriptComponent client:load />
+    <Pure />
+		<CloneElement />
+		<WithChildren client:load>test</WithChildren>
+		<WithChildren client:load children="test" />
+		<WithId client:idle />
+		<WithId client:idle />
+  </body>
+</html>

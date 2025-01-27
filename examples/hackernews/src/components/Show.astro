@@ -1,0 +1,9 @@
+---
+interface Props<T> {
+	when: T | number | boolean | undefined | null;
+}
+
+const { when } = Astro.props;
+---
+
+{!!when ? <slot /> : <slot name="fallback" />}

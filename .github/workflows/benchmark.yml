@@ -1,0 +1,112 @@
+name: Benchmark
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  FORCE_COLOR: true
+
+jobs:
+  benchmark:
+    if: ${{ github.repository_owner == 'withastro' && github.event.issue.pull_request && startsWith(github.event.comment.body, '!bench') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      PR-BENCH: ${{ steps.benchmark-pr.outputs.BENCH_RESULT }}
+      MAIN-BENCH: ${{ steps.benchmark-main.outputs.BENCH_RESULT }}
+    steps:
+      - name: Check if user has write access
+        uses: lannonbr/repo-permission-check-action@2.0.2
+        with:
+          permission: write
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # https://github.com/actions/checkout/issues/331#issuecomment-1438220926
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: refs/pull/${{ github.event.issue.number }}/head
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Get bench command
+        id: bench-command
+        env:
+          # protects from untrusted user input and command injection
+          COMMENT: ${{ github.event.comment.body }}
+        run: |
+          benchcmd=$(echo "$COMMENT" | grep '!bench' | awk -F ' ' '{print $2}')
+          echo "bench=$benchcmd" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Run benchmark
+        id: benchmark-pr
+        run: |
+          result=$(pnpm run --silent benchmark ${{ steps.bench-command.outputs.bench }})
+          processed=$(node ./benchmark/ci-helper.js "$result")
+          echo "BENCH_RESULT<<BENCHEOF" >> $GITHUB_OUTPUT
+          echo "### PR Benchmark" >> $GITHUB_OUTPUT
+          echo "$processed" >> $GITHUB_OUTPUT
+          echo "BENCHEOF" >> $GITHUB_OUTPUT
+        shell: bash
+
+      # main benchmark
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: "main"
+
+      - name: Install
+        run: |
+          pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Run benchmark
+        id: benchmark-main
+        run: |
+          result=$(pnpm run --silent benchmark ${{ steps.bench-command.outputs.bench }})
+          processed=$(node ./benchmark/ci-helper.js "$result")
+          echo "BENCH_RESULT<<BENCHEOF" >> $GITHUB_OUTPUT
+          echo "### Main Benchmark" >> $GITHUB_OUTPUT
+          echo "$processed" >> $GITHUB_OUTPUT
+          echo "BENCHEOF" >> $GITHUB_OUTPUT
+        shell: bash
+
+  output-benchmark:
+    if: ${{ github.repository_owner == 'withastro' && github.event.issue.pull_request && startsWith(github.event.comment.body, '!bench') }}
+    needs: [benchmark]
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Comment PR
+        uses: peter-evans/create-or-update-comment@v4
+        continue-on-error: true
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            ${{ needs.benchmark.outputs.PR-BENCH }}
+
+            ${{ needs.benchmark.outputs.MAIN-BENCH }}
+          edit-mode: replace

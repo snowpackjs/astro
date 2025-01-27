@@ -1,0 +1,41 @@
+---
+// Component Imports
+import Counter from '../components/Counter';
+
+import { signal } from '@preact/signals';
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/basics/astro-components/
+
+const count = signal(0);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<style>
+			html,
+			body {
+				font-family: system-ui;
+				margin: 0;
+			}
+			body {
+				padding: 2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<Counter count={count} client:visible>
+				<h1>Hello, Preact 1!</h1>
+			</Counter>
+
+			<Counter count={count} client:visible>
+				<h1>Hello, Preact 2!</h1>
+			</Counter>
+		</main>
+	</body>
+</html>

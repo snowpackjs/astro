@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Title from './Title.astro';
+
+type Props = {
+	entry: CollectionEntry<'generated'>;
+}
+
+const { entry }  = Astro.props as Props;
+const { Content } = await entry.render();
+---
+
+{entry.data.type === 'with-astro-components'
+	? <Content components={{ h1: Title }} />
+	: <Content />
+}

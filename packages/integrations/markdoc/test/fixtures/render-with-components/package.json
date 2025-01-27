@@ -1,0 +1,11 @@
+{
+  "name": "@test/markdoc-render-with-components",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/markdoc": "workspace:*",
+    "@astrojs/preact": "workspace:*",
+    "astro": "workspace:*",
+    "preact": "^10.25.4"
+  }
+}

@@ -1,0 +1,18 @@
+---
+const spread = { a: 0, b: 1, c: 2 };
+---
+
+<html>
+  <head>
+    <style> 
+			div {
+				background-color: red;
+			}
+		</style>
+  </head>
+  <body>
+    <div id="spread-plain" {...spread} />
+    <div id="spread-class" {...spread} class="has-class" />
+    <div id="spread-class-list" {...spread} class:list={{ "has-class-list": true }} />
+  </body>
+</html>

@@ -1,0 +1,9 @@
+---
+import { Image } from "astro:assets";
+import walrus from "../light_walrus.avif";
+---
+
+<div style="height: 9000px;"></div>
+<div style="position:relative">
+    <Image src={walrus} loading="lazy" alt="A walrus" />
+</div>

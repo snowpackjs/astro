@@ -1,0 +1,18 @@
+<script>
+	const toggle = () => {
+		if(localStorage.darkMode) {
+			document.documentElement.dataset.dark = '';
+		}
+	}
+
+	toggle();
+	document.addEventListener('astro:after-swap', () => {
+		toggle();
+	})
+</script>
+<style is:global>
+	html[data-dark] body {
+		background: black;
+		color: white;
+	}
+</style>

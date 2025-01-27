@@ -1,0 +1,21 @@
+---
+import MainHead from '../components/MainHead.astro';
+---
+<html>
+<head>
+<MainHead title="Blog Post" />
+<style lang="scss">
+			$w-s: 350px;
+
+			.hero {
+				position: relative;
+				overflow: hidden;
+
+				@media (min-width: $w-s) {
+					height: 45vw;
+				}
+			}
+</style>
+</head>
+<body><slot></slot></body>
+</html>

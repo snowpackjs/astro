@@ -1,0 +1,23 @@
+---
+import Poly from '../components/Poly.astro';
+import Stuff from '../components/Stuff.svelte';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Astro</title>
+	</head>
+	<body>
+		<h1>Astro</h1>
+
+		<Poly>
+			<Stuff client:load id="hydratable">poo</Stuff>
+		</Poly>
+
+		<Poly>
+			<Stuff id="ssr-only">bar</Stuff>
+		</Poly>
+	</body>
+</html>

@@ -1,0 +1,34 @@
+<span id="boolean-attr-true" allowfullscreen={true} />
+<span id="boolean-attr-false" allowfullscreen={false} />
+<span id="boolean-attr-string-truthy" allowfullscreen={'foo'} />
+<span id="boolean-attr-string-falsy" allowfullscreen={''} />
+<span id="boolean-attr-number-truthy" allowfullscreen={1} />
+<span id="boolean-attr-number-falsy" allowfullscreen={0} />
+
+<span id="data-attr-true" data-foobar={true} />
+<span id="data-attr-false" data-foobar={false} />
+<span id="data-attr-string-truthy" data-foobar={'foo'} />
+<span id="data-attr-string-falsy" data-foobar={''} />
+<span id="data-attr-number-truthy" data-foobar={1} />
+<span id="data-attr-number-falsy" data-foobar={0} />
+
+<span id="normal-attr-true" foobar={true} />
+<span id="normal-attr-false" foobar={false} />
+<span id="normal-attr-string-truthy" foobar={'foo'} />
+<span id="normal-attr-string-falsy" foobar={''} />
+<span id="normal-attr-number-truthy" foobar={1} />
+<span id="normal-attr-number-falsy" foobar={0} />
+
+<span id="null" attr={null} />
+<span id="undefined" attr={undefined} />
+
+<span id="url" attr={"https://example.com/api/og?title=hello&description=somedescription"}/>
+<span id="code" attr={"cmd: echo \"foo\" && echo \"bar\" > /tmp/hello.txt"} />
+
+<!--
+    Other attributes should be treated as string enums
+    These should always render <span draggable="true" /> or <span draggable="false" />
+-->
+<span id='html-enum' draggable='true' />
+<span id='html-enum-true' draggable={true} />
+<span id='html-enum-false' draggable={false} />

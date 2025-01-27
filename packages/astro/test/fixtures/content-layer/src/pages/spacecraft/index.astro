@@ -1,0 +1,17 @@
+---
+import { getCollection } from "astro:content";
+const collection = await getCollection("spacecraft");
+---
+<html>
+	<head>
+		<title>Spacecraft</title>
+	</head>
+	<body>
+		<h1>Spacecraft</h1>
+		<ul>
+			{collection.map((craft) => (
+				<li><a href={`/spacecraft/${craft.id}`}>{ craft.data?.title }</a></li>
+			))}
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+---
+import Alias from 'components/Alias.svelte';
+import Client from 'components/Client.svelte'
+import Foo from 'components/Foo.astro';
+import StyleComp from 'components/Style.astro';
+import 'styles/main.css';
+import { foo, index } from 'utils/constants';
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Aliases using tsconfig</title>
+  </head>
+  <body>
+    <main>
+      <Client client:load />
+      <Foo />
+      <StyleComp />
+      <Alias client:load />
+      <p id="constants-foo">{foo}</p>
+      <p id="constants-index">{index}</p>
+      <p id="style-red">style-red</p>
+      <p id="style-blue">style-blue</p>
+    </main>
+  </body>
+</html>

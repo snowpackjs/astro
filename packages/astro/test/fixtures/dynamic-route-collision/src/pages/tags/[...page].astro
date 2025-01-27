@@ -1,0 +1,27 @@
+---
+export async function getStaticPaths() {
+	const pages = [
+		{
+			page: undefined,
+			title: 'Rest Tag Index',
+		},
+	];
+	return pages.map(({ page, title }) => {
+		return {
+			params: { tag: page },
+			props: { title },
+		};
+	});
+}
+
+const { title } = Astro.props;
+---
+
+<html>
+	<head>
+		<title>{title}</title>
+	</head>
+	<body>
+		<h1>{title}</h1>
+	</body>
+</html>

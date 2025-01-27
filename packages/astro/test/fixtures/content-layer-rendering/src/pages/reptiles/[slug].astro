@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content"
+import { Image } from "astro:assets"
+
+export const getStaticPaths = (async () => {
+	const collection = await getCollection("reptiles");
+	if(!collection) return []
+	return collection.map((reptile) => ({
+		params: {
+			slug: `${reptile.id}`
+		},
+		props: {
+			reptile
+		}
+	}));
+}) satisfies GetStaticPaths;
+
+const { reptile } = Astro.props as any
+const { Content } = await render(reptile)
+
+---
+<meta charset="utf-8">
+<h1>{reptile.data.title}</h1>
+<Content />

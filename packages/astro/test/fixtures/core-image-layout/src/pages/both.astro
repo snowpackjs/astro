@@ -1,0 +1,19 @@
+---
+import { Image, Picture } from "astro:assets";
+import penguin from "../assets/penguin.jpg";
+import walrus from "../assets/walrus.jpg";
+---
+
+
+<div id="image">
+	<Image src={penguin} alt="a penguin" />
+</div>
+<div id="picture">
+	<Picture src={walrus} alt="a walrus" formats={['webp', 'jpeg']}/>
+</div>
+
+<style>
+	.green {
+		border: 2px green solid;
+	}
+</style>

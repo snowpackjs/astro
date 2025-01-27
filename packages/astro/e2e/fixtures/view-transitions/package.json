@@ -1,0 +1,18 @@
+{
+  "name": "@e2e/view-transitions",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/node": "^9.0.1",
+    "@astrojs/react": "workspace:*",
+    "@astrojs/solid-js": "workspace:*",
+    "@astrojs/svelte": "workspace:*",
+    "@astrojs/vue": "workspace:*",
+    "astro": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "solid-js": "^1.9.4",
+    "svelte": "^5.19.0",
+    "vue": "^3.5.13"
+  }
+}

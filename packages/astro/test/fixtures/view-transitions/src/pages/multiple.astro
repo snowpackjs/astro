@@ -1,0 +1,13 @@
+---
+import Wait from '../components/Wait.astro';
+---
+<html>
+<head>
+	<title>Testing</title>
+</head>
+<body>
+	{[1,2].map(num => (
+		<Wait num={num} />
+	))}
+</body>
+</html>

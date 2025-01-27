@@ -1,0 +1,28 @@
+---
+title: Post with components
+---
+
+## Post with components
+
+This uses a custom marquee component with a shortcode:
+
+{% marquee-element direction="right" %}
+I'm a marquee too!
+{% /marquee-element %}
+
+{% partial file="_counter.mdoc" /%}
+
+And a code component for code blocks:
+
+```js
+const isRenderedWithShiki = true;
+```
+
+{% if equals("true", "true") %}
+Inside truthy
+
+```js
+const isRenderedWithShikiInside = true;
+```
+
+{% /if %}

@@ -1,0 +1,30 @@
+{
+  "name": "astro-benchmark",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "bin": {
+    "astro-benchmark": "./index.js"
+  },
+  "scripts": {
+    "bench": "pnpm vitest bench --run"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "@astrojs/node": "^9.0.1",
+    "@benchmark/timer": "workspace:*",
+    "@benchmark/adapter": "workspace:*",
+    "astro": "workspace:*",
+    "autocannon": "^7.15.0",
+    "markdown-table": "^3.0.4",
+    "mri": "^1.2.0",
+    "port-authority": "^2.0.1",
+    "pretty-bytes": "^6.1.1",
+    "sharp": "^0.33.3",
+    "tinyexec": "^0.3.2"
+  },
+  "devDependencies": {
+    "@codspeed/vitest-plugin": "4.0.0",
+    "vitest": "^3.0.2"
+  }
+}

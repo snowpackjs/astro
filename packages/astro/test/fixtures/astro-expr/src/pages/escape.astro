@@ -1,0 +1,10 @@
+<html lang="en">
+<head>
+  <title>My site</title>
+</head>
+<body>
+	<span id="single-escape">{'Astro & Vite'}</span>
+	{'<script>console.log("pwnd")</script>'}
+	<Fragment set:html={'<script id="trusted">console.log("yay!")</script>'} />
+</body>
+</html>

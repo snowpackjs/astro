@@ -1,0 +1,19 @@
+---
+import Slotted from '../components/Slotted.astro';
+
+const slots = ['a', 'b', 'c']
+---
+
+<html>
+  <head>
+    <!-- Head Stuff -->
+  </head>
+  <body>
+    <Slotted>
+      <span slot={slots[0]}>A</span>
+      <span slot={slots[1]}>B</span>
+      <span slot={slots[2]}>C</span>
+      <span>Default</span>
+    </Slotted>
+  </body>
+</html>

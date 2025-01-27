@@ -1,0 +1,24 @@
+---
+title: Post with indented components
+---
+
+## Post with indented components
+
+This uses a custom marquee component with a shortcode:
+
+{% marquee-element direction="right" %}
+	I'm a marquee too!
+
+	{% marquee-element direction="right" %}
+		I'm an indented marquee!
+
+		### I am an h3!
+	{% /marquee-element %}
+
+	And a nested code block:
+
+	```js
+	const isRenderedWithShiki = true;
+	```
+{% /marquee-element %}
+

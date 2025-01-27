@@ -1,0 +1,12 @@
+{
+  "name": "@test/solid-component",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/solid-js": "workspace:*",
+    "@solidjs/router": "^0.15.3",
+    "@test/solid-jsx-component": "file:./deps/solid-jsx-component",
+    "astro": "workspace:*",
+    "solid-js": "^1.9.4"
+  }
+}

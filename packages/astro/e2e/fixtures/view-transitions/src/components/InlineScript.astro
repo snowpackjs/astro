@@ -1,0 +1,9 @@
+<div id="counter">Count</div>
+<script is:inline>
+	let count = 1;
+	const onAfterSwap = () => {
+		count++;
+		document.querySelector('#counter').textContent = `Count: ${count}`;
+	}
+	document.addEventListener('astro:page-load', onAfterSwap);
+</script>

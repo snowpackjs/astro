@@ -1,0 +1,10 @@
+---
+import Island from '../components/Island';
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<a id="click-two" href="/client-only-two">go to page 2</a>
+	<div transition:persist="island">
+		<Island id="one" client:only="react" count={5}>message here</Island>
+	</div>
+</Layout>

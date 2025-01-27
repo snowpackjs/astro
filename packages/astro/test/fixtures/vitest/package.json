@@ -1,0 +1,13 @@
+{
+  "name": "@test/vitest",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "astro": "workspace:*",
+    "vitest": "^3.0.2"
+  }
+}

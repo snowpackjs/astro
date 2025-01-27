@@ -1,0 +1,19 @@
+---
+import Inner from '../components/with-slot-render2/inner.astro'
+import SlotsRenderOuter from '../components/with-slot-render2/slots-render-outer.astro'
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='generator' content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <SlotsRenderOuter>
+      <Inner />
+    </SlotsRenderOuter>
+  </body>
+</html>

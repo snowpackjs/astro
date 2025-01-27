@@ -1,0 +1,11 @@
+{
+  "name": "@test/tailwindcss-ts",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/tailwind": "workspace:*",
+    "astro": "workspace:*",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17"
+  }
+}

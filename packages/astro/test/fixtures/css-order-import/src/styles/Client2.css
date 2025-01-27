@@ -1,0 +1,10 @@
+/*
+	This cheeky css tries to affect index.astro, the good thing is that the Client2.jsx component is
+	only loaded in component.astro. So index.astro's Client1.jsx component should not be affected by this.
+*/
+.client-1 {
+	background: red !important;
+}
+.client-2 {
+	background: green;
+}

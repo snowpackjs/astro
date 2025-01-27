@@ -1,0 +1,8 @@
+{
+  "name": "astro-temp-fixtures",
+  "description": "This directory contains nested directories of dynamically created unit test fixtures. The deps here can be used by them",
+  "dependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

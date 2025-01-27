@@ -1,0 +1,9 @@
+{
+  "name": "@e2e/content-collections",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

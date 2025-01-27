@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Aside, Heading, HydratedLikeButton, LikeButton } from '@performance/utils';
+
+type Props = {
+	entry: CollectionEntry<'generated'>;
+}
+
+const { entry }  = Astro.props as Props;
+const { Content } = await entry.render();
+---
+
+{entry.data.type === 'with-astro-components'
+	? <Content components={{ Heading, Aside }} />
+	: entry.data.type === 'with-react-components'
+	? <Content components={{ LikeButton, HydratedLikeButton }} />
+	: <Content />
+}

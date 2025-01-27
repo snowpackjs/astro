@@ -1,0 +1,22 @@
+---
+import PreactComponent from '../components/NoRender.jsx';
+---
+<html>
+<head><title>Children</title></head>
+<body>
+  <PreactComponent id="ssr-only">
+    <h1>Hello world</h1>
+    <h1>Goodbye world</h1>
+  </PreactComponent>
+	<PreactComponent id="client" client:load>
+	  <h1>Hello world</h1>
+    <h1>Goodbye world</h1>
+	</PreactComponent>
+	<PreactComponent id="client-render" render={true} client:load>
+	  <h1>Hello world</h1>
+    <h1>Goodbye world</h1>
+	</PreactComponent>
+
+	<PreactComponent id="client-no-children" client:load></PreactComponent>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "@test/astro-markdown-plugins",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "hast-util-select": "^6.0.3",
+    "rehype-slug": "^6.0.0"
+  }
+}

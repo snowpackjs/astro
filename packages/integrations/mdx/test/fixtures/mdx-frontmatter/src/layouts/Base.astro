@@ -1,0 +1,38 @@
+---
+const {
+	content = { title: "content didn't work" },
+	file = "file didn't work",
+	url = "url didn't work",
+	frontmatter = {
+		title: "frontmatter didn't work",
+		file: "file didn't work",
+		url: "url didn't work",
+	},
+	headings = [],
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<p data-content-title>{content.title}</p>
+	<p data-frontmatter-title>{frontmatter.title}</p>
+	<p data-frontmatter-file>{frontmatter.file}</p>
+	<p data-frontmatter-url>{frontmatter.url}</p>
+	<p data-file>{frontmatter.file}</p>
+	<p data-url>{frontmatter.url}</p>
+	<p data-layout-rendered>Layout rendered!</p>
+	<ul data-headings>
+		{headings.map(heading => <li>{heading.slug}</li>)}
+	</ul>
+	<slot />
+</body>
+
+</html>

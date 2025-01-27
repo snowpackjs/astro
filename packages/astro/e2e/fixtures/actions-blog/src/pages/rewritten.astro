@@ -1,0 +1,16 @@
+---
+import { actions } from 'astro:actions';
+
+const result = Astro.getActionResult(actions.sum);
+---
+
+<html>
+	<body>
+		<form method="post" action={actions.sum}>
+			<input type="number" name="a" value="1" />
+			<input type="number" name="b" value="2" />
+			<button data-testid="submit" type="submit">Sum</button>
+		</form>
+		<p>Form result: {JSON.stringify(result)}</p>
+	</body>
+</html>

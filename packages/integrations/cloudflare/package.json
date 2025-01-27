@@ -1,0 +1,8 @@
+{
+  "name": "@astrojs/cloudflare",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "keywords": [],
+  "dont_remove": "This is a placeholder for the sake of the docs smoke test"
+}

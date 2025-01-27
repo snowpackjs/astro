@@ -1,0 +1,10 @@
+---
+const pattern = Astro.routePattern;
+const localsPattern = Astro.locals.localsPattern;
+const isPrerendered = JSON.stringify(Astro.isPrerendered);
+const localsPrerendered = JSON.stringify(Astro.locals.localsPrerendered);
+---
+<p id="pattern">Astro route pattern: {pattern}</p>
+<p id="pattern-middleware">Astro route pattern middleware: {localsPattern}</p>
+<p id="prerender">Astro route prerender: {isPrerendered}</p>
+<p id="prerender-middleware">Astro route prerender middleware: {localsPrerendered}</p>

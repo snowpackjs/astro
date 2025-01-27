@@ -1,0 +1,23 @@
+---
+const { items, emptyItems } = Astro.props;
+
+const internal = [];
+---
+
+<!-- False -->
+{false && (
+  <span id="frag-false" />
+)}
+
+<!-- Null -->
+{null && (
+  <span id="frag-null" />
+)}
+
+<!-- True -->
+{true && (
+  <span id="frag-true" />
+)}
+
+<!-- Undefined -->
+{false && (<span id="frag-undefined" />)}

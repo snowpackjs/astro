@@ -1,0 +1,8 @@
+---
+type Props = {
+  class?: string;
+};
+const { class: className } = Astro.props as Props;
+---
+
+<button class:list={["btn", className]} type="button"> button</button>

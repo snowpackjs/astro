@@ -1,0 +1,34 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+	const docs = await getCollection('docs');
+	return docs.map(doc => ({ params: { slug: doc.slug }, props: doc }));
+}
+
+type Props = CollectionEntry<'docs'>;
+
+const { Content, headings } = await Astro.props.render();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Content</title>
+</head>
+<body>
+	<nav data-toc>
+		<ul>
+			{headings.map(heading => (
+				<li>
+					<a href={`#${heading.slug}`} data-depth={heading.depth}>{heading.text}</a>
+				</li>
+			))}
+		</ul>
+	</nav>
+	<Content />	
+</body>
+</html>

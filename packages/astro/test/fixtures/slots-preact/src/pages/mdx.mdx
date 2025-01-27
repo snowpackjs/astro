@@ -1,0 +1,7 @@
+import Counter from '../components/Counter.jsx'
+
+# Slots: Preact
+
+<Counter case="content" client:visible><h1 id="slotted">Hello world!</h1></Counter>
+<Counter case="named" client:visible><h1 slot="named"> / Named</h1></Counter>
+<Counter case="dash-case" client:visible><h1 slot="dash-case"> / Dash Case</h1></Counter>

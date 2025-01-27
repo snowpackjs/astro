@@ -1,0 +1,23 @@
+---
+import Foo from '../components/Foo.vue';
+import GenericComponent from '../components/Generics.vue';
+import GenericsAndBlocks, { customFormatter } from '../components/GenericsAndBlocks.vue';
+import MultipleScriptBlocks, { doubleNumber } from '../components/MultipleScriptBlocks.vue';
+---
+
+<html>
+	<head>
+		<title>Vue App Entrypoint</title>
+	</head>
+	<body>
+		<Foo client:load />
+
+		<MultipleScriptBlocks value={1}>
+			{doubleNumber(2)}
+		</MultipleScriptBlocks>
+
+		<GenericComponent value={'generic'} />
+
+		<GenericsAndBlocks value={1} formatter={customFormatter} />
+	</body>
+</html>

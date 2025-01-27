@@ -1,0 +1,8 @@
+---
+import Client from '../components/Client.vue';
+
+const {BASE_URL} = import.meta.env
+---
+
+<div id="astro-base-url">{BASE_URL}</div>
+<Client client:load />

@@ -1,0 +1,24 @@
+---
+import Slotted from '../components/Slotted.astro';
+import Thing from '../components/Thing.jsx';
+
+const Tag = 'section';
+---
+
+<html>
+  <head>
+    <!-- Head Stuff -->
+  </head>
+  <body>
+    <Slotted>
+      <Tag>
+				<span>More</span>
+				<Thing client:load>
+					<div slot="c">
+						inner content
+					</div>	
+				</Thing>
+			</Tag>
+    </Slotted>
+  </body>
+</html>

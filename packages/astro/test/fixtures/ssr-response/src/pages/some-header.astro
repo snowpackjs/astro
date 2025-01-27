@@ -1,0 +1,13 @@
+---
+Astro.response.headers.set('One-Two', 'three');
+Astro.response.headers.set('Four-Five', 'six');
+Astro.response.headers.set("Cache-Control", `max-age=0, s-maxage=86400`);
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+	</body>
+</html>

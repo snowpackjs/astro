@@ -1,0 +1,99 @@
+---
+interface Link {
+	href: string;
+	text: string;
+}
+
+const links: Link[] = [
+	{ href: '/', text: 'HN' },
+	{ href: '/new', text: 'New' },
+	{ href: '/show', text: 'Show' },
+	{ href: '/ask', text: 'Ask' },
+	{ href: '/job', text: 'Jobs' },
+];
+---
+
+<header>
+	<nav aria-label="Main menu">
+		{
+			links.map(({ href, text }) => (
+				<a href={href} aria-current={href === Astro.url.pathname ? 'page' : undefined}>
+					<strong>{text}</strong>
+				</a>
+			))
+		}
+		<a class="github" href="http://github.com/withastro/astro" target="_blank" rel="noreferrer">
+			Built with Astro
+		</a>
+	</nav>
+</header>
+
+<style>
+	header {
+		background-color: rgb(107 33 168);
+		position: fixed;
+		z-index: 999;
+		height: 55px;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+
+	nav {
+		max-width: 800px;
+		box-sizing: border-box;
+		margin: 0 auto;
+		padding: 15px 5px;
+	}
+
+	nav a {
+		color: rgba(248, 250, 252, 0.8);
+		line-height: 24px;
+		transition: color 0.15s ease;
+		display: inline-block;
+		vertical-align: middle;
+		font-weight: 300;
+		letter-spacing: 0.075em;
+		margin-right: 1.8em;
+	}
+
+	nav a:hover {
+		color: rgb(248 250 252);
+	}
+
+	nav [aria-current='page'] {
+		color: rgb(248 250 252);
+		font-weight: 400;
+	}
+
+	nav a:last-of-type {
+		margin-right: 0;
+	}
+
+	.github {
+		color: rgb(248 250 252);
+		font-size: 0.9em;
+		margin: 0;
+		float: right;
+	}
+
+	@media (max-width: 860px) {
+		nav {
+			padding: 15px 30px;
+		}
+	}
+
+	@media (max-width: 600px) {
+		nav {
+			padding: 15px;
+		}
+
+		a {
+			margin-right: 1em;
+		}
+
+		.github {
+			display: none;
+		}
+	}
+</style>

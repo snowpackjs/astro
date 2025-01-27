@@ -1,0 +1,36 @@
+{
+  "name": "@benchmark/timer",
+  "description": "Preview server for benchmark",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "withastro",
+  "license": "MIT",
+  "keywords": [
+    "withastro",
+    "astro-adapter"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./server.js": "./dist/server.js",
+    "./preview.js": "./dist/preview.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "server-destroy": "^1.0.1"
+  },
+  "peerDependencies": {
+    "astro": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/server-destroy": "^1.0.4",
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*"
+  }
+}

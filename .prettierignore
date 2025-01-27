@@ -1,0 +1,31 @@
+# Benchmark artifacts
+benchmark/projects/
+benchmark/results/
+
+# Deep Directories
+**/dist
+**/smoke
+**/node_modules
+**/fixtures
+**/vendor
+**/.vercel
+
+# Short-term need to format
+!packages/db/test/fixtures
+
+# Directories
+.github
+.changeset
+
+# Files
+pnpm-lock.yaml
+
+# Formatted by Biome
+**/*.json
+**/*.jsonc
+**/*.js
+**/*.ts
+**/*.tsx
+**/*.jsx
+**/*.mjs
+**/*.cjs

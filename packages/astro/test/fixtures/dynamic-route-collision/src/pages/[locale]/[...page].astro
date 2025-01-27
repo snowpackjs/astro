@@ -1,0 +1,28 @@
+---
+export async function getStaticPaths() {
+	const pages = [
+		{
+			locale: 'en',
+			page: undefined,
+			title: 'Dynamic+Rest Localized Index',
+		},
+	];
+	return pages.map(({ page, locale, title }) => {
+		return {
+			params: { page, locale },
+			props: { title },
+		};
+	});
+}
+
+const { title } = Astro.props;
+---
+
+<html>
+	<head>
+		<title>{title}</title>
+	</head>
+	<body>
+		<h1>{title}</h1>
+	</body>
+</html>

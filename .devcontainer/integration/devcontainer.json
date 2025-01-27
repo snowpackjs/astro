@@ -1,0 +1,21 @@
+{
+  "name": "Integration Package",
+  "build": {
+    "dockerfile": "../examples.Dockerfile"
+  },
+
+  "workspaceFolder": "/workspaces/astro/examples/integration",
+
+  "postCreateCommand": "pnpm install && cd /workspaces/astro && pnpm run build",
+
+  "waitFor": "postCreateCommand",
+
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["index.ts"]
+    },
+    "vscode": {
+      "extensions": ["astro-build.astro-vscode", "esbenp.prettier-vscode"]
+    }
+  }
+}

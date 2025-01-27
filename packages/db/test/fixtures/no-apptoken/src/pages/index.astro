@@ -1,0 +1,16 @@
+---
+/// <reference path="../../.astro/db-types.d.ts" />
+import { User, db } from 'astro:db';
+
+// Just for the side-effect of running all the code
+await db.select().from(User);
+---
+
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+	</body>
+</html>

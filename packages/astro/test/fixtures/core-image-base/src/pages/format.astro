@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import myImage from "../assets/penguin1.jpg";
+---
+<html>
+<head>
+
+</head>
+<body>
+	<div id="no-format">
+		<Image src={myImage} alt="a penguin" />
+	</div>
+
+	<div id="format-avif">
+		<Image src={myImage} alt="a penguin" format="avif" />
+	</div>
+</body>
+</html>

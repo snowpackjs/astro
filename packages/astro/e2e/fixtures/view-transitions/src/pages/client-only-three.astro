@@ -1,0 +1,16 @@
+---
+import Island from '../components/Island';
+import Layout from '../components/Layout.astro';
+import SvelteCounter from '../components/SvelteCounter.svelte';
+import VueCounter from '../components/VueCounter.vue';
+---
+<Layout>
+	<a id="click-four" href="/client-only-four">go to page 4</a>
+	<div>
+		<!-- intentional client:load, see /client-only-one for client:only -->
+		<Island id="one" client:load count={5}>message here</Island>
+	</div>
+		<VueCounter client:only="vue">Vue</VueCounter>
+		<SvelteCounter client:only="svelte">Svelte</SvelteCounter>
+	<p id="name">client-only-three</p>
+</Layout>

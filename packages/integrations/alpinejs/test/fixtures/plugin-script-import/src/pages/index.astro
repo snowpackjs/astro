@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>Testing</title>
+		<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+	</head>
+	<body>
+		<div x-data="{ expanded: false }">
+			<button @click="expanded = ! expanded">Toggle Content</button>
+		
+			<p id="foo" x-show="expanded" x-collapse>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit.
+				Doloribus eum placeat modi deserunt reiciendis aspernatur
+				praesentium natus, reprehenderit fugiat cupiditate, eaque
+				voluptatibus mollitia alias dicta at, perferendis cum.
+				Cumque, dignissimos?
+			</p>
+		</div>
+	</body>
+</html>

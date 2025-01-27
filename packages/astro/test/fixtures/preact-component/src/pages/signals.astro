@@ -1,0 +1,21 @@
+---
+import { signal } from '@preact/signals';
+import Signals from '../components/Signals';
+import SignalsInArray from '../components/SignalsInArray';
+import SignalsInObject from '../components/SignalsInObject';
+import ComponentWithNullProp from '../components/ComponentWithNullProp';
+const count = signal(1);
+const secondCount = signal(2);
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<Signals client:load count={count} />
+		<Signals client:load count={count} />
+		<SignalsInArray client:load signalsArray={["I'm not a signal", count, count, 12345, secondCount]} />
+		<SignalsInObject client:load signalsObject={{title:'I am a title', counter: count}}, />
+		<ComponentWithNullProp client:load nullProp={null} />
+	</body>
+</html>

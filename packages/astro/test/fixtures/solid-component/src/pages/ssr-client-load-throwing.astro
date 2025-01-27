@@ -1,0 +1,21 @@
+---
+import {
+	AsyncErrorInErrorBoundary,
+	SyncErrorInErrorBoundary,
+} from '../components/async-components.jsx';
+---
+
+<html>
+	<head><title>Solid</title></head>
+	<body>
+		<div>
+			<!-- 
+				Error boundary in hydrating component may generate scripts script:
+				https://github.com/ryansolid/dom-expressions/blob/6746f048c4adf4d4797276f074dd2d487654796a/packages/dom-expressions/src/server.js#L24
+				So make sure that the hydration script is generated on this page.
+			 -->
+			<AsyncErrorInErrorBoundary client:load />
+			<SyncErrorInErrorBoundary client:load />
+		</div>
+	</body>
+</html>

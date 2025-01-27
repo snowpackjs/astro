@@ -1,0 +1,9 @@
+{
+  "name": "@test/content-collections-empty-dir",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@test/vue-app-entrypoint-src-absolute",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/vue": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

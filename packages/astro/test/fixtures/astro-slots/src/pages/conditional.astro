@@ -1,0 +1,17 @@
+---
+import Slotted from '../components/Slotted.astro';
+---
+
+<html>
+  <head>
+    <!-- Head Stuff -->
+  </head>
+  <body>
+    <Slotted>
+      {true && <span slot="a">A</span>}
+			{true ? <span slot="b">B</span> : null}
+			{() => <span slot="c">C</span>}
+			{true && <span>Default</span>}
+    </Slotted>
+  </body>
+</html>

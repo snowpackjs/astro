@@ -1,0 +1,35 @@
+---
+import Counter from '../components/Counter.vue'
+import Img from '../components/Img.vue'
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width"
+    />
+    <title>Vue component</title>
+    <style>
+      :global(:root) {
+        font-family: system-ui;
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <Counter start="0">SSR Rendered, No Client</Counter>
+      <Counter start="1" client:load>SSR Rendered, client:load</Counter>
+      <!-- Test island deduplication, i.e. same UID as the component above. -->
+      <Counter start="1" client:load>SSR Rendered, client:load</Counter>
+      <!-- Test island deduplication account for non-render affecting props. -->
+      <Counter start="1" step-size="2" client:load>SSR Rendered, client:load</Counter>
+      <Counter start="10" client:idle>SSR Rendered, client:idle</Counter>
+      <!-- Test that two client:visible have unique uids -->
+      <Counter start="100" client:visible>SSR Rendered, client:visible</Counter>
+      <Counter start="1000" client:visible>SSR Rendered, client:visible</Counter>
+      <Img />
+    </main>
+  </body>
+</html>

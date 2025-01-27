@@ -1,0 +1,8 @@
+{
+  "name": "@test/rewrite-custom-404",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

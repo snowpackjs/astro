@@ -1,0 +1,18 @@
+---
+export async function getStaticPaths() {
+    return [
+        {
+            params: { page: 1 },
+        },
+        {
+            params: { page: 2 },
+        },
+        {
+            params: { page: 3 }
+        }
+    ]
+};
+---
+
+<html>
+</html>

@@ -1,0 +1,58 @@
+---
+export async function getStaticPaths({paginate, rss}) {
+  const episodes = (await Astro.glob('../episode/*.md')).sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+  rss({
+    title: 'MF Doomcast',
+    description: 'The podcast about the things you find on a picnic, or at a picnic table',
+    xmlns: {
+      itunes: 'http://www.itunes.com/dtds/podcast-1.0.dtd',
+      content: 'http://purl.org/rss/1.0/modules/content/',
+    },
+    customData: `<language>en-us</language>` +
+      `<itunes:author>MF Doom</itunes:author>`,
+    items: episodes.map((episode) => ({
+      title: episode.frontmatter.title,
+      link: episode.url,
+      description: episode.frontmatter.description,
+      pubDate: episode.frontmatter.pubDate + 'Z',
+      customData: `<itunes:episodeType>${episode.frontmatter.type}</itunes:episodeType>` +
+        `<itunes:duration>${episode.frontmatter.duration}</itunes:duration>` +
+        `<itunes:explicit>${episode.frontmatter.explicit || false}</itunes:explicit>`,
+    })),
+    dest: '/custom/feed.xml',
+  });
+  rss({
+    title: 'MF Doomcast',
+    description: 'The podcast about the things you find on a picnic, or at a picnic table',
+    xmlns: {
+      itunes: 'http://www.itunes.com/dtds/podcast-1.0.dtd',
+      content: 'http://purl.org/rss/1.0/modules/content/',
+    },
+    customData: `<language>en-us</language>` +
+      `<itunes:author>MF Doom</itunes:author>`,
+    items: episodes.map((episode) => ({
+      title: episode.frontmatter.title,
+      link: `https://example.com${episode.url}/`,
+      description: episode.frontmatter.description,
+      pubDate: episode.frontmatter.pubDate + 'Z',
+      customData: `<itunes:episodeType>${episode.frontmatter.type}</itunes:episodeType>` +
+        `<itunes:duration>${episode.frontmatter.duration}</itunes:duration>` +
+        `<itunes:explicit>${episode.frontmatter.explicit || false}</itunes:explicit>`,
+    })),
+    dest: '/custom/feed-pregenerated-urls.xml',
+  });
+  return paginate(episodes);
+}
+
+const { page } = Astro.props;
+---
+
+<html>
+  <head>
+    <title>Podcast Episodes</title>
+    <link rel="alternate" type="application/rss+2.0" href="/rss.xml" />
+  </head>
+  <body>
+    {page.data.map((ep) => (<li>{ep.frontmatter.title}</li>))}
+  </body>
+</html>

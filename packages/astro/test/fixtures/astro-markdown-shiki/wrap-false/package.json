@@ -1,0 +1,8 @@
+{
+  "name": "@test/astro-markdown-skiki-wrap-false",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

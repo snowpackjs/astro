@@ -1,0 +1,19 @@
+---
+import Layout from '../components/Layout.astro';
+
+if(Astro.request.method === 'POST') {
+	const formData = await Astro.request.formData();
+	const name = formData.get('name');
+	return Astro.redirect(`/form-response?name=${name}`);
+}
+
+export const prerender = false;
+---
+<Layout>
+	<h2>Contact Form</h2>
+	<h3>This form does not have an `action` defined</h3>
+	<form method="post">
+		<input type="hidden" name="name" value="Testing">
+		<input type="submit" value="Submit" id="submit">
+	</form>
+</Layout>

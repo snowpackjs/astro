@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import myImage from "../assets/penguin1.jpg";
+---
+<html>
+<head>
+
+</head>
+<body>
+	<div id="no-quality">
+		<Image src={myImage} alt="a penguin" />
+	</div>
+
+	<div id="quality-low">
+		<Image src={myImage} alt="a penguin" quality="low" />
+	</div>
+
+	<div id="quality-num">
+		<Image src={myImage} alt="a penguin" quality="70" />
+	</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+---
+title: Welcome to Markdoc 👋
+---
+
+This is a {% mark color="hotpink" %}inline mark{% /mark %} in regular Markdown markup.
+
+<p id="p1">This is a {% mark color="hotpink" %}inline mark{% /mark %} under some HTML</p>
+
+<div id="div1">
+  <p id="div1-p1">This is a {% mark color="hotpink" %}inline mark{% /mark %} under some HTML</p>
+  <p id="div1-p2">This is a <span id="div1-p2-span1">{% mark color="hotpink" %}inline mark{% /mark %}</span> under some HTML</p>
+</div> 
+
+{% aside title="Aside One" type="tip" %}
+
+I'm a Markdown paragraph inside an top-level aside tag
+
+## I'm an H2 via Markdown markup
+
+<h2 id="h-two">I'm an H2 via HTML markup</h2>
+
+**Markdown bold** vs <strong>HTML bold</strong>
+
+RENDERED
+
+{% if $revealSecret %}
+NOT RENDERED
+{% /if %}
+
+{% if $revealSecret %}NOT RENDERED{% /if %}
+
+{% /aside %}
+
+<section id="section1">
+  <div id="div1">
+{% aside title="Nested un-indented Aside" type="tip" %}
+regular Markdown markup
+<p id="p4">nested {% mark color="hotpink" %}inline mark{% /mark %} content</p>
+{% /aside %}
+  </div>
+  <div id="div2">
+    {% aside title="Nested indented Aside 💀" type="tip" %}
+    regular Markdown markup
+    <p id="p5">nested {% mark color="hotpink" %}inline<span id="inception-span"> mark</span>{% /mark %} content</p>
+    {% /aside %}
+  </div>
+</section>

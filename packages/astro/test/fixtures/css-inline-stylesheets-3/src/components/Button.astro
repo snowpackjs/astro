@@ -1,0 +1,86 @@
+---
+const { class: className = '', style, href } = Astro.props;
+const { variant = 'primary' } = Astro.props;
+---
+
+<span class:list={[`link pixel variant-${variant}`, className]} >
+	<a {href}>
+		<span><slot /></span>
+	</a>
+</span>
+
+<style>
+	.link {
+		--border-radius: 8;
+		--duration: 200ms;
+		--delay: 30ms;
+		--background: linear-gradient(180deg, var(--link-color-stop-a), var(--link-color-stop-b));
+		display: flex;
+		color: white;
+		font-size: 1.25rem;
+		width: max-content;
+	}
+	a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.67rem 1.25rem;
+		width: 100%;
+		height: 100%;
+		text-decoration: none;
+		color: inherit !important;
+		/* Indicates the button boundaries for forced colors users in older browsers */
+		outline: 1px solid transparent;
+	}
+
+	@media (forced-colors: active) {
+		a {
+			border: 1px solid LinkText;
+		}
+	}
+
+	a > :global(* + *) {
+		margin-inline-start: 0.25rem;
+	}
+
+	.variant-primary {
+		--variant: primary;
+		--background: linear-gradient(180deg, var(--link-color-stop-a), var(--link-color-stop-b));
+	}
+	.variant-primary:hover,
+	.variant-primary:focus-within {
+		--link-color-stop-a: #6d39ff;
+		--link-color-stop-b: #af43ff;
+	}
+	.variant-primary:active {
+		--link-color-stop-a: #5f31e1;
+		--link-color-stop-b: #a740f3;
+	}
+
+	.variant-outline {
+		--variant: outline;
+		--background: none;
+		color: var(--background);
+	}
+	.variant-outline > a::before {
+		position: absolute;
+		top: 0;
+		right: calc(var(--pixel-size) * 1px);
+		bottom: calc(var(--pixel-size) * 1px);
+		left: calc(var(--pixel-size) * 1px);
+		content: '';
+		display: block;
+		transform-origin: bottom center;
+		background: linear-gradient(to top, var(--background), rgba(255, 255, 255, 0));
+		opacity: 0.3;
+		transform: scaleY(0);
+		transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	.variant-outline:hover > a::before,
+	.variant-outline:focus-within > a::before {
+		transform: scaleY(1);
+	}
+	.variant-outline:active > a::before {
+		transform: scaleY(1);
+	}
+</style>

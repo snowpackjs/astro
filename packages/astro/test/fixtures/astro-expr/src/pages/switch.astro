@@ -1,0 +1,20 @@
+---
+let title = 'Switch';
+let colors = ['red', 'yellow', 'blue'];
+---
+
+<html>
+<head>
+  <title>{title}</title>
+</head>
+<body>
+	{() => {
+		const color = colors[1];
+		switch (color) {
+			case 'red': return <div id="red">red</div>;
+			case 'yellow': return <div id="yellow">yellow</div>
+			case 'blue': return <div id="blue">blue</div>
+		}
+	}}
+</body>
+</html>

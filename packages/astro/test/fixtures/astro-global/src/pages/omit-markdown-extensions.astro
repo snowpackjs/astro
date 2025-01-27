@@ -1,0 +1,19 @@
+---
+import Route from "../components/Route.astro";
+
+const markdownPosts = await Astro.glob('./post/**/*.{markdown,mdown,mkdn,mkd,mdwn,md}');
+const markdownExtensions = /(\.(markdown|mdown|mkdn|mkd|mdwn|md))$/g
+const aUrlContainsExtension = markdownPosts.some((page:any)=> {
+	return markdownExtensions.test(page.url)
+	})
+---
+
+<html>
+  <head>
+    <title>Extensions omitted</title>
+  </head>
+  <body>
+    <p data-any-url-contains-extension={JSON.stringify(aUrlContainsExtension)}>Placeholder</p>
+		<Route />
+  </body>
+</html>

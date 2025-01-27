@@ -1,0 +1,17 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<p id="two">Persist 2</p>
+	<a id="click-persist-one" href="/persist-1">go to 3</a>
+	<div transition:persist="form"/>
+	<div id="test">test content</div>
+</Layout>
+<script>
+	document.addEventListener('astro:after-swap', () => {
+		const checkBox = document.querySelector<HTMLInputElement>("form input:nth-of-type(2)")!;
+		console.log(checkBox === document.activeElement, checkBox.checked);
+	}, {once:true});
+</script>
+
+

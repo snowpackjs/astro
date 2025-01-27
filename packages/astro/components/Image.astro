@@ -1,0 +1,60 @@
+---
+import { type LocalImageProps, type RemoteImageProps, getImage, imageConfig } from 'astro:assets';
+import type { UnresolvedImageTransform } from '../dist/assets/types';
+import { applyResponsiveAttributes } from '../dist/assets/utils/imageAttributes.js';
+import { AstroError, AstroErrorData } from '../dist/core/errors/index.js';
+import type { HTMLAttributes } from '../types';
+
+// The TypeScript diagnostic for JSX props uses the last member of the union to suggest props, so it would be better for
+// LocalImageProps to be last. Unfortunately, when we do this the error messages that remote images get are complete nonsense
+// Not 100% sure how to fix this, seems to be a TypeScript issue. Unfortunate.
+type Props = LocalImageProps | RemoteImageProps;
+
+const props = Astro.props;
+
+if (props.alt === undefined || props.alt === null) {
+	throw new AstroError(AstroErrorData.ImageMissingAlt);
+}
+
+// As a convenience, allow width and height to be string with a number in them, to match HTML's native `img`.
+if (typeof props.width === 'string') {
+	props.width = parseInt(props.width);
+}
+
+if (typeof props.height === 'string') {
+	props.height = parseInt(props.height);
+}
+
+const layout = props.layout ?? imageConfig.experimentalLayout ?? 'none';
+const useResponsive = imageConfig.experimentalResponsiveImages && layout !== 'none';
+
+if (useResponsive) {
+	// Apply defaults from imageConfig if not provided
+	props.layout ??= imageConfig.experimentalLayout;
+	props.fit ??= imageConfig.experimentalObjectFit ?? 'cover';
+	props.position ??= imageConfig.experimentalObjectPosition ?? 'center';
+}
+
+const image = await getImage(props as UnresolvedImageTransform);
+
+const additionalAttributes: HTMLAttributes<'img'> = {};
+if (image.srcSet.values.length > 0) {
+	additionalAttributes.srcset = image.srcSet.attribute;
+}
+
+if (import.meta.env.DEV) {
+	additionalAttributes['data-image-component'] = 'true';
+}
+
+const { class: className, ...attributes } = useResponsive
+	? applyResponsiveAttributes({
+			layout,
+			image,
+			props,
+			additionalAttributes,
+		})
+	: { ...additionalAttributes, ...image.attributes };
+---
+
+{/* Applying class outside of the spread prevents it from applying unnecessary astro-* classes */}
+<img src={image.src} {...attributes} class={className} />

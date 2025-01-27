@@ -1,0 +1,9 @@
+{
+  "name": "@test/create-astro-not-empty",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  }
+}

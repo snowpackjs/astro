@@ -1,0 +1,14 @@
+---
+const spread = { a: 0, b: 1, c: 2 };
+---
+
+<html>
+  <head>
+    <!-- Head Stuff -->
+  </head>
+  <body>
+    <div {...spread} id="spread-leading" />
+    <div id="spread-trailing" {...spread} />
+    <div id="spread-ts" {...(spread as any)} />
+  </body>
+</html>

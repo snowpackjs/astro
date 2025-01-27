@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+const blogs = await getCollection("blog");
+blogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()); // sort by date most recent first
+const latestBlog = blogs.splice(0, 1)[0]; // modifies the collection
+---
+
+<html>
+  <body>
+    <a href="/another_page">other page</a>
+    <h1>Latest Blog</h1>
+    <h2>{latestBlog.data.title}</h2>
+    <p>posted: {latestBlog.data.date.toLocaleString()}</p>
+    <br />
+    <h2>Older blogs</h2>
+    {
+      blogs.map((b) => (
+        <>
+          <h3>{b.data.title}</h3>
+          <p>posted: {b.data.date.toLocaleString()}</p>
+        </>
+      ))
+    }
+  </body>
+</html>

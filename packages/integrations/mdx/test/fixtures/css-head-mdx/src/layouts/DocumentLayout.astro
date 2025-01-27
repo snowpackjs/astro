@@ -1,0 +1,15 @@
+---
+// Extend the BaseLayout, adding space for a banner at the top of the page
+// after the main heading, then the detail for the actual page
+import ContentLayout from './ContentLayout.astro';
+const { frontmatter } = Astro.props;
+---
+
+<ContentLayout>
+	<div class="content-container">
+		<article id="main-content" class="pad-z5 flow">
+			<h1 set:html={frontmatter.pageHeading ? frontmatter.pageHeading : frontmatter.title} />
+			<slot />
+		</article>
+	</div>
+</ContentLayout>

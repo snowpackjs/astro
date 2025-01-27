@@ -1,0 +1,8 @@
+---
+import { PreactCounter } from '../components/PreactCounter'
+
+const cycle: any = { foo: ['bar'] }
+cycle.foo.push(cycle)
+---
+
+<PreactCounter client:load cycle={cycle} />

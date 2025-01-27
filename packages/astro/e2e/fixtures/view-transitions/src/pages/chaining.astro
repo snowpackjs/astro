@@ -1,0 +1,49 @@
+---
+import Layout from "../components/Layout.astro"
+---
+<Layout>
+	<h1 id="name">Chaining</h1>
+	<a id="click" href="/one">click</a>
+</Layout>
+
+<script>
+import { swap } from "../../node_modules/astro/dist/transitions/swap-functions";
+
+	const t = "[test]"
+
+	document.addEventListener('astro:before-swap', (e) => {
+		const originalSwap = e.swap;
+		e.swap = () => {
+			console.log(t, "99");
+			originalSwap();
+			console.log(t, "00");
+		}
+	})
+
+	document.addEventListener('astro:before-swap', (e) => {
+		e.swap = () => {
+			console.log(t, "3");
+			swap(e.newDocument);
+			console.log(t, "2");
+		}
+	})
+
+	document.addEventListener('astro:before-swap', (e) => {
+		const originalSwap = e.swap;
+		e.swap = () => {
+			console.log(t, "4");
+			originalSwap();
+			console.log(t, "1");
+		}
+	})
+
+	document.addEventListener('astro:before-swap', (e) => {
+		const originalSwap = e.swap;
+		e.swap = () => {
+			console.log(t, "5");
+			originalSwap();
+			console.log(t, "0");
+		}
+	})
+
+</script>

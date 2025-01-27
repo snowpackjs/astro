@@ -1,0 +1,36 @@
+---
+import { test as ssrConfigTest } from '@test/static-build-pkg';
+import MainHead from '../components/MainHead.astro';
+import Nav from '../components/Nav/index.jsx';
+let allPosts = await Astro.glob('./posts/*.md');
+
+// Note that this just tests a warning
+Astro.request.headers;
+---
+<html>
+<head>
+<MainHead title="Testing" />
+<style lang="scss">
+			$w-s: 750px;
+
+			.hero {
+				position: relative;
+				overflow: hidden;
+
+				@media (min-width: $w-s) {
+					height: 45vw;
+				}
+			}
+</style>
+</head>
+<body>
+<Nav />
+<h1>Testing</h1>
+<ul class="posts">
+	{allPosts.map(post => (
+		<li><a href={post.url}>post.title</a></li>
+	))}
+</ul>
+<div id="ssr-config">{ssrConfigTest}</div>
+</body>
+</html>

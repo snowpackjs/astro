@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map(doc => ({
+    params: { slug: doc.id },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(doc);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>{doc.data.title}</h1>
+  <div id="frontmatter-custom-property">{remarkPluginFrontmatter?.customProperty}</div>
+	<Content />
+</body>
+</html>

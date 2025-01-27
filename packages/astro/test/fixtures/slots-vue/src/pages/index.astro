@@ -1,0 +1,13 @@
+---
+import Counter from '../components/Counter.vue'
+---
+<main>
+  <Counter case="default-self-closing" client:visible/>
+  <Counter case="default-empty" client:visible></Counter>
+  <Counter case="zero" client:visible>{0}</Counter>
+  <Counter case="false" client:visible>{false}</Counter>
+  <Counter case="string" client:visible>{''}</Counter>
+  <Counter case="content" client:visible><h1 id="slotted">Hello world!</h1></Counter>
+	<Counter case="named" client:visible><h1 slot="named"> / Named</h1></Counter>
+	<Counter case="dash-case" client:visible><h1 slot="dash-case"> / Dash Case</h1></Counter>
+</main>

@@ -1,0 +1,48 @@
+{
+  "name": "create-astro",
+  "version": "4.11.0",
+  "type": "module",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/create-astro"
+  },
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://astro.build",
+  "exports": {
+    ".": "./create-astro.mjs"
+  },
+  "main": "./create-astro.mjs",
+  "bin": {
+    "create-astro": "./create-astro.mjs"
+  },
+  "scripts": {
+    "build": "astro-scripts build \"src/index.ts\" --bundle && tsc",
+    "build:ci": "astro-scripts build \"src/index.ts\" --bundle",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test": "astro-scripts test \"test/**/*.test.js\""
+  },
+  "files": [
+    "dist",
+    "create-astro.js"
+  ],
+  "//a": "MOST PACKAGES SHOULD GO IN DEV_DEPENDENCIES! THEY WILL BE BUNDLED.",
+  "//b": "DEPENDENCIES IS FOR UNBUNDLED PACKAGES",
+  "dependencies": {
+    "@astrojs/cli-kit": "^0.4.1",
+    "@bluwy/giget-core": "^0.1.2"
+  },
+  "devDependencies": {
+    "arg": "^5.0.2",
+    "astro-scripts": "workspace:*",
+    "strip-json-comments": "^5.0.1"
+  },
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=22.0.0"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

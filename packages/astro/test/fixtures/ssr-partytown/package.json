@@ -1,0 +1,9 @@
+{
+  "name": "@test/ssr-partytown",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/partytown": "workspace:*"
+  }
+}

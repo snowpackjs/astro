@@ -1,0 +1,11 @@
+---
+import RegularSlot from "../components/RegularSlot.astro"
+import Layout from "../components/SlotRenderLayout.astro";
+---
+<Layout>
+	<RegularSlot>
+		<RegularSlot>
+			<p slot="slot-name">Paragraph.</p>
+		</RegularSlot>
+	</RegularSlot>
+</Layout>

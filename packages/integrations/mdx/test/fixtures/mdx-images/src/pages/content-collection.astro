@@ -1,0 +1,19 @@
+---
+import { getEntry, render } from 'astro:content';
+import MyImage from 'src/components/MyImage.astro';
+
+const entry = await getEntry('blog', 'entry');
+const { Content } = await render(entry)
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Renderer</title>
+</head>
+<body>
+	<Content components={{ img: MyImage }} />
+</body>
+</html>

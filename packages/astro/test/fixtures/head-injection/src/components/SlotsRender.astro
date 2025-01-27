@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  content?: string;
+}
+const {
+  title,
+  subtitle = await Astro.slots.render("subtitle"),
+  content = await Astro.slots.render("content"),
+} = Astro.props;
+---
+
+<style>
+	section {
+		background: slategrey;
+	}
+</style>
+<section>
+  <div>
+    {title && <h1>{title}</h1>}
+    {subtitle && <p set:html={subtitle} />}
+    {content && <div set:html={content} />}
+  </div>
+</section>

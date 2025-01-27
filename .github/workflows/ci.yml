@@ -1,0 +1,255 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  merge_group:
+  pull_request:
+    paths-ignore:
+      - ".vscode/**"
+      - "**/*.md"
+      - ".github/ISSUE_TEMPLATE/**"
+
+# Automatically cancel older in-progress jobs on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request_target' && github.head_ref || github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  FORCE_COLOR: true
+  ASTRO_TELEMETRY_DISABLED: true
+  # 7 GiB by default on GitHub, setting to 6 GiB
+  # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+  NODE_OPTIONS: --max-old-space-size=6144
+
+jobs:
+  # Build primes out Turbo build cache and pnpm cache
+  build:
+    name: "Build: ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 3
+    strategy:
+      matrix:
+        OS: [ubuntu-latest, windows-latest]
+        NODE_VERSION: [22]
+      fail-fast: true
+    steps:
+      # Disable crlf so all OS can share the same Turbo cache
+      # https://github.com/actions/checkout/issues/135
+      - name: Disable git crlf
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup node@${{ matrix.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      # Only build in ubuntu as windows can share the build cache.
+      # Also only build in core repo as forks don't have access to the Turbo cache.
+      - name: Build Packages
+        if: ${{ matrix.os == 'ubuntu-latest' && github.repository_owner == 'withastro' }}
+        run: pnpm run build
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: build
+    steps:
+      - name: Disable git crlf
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Lint source code
+        run: pnpm run lint:ci
+
+      - name: Lint publish code
+        run: pnpm run publint
+
+  test:
+    name: "Test: ${{ matrix.os }} (node@${{ matrix.NODE_VERSION }})"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    needs: build
+    strategy:
+      matrix:
+        OS: [ubuntu-latest]
+        NODE_VERSION: [18, 20, 22]
+        include:
+          - os: macos-14
+            NODE_VERSION: 22
+          - os: windows-latest
+            NODE_VERSION: 22
+      fail-fast: false
+    env:
+      NODE_VERSION: ${{ matrix.NODE_VERSION }}
+    steps:
+      - name: Disable git crlf
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup node@${{ matrix.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Test
+        run: pnpm run test
+
+  e2e:
+    name: "Test (E2E): ${{ matrix.os }} (node@${{ matrix.NODE_VERSION }})"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    needs: build
+    strategy:
+      matrix:
+        OS: [ubuntu-latest, windows-latest]
+        NODE_VERSION: [22]
+      fail-fast: false
+    env:
+      NODE_VERSION: ${{ matrix.NODE_VERSION }}
+    steps:
+      - name: Disable git crlf
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup node@${{ matrix.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Test
+        run: pnpm run test:e2e
+
+  smoke:
+    name: "Test (Smoke): ${{ matrix.os }} (node@${{ matrix.NODE_VERSION }})"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    needs: build
+    strategy:
+      matrix:
+        OS: [ubuntu-latest, windows-latest]
+        NODE_VERSION: [22]
+    env:
+      NODE_VERSION: ${{ matrix.NODE_VERSION }}
+    steps:
+      - name: Disable git crlf
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup node@${{ matrix.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Checkout docs
+        uses: actions/checkout@v4
+        with:
+          repository: withastro/docs
+          path: smoke/docs
+          # For a commit event on the `next` branch (`ref_name`), use the `5.0.0-beta` branch.
+          # For a pull_request event merging into the `next` branch (`base_ref`), use the `5.0.0-beta` branch.
+          # NOTE: For a pull_request event, the `ref_name` is something like `<pr-number>/merge` than the branch name.
+          # NOTE: Perhaps docs repo should use a consistent `next` branch in the future.
+          ref: ${{ (github.ref_name == 'next' || github.base_ref == 'next') && '5.0.0-beta' || 'main' }}
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      # Reset lockfile changes so that Turbo can reuse the old build cache
+      - name: Reset lockfile changes
+        run: git reset --hard
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Remove docs translations except for English and Korean
+        run: find smoke/docs/src/content/docs ! -name 'en' ! -name 'ko' -type d -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+
+      - name: Check if docs changed
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            docs:
+              - 'packages/integrations/*/README.md'
+              - "packages/astro/src/types/public/**"
+              - 'packages/astro/src/core/errors/errors-data.ts'
+
+      - name: Build autogenerated docs pages from current astro branch
+        if: ${{ steps.changes.outputs.docs == 'true' }}
+        run: cd smoke/docs && pnpm docgen && pnpm docgen:errors
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_REPO: ${{ github.event.pull_request.head.repo.full_name || github.event.repository.full_name }}
+          SOURCE_BRANCH: ${{ github.head_ref || github.ref_name }}
+
+      - name: Test
+        run: pnpm run test:smoke
+        env:
+          SKIP_OG: true
+          PUBLIC_TWO_LANG: true

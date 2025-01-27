@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import myImage from "../assets/penguin1.jpg";
+---
+<html>
+<head>
+
+</head>
+<body>
+	<div id="local">
+		<Image src={myImage} alt="a penguin" />
+	</div>
+	
+	<div id="remote">
+		<Image src="https://avatars.githubusercontent.com/u/622227?s=64" alt="fred" width="48" height="48" />
+	</div>
+</body>
+</html>

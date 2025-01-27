@@ -1,0 +1,13 @@
+---
+import OrderA from "../components/OrderA.astro";
+import OrderB from "../components/OrderB.astro";
+import OrderLast from "../components/OrderLast.astro";
+
+globalThis.__ASTRO_TEST_ORDER__ = [];
+---
+
+<OrderA>
+  <OrderB>
+    <OrderLast />
+  </OrderB>
+</OrderA>

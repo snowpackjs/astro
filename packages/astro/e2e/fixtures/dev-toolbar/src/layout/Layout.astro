@@ -1,0 +1,18 @@
+---
+import { ClientRouter } from 'astro:transitions';
+---
+<html lang="en">
+  <head>
+    <title>View Transition Test</title>
+    <ClientRouter />
+		<script is:inline>
+			// let playwright know when navigate() is done
+			document.addEventListener('astro:before-swap', (e) => {
+				e.viewTransition.ready.then(()=>console.log("ready"))
+			});
+		</script>
+  </head>
+  <body>
+		<slot />
+  </body>
+</html>

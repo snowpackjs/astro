@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+const posts = await getCollection("with-schema-config");
+---
+
+<html>
+	<body>
+		<div class="foo">
+			<div>Hello World</div>
+			<span>Styles?</span>
+		</div>
+	</body>
+</html>
+
+<style>
+	.foo {
+		background-color: blue;
+	}
+	span::after {
+		content: "works!";
+	}
+</style>

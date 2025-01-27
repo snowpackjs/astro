@@ -1,0 +1,14 @@
+{
+  "name": "@e2e/hydration-race",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build"
+  },
+  "dependencies": {
+    "@astrojs/preact": "workspace:*",
+    "astro": "workspace:*",
+    "preact": "^10.25.4"
+  }
+}

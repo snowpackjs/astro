@@ -1,0 +1,20 @@
+---
+import WrapperA from "../components/WrapperA.jsx";
+import WrapperB from "../components/WrapperB.jsx";
+---
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+	</head>
+	<body>
+		<main>
+			Case 1
+			<WrapperB id="case1" client:load>
+				<WrapperA id="case1" />
+			</WrapperB>
+			<br/>
+		</main>
+	</body>
+</html>

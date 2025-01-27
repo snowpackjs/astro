@@ -1,0 +1,16 @@
+{
+  "name": "@e2e/astro-linked-lib",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "astro": "./Component.astro"
+    },
+    "./HoistedScript": {
+      "astro": "./HoistedScript.astro"
+    }
+  },
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

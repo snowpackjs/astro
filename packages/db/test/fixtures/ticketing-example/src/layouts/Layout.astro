@@ -1,0 +1,80 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import 'open-props/normalize';
+import 'open-props/style';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ClientRouter handleForms />
+	</head>
+	<body>
+		<slot />
+		<style is:global>
+			main {
+				max-width: 600px;
+				margin: 0 auto;
+				padding: var(--size-4);
+				display: flex;
+				flex-direction: column;
+				gap: var(--size-4);
+			}
+
+			form {
+				display: flex;
+				flex-direction: column;
+				gap: var(--size-2);
+				margin-bottom: var(--size-4);
+				background: var(--surface-2);
+				padding-inline: var(--size-4);
+				padding-block: var(--size-6);
+				border-radius: var(--radius-2);
+			}
+
+			.error {
+				color: var(--red-6);
+				margin-bottom: var(--size-2);
+				grid-column: 1 / -1;
+			}
+
+			form button {
+				grid-column: 1 / -1;
+				background: var(--orange-8);
+				border-radius: var(--radius-2);
+				padding-block: var(--size-2);
+			}
+
+			.youre-going {
+				background: var(--surface-2);
+				padding: var(--size-2);
+				border-radius: var(--radius-2);
+				display: flex;
+				flex-direction: column;
+			}
+
+			h2 {
+				font-size: var(--font-size-4);
+				margin-bottom: var(--size-2);
+			}
+
+			.newsletter {
+				display: flex;
+				align-items: center;
+				gap: var(--size-2);
+			}
+		</style>
+	</body>
+</html>

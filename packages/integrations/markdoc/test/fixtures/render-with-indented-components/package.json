@@ -1,0 +1,9 @@
+{
+  "name": "@test/markdoc-render-with-indented-components",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/markdoc": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

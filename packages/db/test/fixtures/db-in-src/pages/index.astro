@@ -1,0 +1,11 @@
+---
+/// <reference path="../.astro/db-types.d.ts" />
+import { User, db } from 'astro:db';
+
+const users = await db.select().from(User);
+---
+
+<h2>Users</h2>
+<ul class="users-list">
+	{users.map((user) => <li>{user.username}</li>)}
+</ul>

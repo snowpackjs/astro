@@ -1,0 +1,31 @@
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content="{Astro.generator}" />
+		<title>Astro</title>
+	</head>
+
+	<body>
+		<div id="a" data-attr="${a}"></div>
+		<div id="b" data-attr="\\`${b}\\`"></div>
+		<div id="c" data-attr="\\\`${c}\\\`"></div>
+		<div id="d" data-attr="\\\\`${d}\\\\`"></div>
+		<div id="e" data-attr="\\\\\`${e}\\\\\`"></div>
+		<div id="f" data-attr="\\\\\\`${f}\\\\\\`"></div>
+
+		<script>
+			const normal = `There are ${count} things!`;
+			const content = `There are \`${count}\` things!`;
+			const a = "\`${a}\`";
+			const b = "\\`${b}\\`";
+			const c = "\\\`${c}\\\`";
+			const d = "\\\\`${d}\\\\`";
+			const e = "\\\\\`${e}\\\\\`";
+			const f = "\\\\\\`${f}\\\\\\`";
+		</script>
+	</body>
+
+</html>

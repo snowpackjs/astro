@@ -1,0 +1,25 @@
+---
+import { getAbsoluteLocaleUrl, getLocaleByPath, getPathByLocale, getRelativeLocaleUrl } from "astro:i18n";
+
+let about = getRelativeLocaleUrl("pt", "about");
+let spanish = getRelativeLocaleUrl("es", "about");
+let spainPath = getPathByLocale("es-SP");
+let localeByPath = getLocaleByPath("spanish");
+let italianAbout = getAbsoluteLocaleUrl("it", "about");
+
+---
+
+<html>
+<head>
+    <title>Astro</title>
+</head>
+    <body>
+        Virtual module doesn't break
+    
+        About: {about}
+        About spanish: {spanish}
+				Spain path: {spainPath}
+				Preferred path: {localeByPath}
+        About it: {italianAbout}
+    </body>
+</html>

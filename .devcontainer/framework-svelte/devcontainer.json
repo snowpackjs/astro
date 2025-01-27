@@ -1,0 +1,34 @@
+{
+  "name": "Svelte",
+  "build": {
+    "dockerfile": "../examples.Dockerfile"
+  },
+
+  "workspaceFolder": "/workspaces/astro/examples/framework-svelte",
+
+  "portsAttributes": {
+    "4321": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
+    }
+  },
+
+  "forwardPorts": [4321],
+
+  "postCreateCommand": "pnpm install && cd /workspaces/astro && pnpm run build",
+
+  "waitFor": "postCreateCommand",
+
+  "postAttachCommand": {
+    "Server": "pnpm start --host"
+  },
+
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["src/pages/index.astro"]
+    },
+    "vscode": {
+      "extensions": ["astro-build.astro-vscode", "esbenp.prettier-vscode"]
+    }
+  }
+}

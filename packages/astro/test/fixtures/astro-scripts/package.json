@@ -1,0 +1,9 @@
+{
+  "name": "@test/astro-scripts",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/tailwind": "workspace:*"
+  }
+}

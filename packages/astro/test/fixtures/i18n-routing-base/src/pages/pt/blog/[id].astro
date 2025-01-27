@@ -1,0 +1,18 @@
+---
+export function getStaticPaths() {
+    return [
+        {params: {id: '1'}, props: { content: "Hola mundo" }},
+        {params: {id: '2'}, props: { content: "Eat Something" }},
+        {params: {id: '3'}, props: { content: "How are you?" }},
+    ];
+}
+const { content } = Astro.props;
+---
+<html>
+<head>
+    <title>Astro</title>
+</head>
+<body>
+{content}
+</body>
+</html>

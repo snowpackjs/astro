@@ -1,0 +1,16 @@
+{
+  "name": "@test/component-library",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/preact": "workspace:*",
+    "@astrojs/react": "workspace:*",
+    "@astrojs/svelte": "workspace:*",
+    "@test/component-library-shared": "workspace:*",
+    "astro": "workspace:*",
+    "preact": "^10.25.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "svelte": "^5.19.0"
+  }
+}

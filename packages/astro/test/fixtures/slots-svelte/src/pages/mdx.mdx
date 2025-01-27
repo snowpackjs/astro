@@ -1,0 +1,7 @@
+import Counter from '../components/Counter.svelte'
+
+# Slots: Svelte
+
+<Counter id="content" client:visible><h1 id="slotted">Hello world!</h1></Counter>
+<Counter id="named" client:visible><h1 slot="named"> / Named</h1></Counter>
+<Counter id="dash-case" client:visible><h1 slot="dash-case"> / Dash Case</h1></Counter>

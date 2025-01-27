@@ -1,0 +1,11 @@
+---
+const { ms } = Astro.props
+const start = new Date().valueOf();
+await new Promise(res => setTimeout(res, ms));
+const finished = new Date().valueOf();
+---
+<section>
+	<h1>{ms}ms Delayed</h1>
+	<span class="start">{ start }</span>
+	<span class="finished">{ finished }</span>
+</section>

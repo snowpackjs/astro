@@ -1,0 +1,11 @@
+---
+import { default as Picture, type Props as PictureProps } from './Picture.astro';
+
+type Props = PictureProps;
+
+const { class: className, ...props } = Astro.props;
+---
+
+{/* Applying class outside of the spread prevents it from applying unnecessary astro-* classes */}
+
+<Picture {...props} class={className} />

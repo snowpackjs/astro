@@ -1,0 +1,17 @@
+---
+import ReactCounter from '../components/react/ReactCounter.jsx';
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	</head>
+	<body>
+		<main>
+			<ReactCounter id="react-counter" client:only="react">
+				<Fragment><ReactCounter id="react-counter-nested" client:only="react" children/></Fragment>
+			</ReactCounter>
+		</main>
+	</body>
+</html>

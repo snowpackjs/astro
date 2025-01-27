@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+
+		<div id="direct-image">
+			<img src={entry.data.image.src} width={entry.data.image.width} height={entry.data.image.height} />
+		</div>
+
+		<div id="nested-image">
+			<img src={entry.data.cover.image.src} width={entry.data.cover.image.width} height={entry.data.cover.image.height} />
+		</div>
+
+		<Content />
+	</body>
+</html>

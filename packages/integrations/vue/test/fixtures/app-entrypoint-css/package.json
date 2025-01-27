@@ -1,0 +1,9 @@
+{
+  "name": "@test/vue-app-entrypoint-css",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/vue": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

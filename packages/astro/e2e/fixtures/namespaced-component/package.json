@@ -1,0 +1,13 @@
+{
+  "name": "@e2e/namespaced-component",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "@astrojs/preact": "workspace:*",
+    "astro": "workspace:*"
+  },
+  "dependencies": {
+    "preact": "^10.25.4"
+  }
+}

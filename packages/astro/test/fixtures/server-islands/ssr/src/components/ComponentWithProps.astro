@@ -1,0 +1,11 @@
+---
+await new Promise(resolve => setTimeout(resolve, 1));
+Astro.response.headers.set('X-Works', 'true');
+export type Props = {
+	greeting?: string;
+};
+const greeting =  Astro.props?.greeting ? Astro.props.greeting : 'default greeting';
+---
+<div id="islandContent">
+<div id="greeting">{greeting}</div>
+</div>

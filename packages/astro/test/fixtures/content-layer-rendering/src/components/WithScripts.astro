@@ -1,0 +1,11 @@
+<p id="update-me">Script didn't update me :(</p>
+
+<p id="update-me-inline">Inline script didn't update me :(</p>
+
+<script>
+	document.querySelector('#update-me').innerText = 'Updated client-side with script!';
+</script>
+
+<script is:inline data-is-inline>
+	document.querySelector('#update-me-inline').innerText = 'Updated client-side with inline script!';
+</script>

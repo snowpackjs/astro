@@ -1,0 +1,12 @@
+{
+  // We want to avoid defineTable() and defineDb() import hints
+  // from the runtime config export instead of astro:db.
+  // We exclude runtime/virtual from the base types,
+  // and generate to a separate _internal/ directory
+  // for our virtual module (virtual.d.ts) to reference.
+  "extends": "../../tsconfig.base.json",
+  "files": ["./src/runtime/virtual.ts"],
+  "compilerOptions": {
+    "outDir": "./dist/_internal"
+  }
+}

@@ -1,0 +1,10 @@
+---
+const myURL = Astro.request.url;
+const redirectTo = (myURL.startsWith("http://localhost")
+? myURL.replace("http://localhost","http://127.0.0.1")
+: myURL.replace("http://127.0.0.1", "http://localhost"))
+.replace("redirect","two");
+return Astro.redirect(redirectTo);
+---
+
+<h1>Should not see this</h1>

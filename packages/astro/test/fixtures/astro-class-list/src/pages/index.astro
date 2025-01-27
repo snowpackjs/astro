@@ -1,0 +1,19 @@
+<span class="test control" />
+
+<!-- @note: `class:list` will not be parsed if its value is not an expression -->
+<!-- <span class:list="test" /> -->
+
+<span class:list={'test expression'} />
+
+<span class:list={[ 'array' ]} />
+
+<span class:list={{ test: true, true: true, false: false }} />
+<span class:list={{ test: 1, truthy: '0', noshow1: 0, noshow2: '', noshow3: null, noshow4: undefined }} />
+
+<span class:list={['test', 'set']} />
+
+<span class:list={[ 'hello goodbye', { hello: true, world: true }, [ 'hello', 'friend' ] ]} />
+
+<span class:list={['foo', false && 'bar', true && 'baz']} />
+
+<span class:list={[false && 'empty']} />

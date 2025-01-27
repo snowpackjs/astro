@@ -1,0 +1,23 @@
+---
+import CaretCounter from '../components/^--with-carets/Counter';
+import RocketCounter from '../components/and-rockets-🚀/Counter';
+import RoundBracketCounter from '../components/with-(round-brackets)/Counter';
+import SquareBracketCounter from '../components/with-[square-brackets]/Counter';
+// Not supported in Vite
+// import PercentCounter from '../components/now-100%-better/Counter';
+import SpaceCounter from '../components/with some spaces/Counter';
+---
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <h1>Special chars in component import paths from an .astro file</h1>
+  <CaretCounter id="caret" client:visible />
+  <RocketCounter id="rocket" client:visible />
+  <!-- <PercentCounter id="percent" client:visible /> -->
+  <SpaceCounter id="space" client:visible />
+  <RoundBracketCounter id="round-bracket" client:visible />
+  <SquareBracketCounter id="square-bracket" client:visible />
+</body>
+</html>

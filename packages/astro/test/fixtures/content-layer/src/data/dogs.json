@@ -1,0 +1,302 @@
+[
+  {
+    "breed": "Labrador Retriever",
+    "id": "labrador-retriever",
+    "size": "Large",
+    "origin": "Canada",
+    "lifespan": "10-12 years",
+    "temperament": [
+      "Friendly",
+      "Active",
+      "Outgoing"
+    ]
+  },
+  {
+    "breed": "German Shepherd",
+    "id": "german-shepherd",
+    "size": "Large",
+    "origin": "Germany",
+    "lifespan": "9-13 years",
+    "temperament": [
+      "Loyal",
+      "Intelligent",
+      "Confident"
+    ]
+  },
+  {
+    "breed": "Golden Retriever",
+    "id": "golden-retriever",
+    "size": "Large",
+    "origin": "Scotland",
+    "lifespan": "10-12 years",
+    "temperament": [
+      "Intelligent",
+      "Friendly",
+      "Devoted"
+    ]
+  },
+  {
+    "breed": "French Bulldog",
+    "id": "french-bulldog",
+    "size": "Small",
+    "origin": "France",
+    "lifespan": "10-12 years",
+    "temperament": [
+      "Playful",
+      "Adaptable",
+      "Sociable"
+    ]
+  },
+  {
+    "breed": "Bulldog",
+    "id": "bulldog",
+    "size": "Medium",
+    "origin": "England",
+    "lifespan": "8-10 years",
+    "temperament": [
+      "Docile",
+      "Willful",
+      "Friendly"
+    ]
+  },
+  {
+    "breed": "Beagle",
+    "id": "beagle",
+    "size": "Small to Medium",
+    "origin": "England",
+    "lifespan": "12-15 years",
+    "temperament": [
+      "Friendly",
+      "Curious",
+      "Merry"
+    ]
+  },
+  {
+    "breed": "Poodle",
+    "id": "poodle",
+    "size": "Toy, Miniature, or Standard",
+    "origin": "Germany",
+    "lifespan": "12-15 years",
+    "temperament": [
+      "Intelligent",
+      "Active",
+      "Alert"
+    ]
+  },
+  {
+    "breed": "Rottweiler",
+    "id": "rottweiler",
+    "size": "Large",
+    "origin": "Germany",
+    "lifespan": "8-10 years",
+    "temperament": [
+      "Loyal",
+      "Confident",
+      "Courageous"
+    ]
+  },
+  {
+    "breed": "German Shorthaired Pointer",
+    "id": "german-shorthaired-pointer",
+    "size": "Medium to Large",
+    "origin": "Germany",
+    "lifespan": "10-12 years",
+    "temperament": [
+      "Friendly",
+      "Intelligent",
+      "Willing to Please"
+    ]
+  },
+  {
+    "breed": "Yorkshire Terrier",
+    "id": "yorkshire-terrier",
+    "size": "Toy",
+    "origin": "England",
+    "lifespan": "13-16 years",
+    "temperament": [
+      "Affectionate",
+      "Sprightly",
+      "Tomboyish"
+    ]
+  },
+  {
+    "breed": "Boxer",
+    "id": "boxer",
+    "size": "Medium to Large",
+    "origin": "Germany",
+    "lifespan": "10-12 years",
+    "temperament": [
+      "Playful",
+      "Energetic",
+      "Loyal"
+    ]
+  },
+  {
+    "breed": "Dachshund",
+    "id": "dachshund",
+    "size": "Small",
+    "origin": "Germany",
+    "lifespan": "12-16 years",
+    "temperament": [
+      "Clever",
+      "Stubborn",
+      "Devoted"
+    ]
+  },
+  {
+    "breed": "Siberian Husky",
+    "id": "siberian-husky",
+    "size": "Medium",
+    "origin": "Siberia",
+    "lifespan": "12-14 years",
+    "temperament": [
+      "Outgoing",
+      "Mischievous",
+      "Loyal"
+    ]
+  },
+  {
+    "breed": "Great Dane",
+    "id": "great-dane",
+    "size": "Large",
+    "origin": "Germany",
+    "lifespan": "7-10 years",
+    "temperament": [
+      "Friendly",
+      "Patient",
+      "Dependable"
+    ]
+  },
+  {
+    "breed": "Doberman Pinscher",
+    "id": "doberman-pinscher",
+    "size": "Large",
+    "origin": "Germany",
+    "lifespan": "10-12 years",
+    "temperament": [
+      "Loyal",
+      "Fearless",
+      "Alert"
+    ]
+  },
+  {
+    "breed": "Australian Shepherd",
+    "id": "australian-shepherd",
+    "size": "Medium",
+    "origin": "United States",
+    "lifespan": "12-15 years",
+    "temperament": [
+      "Intelligent",
+      "Work-oriented",
+      "Exuberant"
+    ]
+  },
+  {
+    "breed": "Miniature Schnauzer",
+    "id": "miniature-schnauzer",
+    "size": "Small",
+    "origin": "Germany",
+    "lifespan": "12-15 years",
+    "temperament": [
+      "Friendly",
+      "Smart",
+      "Obedient"
+    ]
+  },
+  {
+    "breed": "Cavalier King Charles Spaniel",
+    "id": "cavalier-king-charles-spaniel",
+    "size": "Small",
+    "origin": "United Kingdom",
+    "lifespan": "9-14 years",
+    "temperament": [
+      "Affectionate",
+      "Gentle",
+      "Graceful"
+    ]
+  },
+  {
+    "breed": "Shih Tzu",
+    "id": "shih-tzu",
+    "size": "Small",
+    "origin": "China",
+    "lifespan": "10-18 years",
+    "temperament": [
+      "Affectionate",
+      "Playful",
+      "Outgoing"
+    ]
+  },
+  {
+    "breed": "Boston Terrier",
+    "id": "boston-terrier",
+    "size": "Small",
+    "origin": "United States",
+    "lifespan": "11-13 years",
+    "temperament": [
+      "Friendly",
+      "Lively",
+      "Intelligent"
+    ]
+  },
+  {
+    "breed": "Bernese Mountain Dog",
+    "id": "bernese-mountain-dog",
+    "size": "Large",
+    "origin": "Switzerland",
+    "lifespan": "7-10 years",
+    "temperament": [
+      "Good-natured",
+      "Calm",
+      "Strong"
+    ]
+  },
+  {
+    "breed": "Pomeranian",
+    "id": "pomeranian",
+    "size": "Toy",
+    "origin": "Germany",
+    "lifespan": "12-16 years",
+    "temperament": [
+      "Lively",
+      "Bold",
+      "Inquisitive"
+    ]
+  },
+  {
+    "breed": "Havanese",
+    "id": "havanese",
+    "size": "Small",
+    "origin": "Cuba",
+    "lifespan": "14-16 years",
+    "temperament": [
+      "Playful",
+      "Intelligent",
+      "Outgoing"
+    ]
+  },
+  {
+    "breed": "English Springer Spaniel",
+    "id": "english-springer-spaniel",
+    "size": "Medium",
+    "origin": "England",
+    "lifespan": "12-14 years",
+    "temperament": [
+      "Friendly",
+      "Playful",
+      "Obedient"
+    ]
+  },
+  {
+    "breed": "Shetland Sheepdog",
+    "id": "shetland-sheepdog",
+    "size": "Small",
+    "origin": "Scotland",
+    "lifespan": "12-14 years",
+    "temperament": [
+      "Playful",
+      "Energetic",
+      "Intelligent"
+    ]
+  }
+]

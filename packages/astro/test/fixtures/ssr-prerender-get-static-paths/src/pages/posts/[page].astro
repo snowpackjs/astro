@@ -1,0 +1,30 @@
+---
+export async function getStaticPaths() {
+	return [
+		{
+			params: { page: 1 },
+		},
+		{
+			params: { page: 2 },
+		},
+		{
+			params: { page: 3 }
+		}
+	]
+};
+export const prerender = true;
+const { page } = Astro.params
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Posts Page {page}</title>
+		<link rel="canonical" href={canonicalURL.href}>
+	</head>
+	<body>
+		<h1>Welcome to page {page}</h1>
+	</body>
+</html>

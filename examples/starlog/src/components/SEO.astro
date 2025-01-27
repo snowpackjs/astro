@@ -1,0 +1,87 @@
+---
+import type { ImageMetadata } from 'astro';
+type Image = {
+	src: string | ImageMetadata;
+	alt: string;
+};
+
+type SEOMetadata = {
+	name: string;
+	title: string;
+	description: string;
+	image?: Image | undefined;
+	canonicalURL?: URL | string | undefined;
+	locale?: string;
+};
+
+type OpenGraph = Partial<SEOMetadata> & {
+	type?: string;
+};
+
+type Twitter = Partial<SEOMetadata> & {
+	handle?: string;
+	card?: 'summary' | 'summary_large_image';
+};
+
+export type Props = SEOMetadata & {
+	og?: OpenGraph;
+	twitter?: Twitter;
+};
+
+const {
+	name,
+	title,
+	description,
+	image,
+	locale = 'en',
+	canonicalURL = new URL(Astro.url.pathname, Astro.site),
+} = Astro.props;
+
+const og = {
+	name,
+	title,
+	description,
+	canonicalURL,
+	image,
+	locale,
+	type: 'website',
+	...(Astro.props.og ?? {}),
+} satisfies OpenGraph;
+
+const twitter = {
+	name,
+	title,
+	description,
+	canonicalURL,
+	image,
+	locale,
+	card: 'summary_large_image',
+	...Astro.props.twitter,
+};
+
+function normalizeImageUrl(image: string | ImageMetadata) {
+	return typeof image === 'string' ? image : image.src;
+}
+---
+
+<!-- Page Metadata -->
+<link rel="canonical" href={canonicalURL} />
+<meta name="description" content={description} />
+
+<!-- OpenGraph Tags -->
+<meta property="og:title" content={og.title} />
+<meta property="og:type" content={og.type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:locale" content={og.locale} />
+<meta property="og:description" content={og.description} />
+<meta property="og:site_name" content={og.name} />
+{og.image && <meta property="og:image" content={normalizeImageUrl(og.image.src)} />}
+{og.image && <meta property="og:image:alt" content={og.image.alt} />}
+
+<!-- Twitter Tags -->
+<meta name="twitter:card" content={twitter.card} />
+<meta name="twitter:site" content={twitter.handle} />
+<meta name="twitter:title" content={twitter.title} />
+<meta name="twitter:description" content={twitter.description} />
+{twitter.image && <meta name="twitter:image" content={normalizeImageUrl(twitter.image.src)} />}
+{twitter.image && <meta name="twitter:image:alt" content={twitter.image.alt} />}

@@ -1,0 +1,13 @@
+---
+import Client from '../components/Client.vue';
+import css from '../data/hello.css?inline';
+const {env} = await import('../data/cats.json');
+---
+<head />
+<environment-variable>{import.meta.env.PUBLIC_PLACE}</environment-variable>
+<environment-variable>{import.meta.env.SECRET_PLACE}</environment-variable>
+<environment-variable>{import.meta.env.SITE}</environment-variable>
+<environment-variable id="base-url">{import.meta.env.BASE_URL}</environment-variable>
+<environment-variable id="env">{env}</environment-variable>
+<environment-variable id="css">{css.includes('SECRET_PLACE') ? 'bad' : 'good' }</environment-variable>
+<Client client:load />

@@ -1,0 +1,13 @@
+---
+const { slug } = Astro.params;
+export const prerender = false;
+---
+<html>
+<head>
+	<title>Title</title>
+</head>
+<body>
+<h1>Title</h1>
+<p>{slug}</p>
+</body>
+</html>

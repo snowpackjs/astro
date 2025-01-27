@@ -1,0 +1,96 @@
+---
+import Comment from '../../components/Comment.astro';
+import For from '../../components/For.astro';
+import Show from '../../components/Show.astro';
+import Layout from '../../layouts/Layout.astro';
+import fetchAPI from '../../lib/api';
+import type { IComment, IStory } from '../../types.js';
+
+const { id } = Astro.params as { id: string };
+
+const story = (await fetchAPI(`item/${id}`)) as IStory;
+---
+
+<Layout>
+	<div>
+		<header>
+			<a href={story.url} target="_blank">
+				<h1>{story.title}</h1>
+			</a>
+			<Show when={story.domain}>
+				<span class="host">({story.domain})</span>
+			</Show>
+			<p class="meta">
+				{story.points} points | by
+				<a href={`/users/${story.user}`}>
+					{story.user}
+				</a>
+				&nbsp;{story.time_ago}
+			</p>
+		</header>
+		<main>
+			<p>
+				{story.comments_count ? story.comments_count + ' comments' : 'No comments yet.'}
+			</p>
+			<ul class="comment-children">
+				<For each={story.comments}>
+					{(comment: IComment) => <Comment comment={comment} />}
+				</For>
+			</ul>
+		</main>
+	</div>
+</Layout>
+
+<style>
+	header {
+		background-color: rgb(248 250 252);
+		padding: 1.8em 2em 1em;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	h1 {
+		display: inline;
+		font-size: 1.5em;
+		margin: 0;
+		margin-right: 0.5em;
+	}
+
+	.host,
+	.meta,
+	.host a {
+		color: rgb(51 65 85);
+	}
+
+	.meta a {
+		text-decoration: underline;
+	}
+
+	main {
+		background-color: rgb(248 250 252);
+		margin-top: 10px;
+		padding: 0 2em 0.5em;
+	}
+
+	main p {
+		margin: 0;
+		font-size: 1.1em;
+		padding: 1em 0;
+		position: relative;
+	}
+
+	main :global(ul) {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	@media (max-width: 600px) {
+		h1 {
+			font-size: 1.25em;
+		}
+	}
+
+	ul :global(ul) {
+		margin-left: 1.5em;
+	}
+</style>

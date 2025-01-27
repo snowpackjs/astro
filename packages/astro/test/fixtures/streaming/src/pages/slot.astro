@@ -1,0 +1,26 @@
+---
+import BareComponent from '../components/BareComponent.astro';
+import Wait from '../components/Wait.astro';
+
+export const prerender = false;
+---
+
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+		<BareComponent>
+			<h1>Section title</h1>
+			<Wait ms={50}>
+				<p>Section content</p>
+			</Wait>
+			<h2>Next section</h2>
+			<Wait ms={100}>
+				<p>Section content</p>
+			</Wait>
+			<p>Paragraph 3</p>
+		</BareComponent>
+	</body>
+</html>

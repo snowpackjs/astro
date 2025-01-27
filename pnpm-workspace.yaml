@@ -1,0 +1,11 @@
+packages:
+  - 'packages/**/*'
+  - 'packages/astro/test/units/_temp-fixtures'
+  - 'examples/**/*'
+  - 'smoke/**/*'
+  - 'scripts'
+  - 'benchmark'
+  - 'benchmark/packages/*'
+  # Below excludes are only for Turbo because it doesn't respect gitignore like pnpm does
+  - '!packages/astro/test/units/_temp-fixtures/*'
+  - '!**/.vercel/**'

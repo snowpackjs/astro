@@ -1,0 +1,11 @@
+{
+  "name": "@test/middleware-dev",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  },
+  "exports": {
+    "./integration-middleware.js": "./integration-middleware.js"
+  }
+}

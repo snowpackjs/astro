@@ -1,0 +1,11 @@
+{
+  "name": "@test/view-transitions",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/react": "workspace:*",
+    "astro": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

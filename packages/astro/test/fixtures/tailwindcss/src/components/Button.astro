@@ -1,0 +1,10 @@
+---
+let { type = 'button' } = Astro.props;
+---
+
+<button
+	class="py-2 px-4 lg:py-3 lg:px-5 bg-purple-600 text-white font-[900] rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75"
+	{type}
+>
+	<slot />
+</button>

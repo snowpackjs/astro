@@ -1,0 +1,28 @@
+---
+// for SSR
+const blogs = {
+	1: { content: "Hello world" },
+	2: { content: "Eat Something" },
+	3: { content: "How are you?" },
+}
+const id = Astro.params?.id;
+const ssrContent = id && blogs[id]?.content;
+	
+// for SSG
+export function getStaticPaths() {
+    return [
+        {params: {id: '1'}, props: { content: "Hello world" }},
+        {params: {id: '2'}, props: { content: "Eat Something" }},
+        {params: {id: '3'}, props: { content: "How are you?" }},
+    ]
+}
+const { content } = Astro.props 
+---
+<html>
+<head>
+    <title>Astro</title>
+</head>
+<body>
+{content || ssrContent}
+</body>
+</html>

@@ -1,0 +1,27 @@
+---
+export async function getStaticPaths() {
+		return [
+			{
+				params: { slug: "slug-1" },
+			},
+			{
+				params: { slug: "slug-2" },
+			}
+		]
+	}
+---
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Routing</title>
+</head>
+
+<body>
+	<h1>[slug].astro</h1>
+	<p>{Astro.params.slug}</p>
+</body>
+
+</html>

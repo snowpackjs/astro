@@ -1,0 +1,17 @@
+---
+const data = await Astro.glob('./post/**/*');
+---
+
+<html>
+  <head>
+    <title>All Posts</title>
+  </head>
+  <body>
+    {data.map((page: any) => (
+      <div>
+        <h1 data-file={page.file}>Title</h1>
+        <a class="post-url" href={page.url}>Read</a>
+      </div>
+    ))}
+  </body>
+</html>

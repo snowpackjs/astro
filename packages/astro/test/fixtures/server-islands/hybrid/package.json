@@ -1,0 +1,10 @@
+{
+  "name": "@test/server-islands-hybrid",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/svelte": "workspace:*",
+    "astro": "workspace:*",
+    "svelte": "^5.19.0"
+  }
+}

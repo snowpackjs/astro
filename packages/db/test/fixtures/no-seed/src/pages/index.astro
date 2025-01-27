@@ -1,0 +1,21 @@
+---
+/// <reference path="../../.astro/db-types.d.ts" />
+import { Author, db } from 'astro:db';
+
+await db
+	.insert(Author)
+	.values([
+		{ name: 'Ben' },
+		{ name: 'Nate' },
+		{ name: 'Erika' },
+		{ name: 'Bjorn' },
+		{ name: 'Sarah' },
+	]);
+
+const authors = await db.select().from(Author);
+---
+
+<h2>Authors</h2>
+<ul class="authors-list">
+	{authors.map((author) => <li>{author.name}</li>)}
+</ul>

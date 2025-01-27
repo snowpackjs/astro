@@ -1,0 +1,30 @@
+---
+import { ClientRouter } from 'astro:transitions';
+---
+
+<html>
+	<head>
+		<ClientRouter />
+	</head>
+	<body>
+		<h1>Abort</h1>
+	</body>
+</html>
+<script>
+	import { navigate } from 'astro:transitions/client';
+
+	document.addEventListener('astro:before-preparation', (e) => {
+		const originalLoader = e.loader;
+		e.loader = async () => {
+			const result = await originalLoader();
+			if (e.to.href.endsWith('/two')) {
+				// delay loading of /two
+				await new Promise((resolve) => setTimeout(resolve, 1100));
+			}
+		};
+	});
+	// starts later, but is faster and overtakes the slower navigation
+	setTimeout(() => navigate('/one'), 400);
+	// starts now, but is to slow to keep its lead
+	navigate('/two');
+</script>

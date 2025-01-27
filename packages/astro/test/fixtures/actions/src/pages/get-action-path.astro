@@ -1,0 +1,6 @@
+---
+import { actions, getActionPath } from "astro:actions"
+
+const path = getActionPath(actions.transformFormInput)
+---
+<p data-path>{path}</p>

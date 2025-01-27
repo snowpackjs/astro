@@ -1,0 +1,11 @@
+---
+import Deeper from './Deeper.astro';
+import One from './One.jsx';
+---
+
+<div>
+	<Deeper />
+	<span>Before one</span>
+	<One name="Two" client:idle />
+</div>
+

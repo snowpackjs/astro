@@ -1,0 +1,31 @@
+---
+type Props = {
+	posts: any[];
+	renderer: any;
+}
+
+const { posts, renderer: ContentRenderer } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Md render test</title>
+</head>
+<body>
+	{
+		posts.map((entry) => {
+			return (
+				<div>
+					<h1>{entry.data.title}</h1>
+					<p>{entry.data.description}</p>
+					<ContentRenderer {entry} />
+				</div>
+			);
+		})
+	}
+</body>
+</html>

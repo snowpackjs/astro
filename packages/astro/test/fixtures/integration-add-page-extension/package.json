@@ -1,0 +1,9 @@
+{
+  "name": "@test/integration-add-page-extension",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

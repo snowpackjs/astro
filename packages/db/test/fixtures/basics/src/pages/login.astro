@@ -1,0 +1,18 @@
+---
+import { Session, User, db, eq } from 'astro:db';
+
+const users = await db.select().from(User);
+const sessions = await db.select().from(Session).innerJoin(User, eq(Session.userId, User.id));
+---
+
+<h2>Sessions</h2>
+<ul class="sessions-list">
+	{
+		sessions.map(({ Session, User }) => (
+			<li>
+				<div class="session-id">{Session.id}</div>
+				<div class="username">{User.username}</div>
+			</li>
+		))
+	}
+</ul>

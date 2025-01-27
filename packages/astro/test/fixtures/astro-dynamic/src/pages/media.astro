@@ -1,0 +1,17 @@
+---
+import Counter from '../components/Counter.jsx';
+const MOBILE = "(max-width: 600px)";
+---
+<html>
+<head>
+  <title>Media hydration</title>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+  <!-- Inline value -->
+  <Counter client:media="(max-width: 700px)" />
+
+  <!-- Using a variable -->
+  <Counter client:media={MOBILE} />
+</body>
+</html>

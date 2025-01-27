@@ -1,0 +1,89 @@
+[[artists]]
+id = "kendrick-lamar"
+name = "Kendrick Lamar"
+genre = ["Hip-Hop", "Rap"]
+
+[[artists]]
+id = "mac-miller"
+name = "Mac Miller"
+genre = ["Hip-Hop", "Rap"]
+
+[[artists]]
+id = "jid"
+name = "JID"
+genre = ["Hip-Hop", "Rap"]
+
+[[artists]]
+id = "yasiin-bey"
+name = "Yasiin Bey"
+genre = ["Hip-Hop", "Rap"]
+
+[[artists]]
+id = "kanye-west"
+name = "Kanye West"
+genre = ["Hip-Hop", "Rap"]
+
+[[artists]]
+id = "jay-z"
+name = "JAY-Z"
+genre = ["Hip-Hop", "Rap"]
+
+[[artists]]
+id = "j-ivy"
+name = "J. Ivy"
+genre = ["Spoken Word", "Rap"]
+
+[[artists]]
+id = "frank-ocean"
+name = "Frank Ocean"
+genre = ["R&B", "Hip-Hop"]
+
+[[artists]]
+id = "the-dream"
+name = "The-Dream"
+genre = ["R&B", "Hip-Hop"]
+
+[[artists]]
+id = "baby-keem"
+name = "Baby Keem"
+genre = ["Hip-Hop", "Rap"]
+
+[[songs]]
+id = "crown"
+name = "Crown"
+artists = ["kendrick-lamar"]
+
+[[songs]]
+id = "nikes-on-my-feet"
+name = "Nikes on My Feet"
+artists = ["mac-miller"]
+
+[[songs]]
+id = "stars"
+name = "Stars"
+artists = ["jid", "yasiin-bey"]
+
+[[songs]]
+id = "never-let-me-down"
+name = "Never Let Me Down"
+artists = ["kanye-west", "jay-z", "j-ivy"]
+
+[[songs]]
+id = "no-church-in-the-wild"
+name = "No Church In The Wild"
+artists = ["jay-z", "kanye-west", "frank-ocean", "the-dream"]
+
+[[songs]]
+id = "family-ties"
+name = "family ties"
+artists = ["kendrick-lamar", "baby-keem"]
+
+[[songs]]
+id = "somebody"
+name = "Somebody"
+artists = ["jid"]
+
+[[songs]]
+id = "honest"
+name = "HONEST"
+artists = ["baby-keem"]

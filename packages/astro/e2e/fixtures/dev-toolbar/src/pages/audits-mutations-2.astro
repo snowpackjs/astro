@@ -1,0 +1,29 @@
+---
+import Layout from "../layout/Layout.astro";
+---
+
+<Layout>
+<button id="bad-button-2">Click me to add an image that is missing an alt!</button>
+<a id="link-to-1" href="/audits-mutations">Go to Mutations 1</a>
+
+<br /><br /><br />
+<img src="" width="100" height="100" />
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const badButton = document.getElementById('bad-button-2');
+		if (!badButton) return;
+
+		badButton.addEventListener('click', clickHandler);
+
+		function clickHandler() {
+			const img = document.createElement('img');
+			img.width = 100;
+			img.height = 100;
+
+			document.body.appendChild(img);
+			console.log("Image added to the page")
+		}
+	})
+</script>
+</Layout>

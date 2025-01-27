@@ -1,0 +1,13 @@
+---
+import { AsyncComponent } from '../components/async-components.jsx';
+---
+
+<html>
+	<head><title>Solid</title></head>
+	<body>
+		<div>
+			<!-- client only component should not generate hydration -->
+			<AsyncComponent client:only />
+		</div>
+	</body>
+</html>

@@ -1,0 +1,10 @@
+---
+import imageRaw from "../assets/penguin1.jpg?raw";
+import imageUrl from "../assets/penguin1.jpg?url";
+
+const globImport = import.meta.glob('../assets/penguin1.jpg', { as: 'raw', eager: true })
+---
+
+<div id="url">{typeof imageUrl}</div>
+<div id="raw">{typeof imageRaw}</div>
+<div id="glob-import">{typeof globImport['../assets/penguin1.jpg']}</div>

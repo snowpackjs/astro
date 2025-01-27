@@ -1,0 +1,47 @@
+---
+import Counter from '../components/Counter.jsx';
+import ReactComponent from '../components/JSXComponent.jsx';
+import Suffix from '../components/Suffix.react';
+import WithId from '../components/WithId.jsx';
+
+const someProps = {
+	count: 0,
+};
+---
+
+<html>
+	<head>
+		<!-- Head Stuff -->
+	</head>
+	<body>
+		<Counter id="server-only" {...someProps}>
+			<h1>Hello, server!</h1>
+		</Counter>
+
+		<Counter id="client-idle" {...someProps} client:idle>
+			<h1>Hello, client:idle!</h1>
+		</Counter>
+
+		<Counter id="client-load" {...someProps} client:load>
+			<h1>Hello, client:load!</h1>
+		</Counter>
+
+		<Counter id="client-visible" {...someProps} client:visible>
+			<h1>Hello, client:visible!</h1>
+		</Counter>
+
+		<Counter id="client-media" {...someProps} client:media="(max-width: 50em)">
+			<h1>Hello, client:media!</h1>
+		</Counter>
+
+		<ReactComponent id="client-only" client:only="react" />
+
+		<Suffix client:load />
+
+		<WithId />
+		<WithId client:load />
+		<WithId client:load />
+		<WithId client:only="react" />
+		<WithId client:only="react" />
+	</body>
+</html>

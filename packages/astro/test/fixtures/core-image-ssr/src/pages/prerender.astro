@@ -1,0 +1,15 @@
+---
+import { Image } from 'astro:assets';
+import myImage from "../assets/penguin2.jpg";
+export const prerender = true;
+---
+<html>
+<head>
+
+</head>
+<body>
+	<div id="local">
+		<Image src={myImage} alt="a penguin" />
+	</div>
+</body>
+</html>

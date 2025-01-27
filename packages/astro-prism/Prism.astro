@@ -1,0 +1,17 @@
+---
+import { runHighlighterWithAstro } from './dist/highlighter';
+
+interface Props {
+	class?: string;
+	lang?: string;
+	code: string;
+}
+
+const { class: className, lang, code } = Astro.props as Props;
+const { classLanguage, html } = runHighlighterWithAstro(lang, code);
+---
+
+<pre
+	class={[className, classLanguage]
+		.filter(Boolean)
+		.join(' ')}><code class={classLanguage} set:html={html} /></pre>

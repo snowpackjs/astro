@@ -1,0 +1,47 @@
+{
+  "name": "@astrojs/internal-helpers",
+  "description": "Internal helpers used by core Astro packages.",
+  "version": "0.4.2",
+  "type": "module",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/internal-helpers"
+  },
+  "bugs": "https://github.com/withastro/astro/issues",
+  "exports": {
+    "./path": "./dist/path.js",
+    "./fs": "./dist/fs.js"
+  },
+  "typesVersions": {
+    "*": {
+      "path": [
+        "./dist/path.d.ts"
+      ],
+      "fs": [
+        "./dist/fs.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "pnpm build",
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc -p tsconfig.json",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\""
+  },
+  "devDependencies": {
+    "astro-scripts": "workspace:*"
+  },
+  "keywords": [
+    "astro",
+    "astro-component"
+  ],
+  "publishConfig": {
+    "provenance": true
+  }
+}

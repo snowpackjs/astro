@@ -1,0 +1,35 @@
+---
+export async function getStaticPaths() {
+	const pages = [
+		{
+			page: 'about',
+			title: 'Dynamic About',
+		},
+		{
+			page: 'blog',
+			title: 'Dynamic Blog',
+		},
+		{
+			page: '/test',
+			title: 'Dynamic Test',
+		},
+	];
+	return pages.map(({ page, title }) => {
+		return {
+			params: { page },
+			props: { title },
+		};
+	});
+}
+
+const { title } = Astro.props;
+---
+
+<html>
+<head>
+	<title>{title}</title>
+</head>
+<body>
+<h1>{title}</h1>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "@test/debug-component",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

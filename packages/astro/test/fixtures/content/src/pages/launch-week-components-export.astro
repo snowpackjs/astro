@@ -1,0 +1,14 @@
+---
+import { getEntryBySlug } from 'astro:content';
+
+const entry = await getEntryBySlug('blog', 'promo/launch-week-components-export');
+const { Content } = await entry.render();
+---
+<html>
+<head>
+	<title>Launch Week</title>
+</head>
+<body>
+	<Content />
+</body>
+</html>

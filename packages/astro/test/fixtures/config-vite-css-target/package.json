@@ -1,0 +1,8 @@
+{
+  "name": "@test/config-vite-css-target",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

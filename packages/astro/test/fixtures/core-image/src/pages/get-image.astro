@@ -1,0 +1,8 @@
+---
+import { getImage } from "astro:assets";
+import image from "../assets/penguin2.jpg";
+
+const myImage = await getImage({ src: image, width: 207, height: 243, alt: 'a penguin' });
+---
+
+<img src={myImage.src} {...myImage.attributes} />

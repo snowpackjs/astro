@@ -1,0 +1,40 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content"
+export const getStaticPaths = (async () => {
+	const collection = await getCollection("dogs");
+	if(!collection) return []
+	return collection.map((dog) => ({
+		params: {
+			slug: dog.id
+		},
+		props: {
+			dog: dog.data
+		}
+	}));
+}) satisfies GetStaticPaths;
+
+
+interface Props {
+	dog: {
+		breed: string;
+		id: string;
+		size: string;
+		origin: string;
+		lifespan: string;
+		temperament: string[];
+	}
+}
+
+const { dog } = Astro.props
+
+
+---
+
+<h1>{dog.breed}</h1>
+<ul>
+<li>Size: {dog.size}</li>
+<li>Origin: {dog.origin}</li>
+<li>Lifespan: {dog.lifespan}</li>
+<li>Temperament: {dog.temperament.join(", ")}</li>
+</ul>

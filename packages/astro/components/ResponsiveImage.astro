@@ -1,0 +1,13 @@
+---
+import type { LocalImageProps, RemoteImageProps } from 'astro:assets';
+import Image from './Image.astro';
+
+type Props = LocalImageProps | RemoteImageProps;
+
+const { class: className, ...props } = Astro.props;
+
+import './image.css';
+---
+
+{/* Applying class outside of the spread prevents it from applying unnecessary astro-* classes */}
+<Image {...props} class={className} />

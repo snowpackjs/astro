@@ -1,0 +1,46 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import DarkMode from './DarkMode.astro';
+
+interface Props {
+	link?: string;
+}
+
+const { link } = Astro.props as Props;
+---
+
+<html>
+	<head>
+		<title>Testing</title>
+		{link ? <link rel="stylesheet" href={link} /> : ''}
+		<style>
+			main {
+				max-width: 900px;
+				margin: auto;
+			}
+		</style>
+		<link rel="stylesheet" href="/styles.css" />
+		<ClientRouter handleForms />
+		<DarkMode />
+		<meta name="script-executions" content="0" />
+		<meta charset="utf-8" />
+		<script is:inline defer>
+			{
+				// Increment a global to see if this is running more than once
+				globalThis.scriptExecutions =
+					globalThis.scriptExecutions == null ? -1 : globalThis.scriptExecutions;
+				globalThis.scriptExecutions++;
+				const el = document.querySelector('[name="script-executions"]');
+				el.setAttribute('content', globalThis.scriptExecutions);
+			}
+		</script>
+	</head>
+	<body>
+		<header transition:animate="initial">
+			<h1>testing</h1>
+		</header>
+		<main transition:animate="slide">
+			<slot />
+		</main>
+	</body>
+</html>

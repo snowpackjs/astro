@@ -1,0 +1,15 @@
+---
+import Layout from '../components/Layout.astro';
+import One from '../components/One.jsx';
+---
+<html>
+<head>
+	<title>Testing</title>
+</head>
+<body>
+	<One name="Four" client:idle />
+	<Layout>
+		<One name="Three" client:visible />
+	</Layout>
+</body>
+</html>

@@ -1,0 +1,14 @@
+---
+type Props = {
+	level: number;
+	id: string;
+};
+
+const { level, id }: Props = Astro.props;
+
+const Tag = `h${level}`;
+---
+
+<Tag data-custom-heading {id}>
+	<slot />
+</Tag>

@@ -1,0 +1,13 @@
+---
+const currentLocale = Astro.currentLocale;
+---
+<html>
+<head>
+  <title>404 - Not Found</title>
+</head>
+<body>
+  <h1>404 - Not Found</h1>
+	<h2>Custom 404</h2>
+  <p>Current Locale: {currentLocale ? currentLocale : "none"}</p>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[data-astro-image] {
+	width: 100%;
+	height: auto;
+	object-fit: var(--fit);
+	object-position: var(--pos);
+	aspect-ratio: var(--w) / var(--h);
+}
+/* Styles for responsive layout */
+[data-astro-image='responsive'] {
+	max-width: calc(var(--w) * 1px);
+	max-height: calc(var(--h) * 1px);
+}
+/* Styles for fixed layout */
+[data-astro-image='fixed'] {
+	width: calc(var(--w) * 1px);
+	height: calc(var(--h) * 1px);
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // Enable top-level await, and other modern ESM features.
+    "target": "ESNext",
+    "module": "ESNext",
+    // Enable module resolution without file extensions on relative paths, for things like npm package imports.
+    "moduleResolution": "Bundler",
+    // Allow importing TypeScript files using their native extension (.ts(x)).
+    "allowImportingTsExtensions": true,
+    // Enable JSON imports.
+    "resolveJsonModule": true,
+    // Enforce the usage of type-only imports when needed, which helps avoiding bundling issues.
+    "verbatimModuleSyntax": true,
+    // Ensure that each file can be transpiled without relying on other imports.
+    // This is redundant with the previous option, however it ensures that it's on even if someone disable `verbatimModuleSyntax`
+    "isolatedModules": true,
+    // Astro directly run TypeScript code, no transpilation needed.
+    "noEmit": true,
+    // Report an error when importing a file using a casing different from another import of the same file.
+    "forceConsistentCasingInFileNames": true,
+    // Properly support importing CJS modules in ESM
+    "esModuleInterop": true,
+    // Skip typechecking libraries and .d.ts files
+    "skipLibCheck": true,
+    // Allow JavaScript files to be imported
+    "allowJs": true,
+    // Allow JSX files (or files that are internally considered JSX, like Astro files) to be imported inside `.js` and `.ts` files.
+    "jsx": "preserve"
+  },
+  "exclude": ["${configDir}/dist"],
+  "include": ["${configDir}/.astro/types.d.ts", "${configDir}/**/*"]
+}

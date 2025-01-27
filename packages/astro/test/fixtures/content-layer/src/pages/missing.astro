@@ -1,0 +1,14 @@
+---
+import { getEntry, render } from "astro:content"
+// Skipping the broken page in production so the build doesn't fail
+if(import.meta.env.PROD || import.meta.env.MODE === "production") {
+	return new Response(null, { status: 404 })
+}
+
+const entry = await getEntry("spacecraft", "missing")
+
+const { Content } = await render(entry)
+
+---
+
+<Content />

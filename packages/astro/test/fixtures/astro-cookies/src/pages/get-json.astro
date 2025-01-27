@@ -1,0 +1,17 @@
+---
+const cookie = Astro.cookies.get('prefs')!;
+const prefs = cookie.json();
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+		<h2>Preferences</h2>
+		<dl>
+			<dt>Dark/light mode</dt>
+			<dd>{ prefs.mode }</dd>
+		</dl>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+---
+import { Picture } from "astro:assets";
+import myImage from "../assets/penguin1.jpg";
+---
+
+<Picture src={myImage} width={Math.round(myImage.width / 2)} alt="A penguin" densities={[2]} formats={['avif', 'webp']} />

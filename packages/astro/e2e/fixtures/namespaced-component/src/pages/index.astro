@@ -1,0 +1,23 @@
+---
+import * as ns from '../components/PreactCounter.tsx';
+import { components } from '../components/PreactCounter.tsx';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	</head>
+	<body>
+		<main>
+			<ns.components.PreactCounter id="preact-counter-namespace" client:load>
+				<h1>preact (namespace import)</h1>
+			</ns.components.PreactCounter>
+
+      <components.PreactCounter id="preact-counter-named" client:load>
+				<h1>preact (named import)</h1>
+			</components.PreactCounter>
+		</main>
+	</body>
+</html>

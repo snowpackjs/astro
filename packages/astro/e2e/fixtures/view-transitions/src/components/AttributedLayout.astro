@@ -1,0 +1,17 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'html'> {}
+---
+<html {...Astro.props}>
+	<head>
+		<title>Testing</title>
+		<ClientRouter />
+	</head>
+	<body>
+		<main transition:animate="slide">
+			<slot />
+		</main>
+	</body>
+</html>

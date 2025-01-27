@@ -1,0 +1,20 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<p id="six">Page 6</p>
+	<a id="click-one" href="/one">test</a>
+	<div id="test">test content</div>
+	<script>
+		import { navigate } from "astro:transitions/client";
+
+		// this is to simulate client side use, will be triggered from test
+		window.addEventListener('jumpToTwo', ()=>navigate('/two'));
+
+		// this is a holder to pick up the router in additional tests
+		window.clientSideRouterForTestsParkedHere = navigate
+
+		// this is the direct use of the router in this page, redirecting to page one 
+		navigate('/one');
+	</script>
+</Layout>

@@ -1,0 +1,13 @@
+---
+const value = await Astro.session.get('value');
+---
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Hi</title>
+</head>
+
+<h1>Hi</h1>
+<p>{value}</p>
+<a href="/cart" style="font-size: 36px">🛒</a>
+</html>

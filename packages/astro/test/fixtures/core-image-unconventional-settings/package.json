@@ -1,0 +1,8 @@
+{
+  "name": "@test/core-image-unconventional-settings",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

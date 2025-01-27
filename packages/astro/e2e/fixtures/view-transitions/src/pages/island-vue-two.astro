@@ -1,0 +1,11 @@
+---
+import Layout from '../components/Layout.astro';
+import Counter from '../components/VueCounter.vue';
+export const prerender = false;
+
+---
+<Layout>
+	<p id="island-two">Page 2</p>
+	<a id="click-two" href="/island-vue-one">go to 1</a>
+	<Counter prefix="BB" client:load transition:persist transition:name="counter" />
+</Layout>

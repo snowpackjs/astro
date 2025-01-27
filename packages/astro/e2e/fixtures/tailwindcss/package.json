@@ -1,0 +1,12 @@
+{
+  "name": "@e2e/e2e-tailwindcss",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/tailwind": "workspace:*",
+    "astro": "workspace:*",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17"
+  }
+}

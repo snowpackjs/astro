@@ -1,0 +1,19 @@
+{
+  "name": "@performance/utils",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "keywords": [],
+  "author": "",
+  "license": "unlicensed",
+  "devDependencies": {
+    "astro": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "exports": {
+    ".": "./index.ts"
+  }
+}

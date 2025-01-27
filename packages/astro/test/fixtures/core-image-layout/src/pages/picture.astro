@@ -1,0 +1,63 @@
+---
+import { Picture } from "astro:assets";
+import myImage from "../assets/penguin.jpg";
+---
+
+<div id="picture-density-2-format">
+<Picture src={myImage} width={Math.floor(myImage.width / 2)} alt="A penguin" formats={['avif', 'webp']} />
+</div>
+
+
+<div id="picture-fallback">
+<Picture src={myImage} fallbackFormat="jpeg" alt="A penguin" />
+</div>
+
+<div id="picture-attributes">
+  <Picture src={myImage} fallbackFormat="jpeg" alt="A penguin" class="img-comp" pictureAttributes={{ class: 'picture-comp' }} />
+</div>
+
+<div id="picture-mime-types">
+  <Picture alt="A penguin" src={myImage} formats={['jpg', 'jpeg', 'png', 'avif', 'webp']} />
+</div>
+
+<div id="picture-constrained">
+  <Picture src={myImage} width={800} alt="A penguin" />
+</div>
+
+<div id="picture-small">
+  <Picture src={myImage} width={300} alt="A penguin" />
+</div>
+
+<div id="picture-both">
+  <Picture src={myImage} width={300} height={400} alt="A penguin" />
+</div>
+
+<div id="picture-fixed">
+  <Picture src={myImage} width={400} height={300} layout="fixed" alt="A penguin" />
+</div>
+
+<div id="picture-full-width">
+  <Picture src={myImage} layout="full-width" alt="A penguin" />
+</div>
+
+<div id="picture-style">
+	<Picture src={myImage} alt="a penguin" width={300} height={400} style="border: 2px red solid"/>
+</div>
+
+<div id="picture-style-object">
+	<Picture src={myImage} alt="a penguin" width={300} height={400} style={{
+		border: '2px red solid',
+	}}/>
+</div>
+
+
+<style>
+  .img-comp {
+    border: 5px solid blue;
+  }
+
+  .picture-comp {
+    border: 5px solid red;
+    display: inline-block;
+  }
+</style>

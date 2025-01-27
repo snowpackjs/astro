@@ -1,0 +1,17 @@
+---
+import { Markdown } from 'astro-remote'
+import Paragraph from '../components/P.astro';
+import Layout from '../layouts/One.astro';
+import '../styles/global.css'
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<Markdown
+      components={{
+				p: Paragraph,
+      }}>
+			**Removing p component fixes the problem**
+			</Markdown>
+	</main>
+</Layout>

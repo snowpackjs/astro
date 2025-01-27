@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import SmallCaps from '../../components/SmallCaps.astro';
+import Layout from '../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('posts');
+  return entries.map(entry => {
+    return { params: { post: entry.id }, props: { entry }};
+	});
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Layout title="">
+  <Content components={{ SmallCaps }} />
+</Layout>

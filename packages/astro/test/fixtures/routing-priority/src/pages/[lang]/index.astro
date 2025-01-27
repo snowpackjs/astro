@@ -1,0 +1,23 @@
+---
+export async function getStaticPaths() {
+		return [
+			{ params: { lang: 'de' } }, // always shadowed by /de/index.astro
+			{ params: { lang: 'en' } }
+		];
+	}
+---
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Routing</title>
+</head>
+
+<body>
+	<h1>[lang]/index.astro</h1>
+	<p>{Astro.params.lang}</p>
+</body>
+
+</html>

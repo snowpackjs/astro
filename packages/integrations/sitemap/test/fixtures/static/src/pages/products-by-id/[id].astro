@@ -1,0 +1,11 @@
+---
+export async function getStaticPaths() {
+    return [
+        { params: { id: '404' } },
+        { params: { id: '405' } },
+    ]
+}
+
+const { id } = Astro.params
+---
+<!DOCTYPE html><html> <head><title>Product #{id}</title></head> <body> <h1>Product #404</h1> <p>This is a product that just happens to have an ID of {id}. It is found!</p></body></html>

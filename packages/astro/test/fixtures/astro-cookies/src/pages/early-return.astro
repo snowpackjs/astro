@@ -1,0 +1,14 @@
+---
+const mode = Astro.cookies.get('prefs')!.json().mode;
+
+Astro.cookies.set('prefs', {
+	mode: mode === 'light' ? 'dark' : 'light'
+});
+
+return new Response(null, {
+	status: 302,
+	headers: {
+		'Location': '/prefs'
+	}
+})
+---

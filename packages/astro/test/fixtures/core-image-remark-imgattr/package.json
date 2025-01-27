@@ -1,0 +1,11 @@
+{
+  "name": "@test/core-image-remark-imgattr",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  },
+  "scripts": {
+    "dev": "astro dev"
+  }
+}

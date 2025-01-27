@@ -1,0 +1,58 @@
+---
+import Header from '../components/Header.astro';
+import Container from '../components/Container.astro';
+---
+
+<html lang="en">
+	<head>
+		<title>Online Store</title>
+		<style>
+			h1 {
+				font-size: 36px;
+			}
+		</style>
+
+		<script type="module" is:inline>
+			document.addEventListener('DOMContentLoaded', () => {
+				const form = document.querySelector('form');
+				if (!form) throw new Error('Form not found');
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+					const formData = new FormData(form);
+					const data = Object.fromEntries(formData);
+
+					fetch('/login.form.async', {
+						method: 'POST',
+						body: JSON.stringify(data),
+					})
+						.then((res) => res.json())
+						.then(() => {
+							const result = document.querySelector('#result');
+							if (result) {
+								result.innerHTML =
+									'Progressive login was successful! you will be redirected to the store in 3 seconds';
+								setTimeout(() => (location.href = '/'), 3000);
+							}
+						});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<Header />
+
+		<Container tag="main">
+			<h1>Login</h1>
+			<form action="/login.form" method="POST">
+				<label for="name">Name</label>
+				<input type="text" name="name" />
+
+				<label for="password">Password</label>
+				<input type="password" name="password" />
+
+				<input type="submit" value="Submit" />
+			</form>
+			<div id="result"></div>
+		</Container>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "name": "@astrojs/svelte",
+  "version": "7.0.4",
+  "description": "Use Svelte components within Astro",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/integrations/svelte"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "renderer",
+    "svelte"
+  ],
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/svelte/",
+  "exports": {
+    ".": "./dist/index.js",
+    "./editor": "./dist/editor.cjs",
+    "./*": "./*",
+    "./client.js": "./client.svelte.js",
+    "./server.js": "./server.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "client.svelte.js",
+    "server.js",
+    "server.d.ts"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/index.ts\" && astro-scripts build \"src/editor.cts\" --force-cjs --no-clean-dist && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\" && astro-scripts build \"src/editor.cts\" --force-cjs --no-clean-dist",
+    "dev": "astro-scripts dev \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "svelte2tsx": "^0.7.34",
+    "vite": "^6.0.9"
+  },
+  "devDependencies": {
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*",
+    "svelte": "^5.19.0"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0",
+    "svelte": "^5.1.16",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=22.0.0"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

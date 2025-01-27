@@ -1,0 +1,20 @@
+---
+import { parse } from 'node:path';
+const components = await Astro.glob('../components/*.mdx');
+---
+
+<div data-default-export>
+	{components.map(Component => (
+		<div data-file={parse(Component.file).base}>
+			<Component.default />
+		</div>
+	))}
+</div>
+
+<div data-content-export>
+	{components.map(({ Content, file }) => (
+		<div data-file={parse(file).base}>
+			<Content />
+		</div>
+	))}
+</div>

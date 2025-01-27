@@ -1,0 +1,9 @@
+{
+  "name": "@test/build-assets",
+  "private": true,
+  "dependencies": {
+    "@astrojs/preact": "workspace:*",
+    "astro": "workspace:*",
+    "preact": "^10.25.4"
+  }
+}

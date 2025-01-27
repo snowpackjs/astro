@@ -1,0 +1,11 @@
+{
+  "name": "@test/aliases-tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/svelte": "workspace:*",
+    "@test/namespace-package": "workspace:*",
+    "astro": "workspace:*",
+    "svelte": "^5.19.0"
+  }
+}

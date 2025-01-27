@@ -1,0 +1,34 @@
+---
+// Component Imports
+import Demo from '../components/One.jsx';
+import WithSlot from '../components/WithSlot.astro';
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/basics/astro-components/
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<style>
+			html,
+			body {
+				font-family: system-ui;
+				margin: 0;
+			}
+			body {
+				padding: 2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<WithSlot> 
+				{(foo) => <Demo client:load />}
+			</WithSlot>
+		</main>
+	</body>
+</html>

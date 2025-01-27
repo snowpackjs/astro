@@ -1,0 +1,13 @@
+---
+const runtime = Astro.locals.runtime
+---
+<html lang="en">
+<head>
+  <title>Not Found - Custom 404</title>
+</head>
+<body>
+  <h1>Page not found</h1>
+	<p class="message">This 404 is a dynamic HTML file.</p>
+  <p class="runtime">{runtime}</p>
+</body>
+</html>

@@ -1,0 +1,47 @@
+name: Issue Labeled
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  reply-labeled:
+    if: github.repository == 'withastro/astro'
+    runs-on: ubuntu-latest
+    steps:
+      - name: remove triage
+        if: contains(github.event.label.description, '(priority)') && contains(github.event.issue.labels.*.name, 'needs triage')
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "remove-labels"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: "needs triage"
+
+      - name: needs repro
+        if: github.event.label.name == 'needs repro'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment, remove-labels"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hello @${{ github.event.issue.user.login }}. Please provide a [minimal reproduction](https://stackoverflow.com/help/minimal-reproducible-example) using a GitHub repository or [StackBlitz](https://astro.new/repro). Issues marked with `needs repro` will be closed if they have no activity within 3 days.
+          labels: "needs triage"
+      - name: wontfix
+        if: github.event.label.name == 'wontfix'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment, close-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hello! 
+
+            This is an automated message to let you know that we've triaged this issue and unfortunately, we will be closing it as "not planned".
+
+            We sometimes have to close good ideas (even great ones!) because our limited resources simply do not allow us to pursue all possible features and improvements, and when fixing bugs we have to balance the impact of the bug against the effort required for the fix. Before closing this we considered several factors such as the amount of work involved, the severity of the problem, the number of people affected, whether a workaround is available, and the ongoing cost of maintenance.
+
+            If you're seeing this message and believe you can contribute to this issue, please consider submitting a PR yourself. Astro encourages [community contributions](https://docs.astro.build/en/contribute/)!
+
+            If you have more questions, come and say hi in the [Astro Discord](https://astro.build/chat).

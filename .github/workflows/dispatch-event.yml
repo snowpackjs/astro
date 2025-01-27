@@ -1,0 +1,62 @@
+name: Dispatch event
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - '!**'
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+env:
+  ASTRO_ADAPTERS_REPO: withastro/adapters
+  ASTRO_STARLIGHT_REPO: withastro/starlight
+  ASTRO_PUSH_MAIN_EVENT: astro-push-main-event
+    
+jobs:
+  repository-dispatch:
+    name: Repository dispatch
+    if: github.repository_owner == 'withastro'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch event on push - adapters
+        if: ${{ github.event_name == 'push' }}
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3
+        with:
+          token: ${{ secrets.ASTRO_REPOSITORY_DISPATCH }}
+          repository: ${{ env.ASTRO_ADAPTERS_REPO }}
+          event-type: ${{ env.ASTRO_PUSH_MAIN_EVENT }}
+          client-payload: '{"event": ${{ toJson(github.event) }}}'
+      - name: Dispatch event on push - starlight
+        if: ${{ github.event_name == 'push' }}
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3
+        with:
+          token: ${{ secrets.ASTRO_REPOSITORY_DISPATCH }}
+          repository: ${{ env.ASTRO_STARLIGHT_REPO }}
+          event-type: ${{ env.ASTRO_PUSH_MAIN_EVENT }}
+          client-payload: '{"event": ${{ toJson(github.event) }}}'
+      # For testing only, the payload is mocked
+      - name: Dispatch event on workflow dispatch - adapters
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3
+        with:
+          token: ${{ secrets.ASTRO_REPOSITORY_DISPATCH }}
+          repository: ${{ env.ASTRO_ADAPTERS_REPO }}
+          event-type: ${{ env.ASTRO_PUSH_MAIN_EVENT }}
+          client-payload: '{"event": {"head_commit": {"id": "${{ env.GITHUB_SHA }}"}}}'
+      - name: Dispatch event on workflow dispatch - starlight
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3
+        with:
+          token: ${{ secrets.ASTRO_REPOSITORY_DISPATCH }}
+          repository: ${{ env.ASTRO_STARLIGHT_REPO }}
+          event-type: ${{ env.ASTRO_PUSH_MAIN_EVENT }}
+          client-payload: '{"event": {"head_commit": {"id": "${{ env.GITHUB_SHA }}"}}}'          

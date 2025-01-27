@@ -1,0 +1,36 @@
+---
+import Alias from '@components/Alias.svelte';
+import Client from '@components/Client.svelte'
+import '@styles/main.css';
+import { namespace } from '@test/namespace-package'
+import Foo from 'src/components/Foo.astro';
+import Bar from "@short/Bar"
+import Baz from "@short/Baz"
+import StyleComp from 'src/components/Style.astro';
+import { foo, index } from 'src/utils/constants';
+
+const globResult = Object.keys(import.meta.glob('@components/glob/*.js')).join(', ')
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Aliases using tsconfig</title>
+  </head>
+  <body>
+    <main>
+      <Client client:load />
+      <Foo />
+			<Bar />
+      <Baz />
+      <StyleComp />
+      <Alias client:load />
+      <p id="namespace">{namespace}</p>
+      <p id="constants-foo">{foo}</p>
+      <p id="constants-index">{index}</p>
+      <p id="style-red">style-red</p>
+      <p id="style-blue">style-blue</p>
+      <p id="glob">{globResult}</p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+---
+const locale = Astro.preferredLocale;
+const localeList = Astro.preferredLocaleList;
+---
+
+<html>
+<head>
+	<title>Astro</title>
+</head>
+<body>
+	Locale: {locale ? locale : "none"}
+</body>
+</html>

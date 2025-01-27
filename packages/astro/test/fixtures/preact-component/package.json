@@ -1,0 +1,11 @@
+{
+  "name": "@test/preact-component",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/preact": "workspace:*",
+    "@preact/signals": "2.0.1",
+    "astro": "workspace:*",
+    "preact": "^10.25.4"
+  }
+}

@@ -1,0 +1,23 @@
+---
+import {Code} from 'astro:components';
+import riGrammar from '../assets/ri.tmLanguage.json'
+import serendipity from '../assets/serendipity-morning.json'
+
+const rinfo = {
+	id: 'rinfo',
+	scopeName: 'source.rinfo',
+	grammar: riGrammar,
+	aliases: ['ri'],
+}
+---
+<html>
+<head><title>Code component</title></head>
+<body>
+	<section id="theme">
+  	<Code code="console.log('Hello, World!')" lang="js" theme={serendipity} />
+	</section>
+	<section id="lang">
+  	<Code code="programa Rinfo" lang={rinfo} />
+	</section>
+</body>
+</html>

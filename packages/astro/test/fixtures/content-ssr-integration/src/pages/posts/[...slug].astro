@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+
+const { slug } = Astro.params;
+const posts = await getCollection('blog');
+const post = posts.find((post) => post.slug === slug);
+if (!post) {
+	throw new Error(`Not found: ${slug}`);
+}
+const { Content } = await post.render();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{post.data.title}</title>
+    <style>
+      html,
+      body {
+        font-family: system-ui;
+        margin: 0;
+      }
+      body {
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>{post.data.title}</h1>
+		<Content />
+  </body>
+</html>

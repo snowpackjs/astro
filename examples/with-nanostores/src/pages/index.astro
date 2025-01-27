@@ -1,0 +1,50 @@
+---
+import type { CartItemDisplayInfo } from '../cartStore';
+import Layout from '../layouts/Layout.astro';
+import AddToCartForm from '../components/AddToCartForm';
+import FigurineDescription from '../components/FigurineDescription.astro';
+import { withBase } from '../utils';
+
+const item: CartItemDisplayInfo = {
+	id: 'astronaut-figurine',
+	name: 'Astronaut Figurine',
+	imageSrc: withBase('/images/astronaut-figurine.png'),
+};
+---
+
+<Layout title={item.name}>
+	<main>
+		<div class="product-layout">
+			<div>
+				<FigurineDescription />
+				<AddToCartForm item={item} client:load>
+					<button type="submit">Add to cart</button>
+				</AddToCartForm>
+			</div>
+			<img src={item.imageSrc} alt={item.name} />
+		</div>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1em;
+		max-width: var(--content-max-width);
+	}
+
+	.product-layout {
+		display: grid;
+		gap: 2rem;
+		grid-template-columns: repeat(auto-fit, minmax(20rem, max-content));
+	}
+
+	.product-layout img {
+		width: 100%;
+		max-width: 26rem;
+	}
+
+	button[type='submit'] {
+		margin-block-start: 1rem;
+	}
+</style>

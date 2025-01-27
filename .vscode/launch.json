@@ -1,0 +1,29 @@
+// A launch configuration that compiles the extension and then opens it inside a new window
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Client",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceRoot}/tools/vscode"],
+      "outFiles": ["${workspaceRoot}/tools/vscode/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Server",
+      "port": 6040,
+      "restart": true,
+      "outFiles": ["${workspaceRoot}/tools/languageserver/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Extension",
+      "configurations": ["Launch Client", "Attach to Server"]
+    }
+  ]
+}

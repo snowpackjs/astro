@@ -1,0 +1,45 @@
+---
+import Header from '../../components/Header.astro';
+import Container from '../../components/Container.astro';
+import AddToCart from '../../components/AddToCart.svelte';
+import { getProduct } from '../../api';
+import '../../styles/common.css';
+
+const id = Number(Astro.params.id);
+const product = await getProduct(Astro.request, id);
+---
+
+<html lang="en">
+	<head>
+		<title>{product.name} | Online Store</title>
+		<style>
+			h2 {
+				text-align: center;
+				font-size: 3.5rem;
+			}
+
+			figure {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+			}
+
+			img {
+				width: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+
+		<Container tag="article">
+			<h2>{product.name}</h2>
+			<figure>
+				<img src={product.image} />
+				<figcaption>
+					<AddToCart client:idle id={id} name={product.name} />
+					<p>Description here...</p>
+				</figcaption>
+			</figure>
+		</Container>
+	</body>
+</html>

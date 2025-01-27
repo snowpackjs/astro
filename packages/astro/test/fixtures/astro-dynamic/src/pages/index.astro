@@ -1,0 +1,13 @@
+---
+import Counter from '../components/Counter.jsx';
+import SvelteCounter from '../components/SvelteCounter.svelte';
+---
+<html>
+<head><title>Dynamic pages</title></head>
+<body>
+  <Counter client:load />
+
+  <!-- Including the original hydration syntax to test backwards compatibility -->
+  <SvelteCounter client:load />
+</body>
+</html>

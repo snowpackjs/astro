@@ -1,0 +1,13 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout link="/two.css">
+	<p id="two">Page 2</p>
+	<article id="twoarticle"></article>
+	<a id="click-longpage" data-astro-history="replace" href="/long-page">go to long page</a>
+</Layout>
+<script>
+	document.addEventListener('astro:page-load', () => {
+		document.getElementById('twoarticle')!.textContent = 'works';
+	}, { once: true });
+</script>

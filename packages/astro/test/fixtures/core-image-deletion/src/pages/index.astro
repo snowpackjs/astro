@@ -1,0 +1,15 @@
+---
+import { Image } from "astro:assets";
+import onlyOne from "../assets/onlyone.jpg";
+import twoOfUs from "../assets/twoofus.jpg";
+import twoFromURL from "../assets/url.jpg";
+import twoFromURL_URL from "../assets/url.jpg?url";
+---
+
+<Image src={onlyOne} alt="Only one of me exists at the end of the build" />
+
+<Image src={twoOfUs} alt="Two of us will exist, because I'm also used as a normal image" />
+<img src={twoOfUs.src} alt="Two of us will exist, because I'm also used as a normal image" />
+
+<Image src={twoFromURL} alt="Two of us will exist, because I'm also imported using ?url" />
+<img src={twoFromURL_URL} alt="Two of us will exist, because I'm also used as a normal image" />

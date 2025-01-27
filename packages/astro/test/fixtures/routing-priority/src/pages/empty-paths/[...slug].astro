@@ -1,0 +1,18 @@
+---
+export function getStaticPaths() {
+	return []
+}
+const { slug } = Astro.params
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{slug}</title>
+	</head>
+	<body>
+		<h1>empty-paths/[...slug].astro</h1>
+		<p>slug: {slug}</p>
+	</body>
+</html>

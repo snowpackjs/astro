@@ -1,0 +1,34 @@
+---
+export const getStaticPaths = async () => {
+	const content = await Astro.glob('../content/*.mdx');
+
+	return content
+    .filter((page) => !page.frontmatter.draft) // skip drafts
+    .map(({ default: MdxContent, frontmatter, url, file }) => {
+        return {
+          params: { slug: frontmatter.slug || "index" },
+          props: {
+            MdxContent,
+						file,
+            frontmatter,
+						url
+          }
+        }
+     })
+}
+
+const { MdxContent, frontmatter, url, file } = Astro.props;
+---
+
+<html>
+	<head>
+		<title>Page</title>
+	</head>
+	<body>
+		<MdxContent />
+
+		<div id="one">{frontmatter.one}</div>
+		<div id="url">{url}</div>
+		<div id="file">{file}</div>
+	</body>
+</html>

@@ -1,0 +1,26 @@
+name: Add continuous release label
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  label:
+    if: ${{ github.repository_owner == 'withastro' && startsWith(github.event.comment.body, '!preview') }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if user has write access
+        uses: lannonbr/repo-permission-check-action@2.0.2
+        with:
+          permission: write
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          gh issue edit ${{ github.event.issue.number }} --add-label "pr: preview" --repo ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

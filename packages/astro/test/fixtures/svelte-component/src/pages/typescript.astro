@@ -1,0 +1,30 @@
+---
+import TypeScript from '../components/TypeScript.svelte'
+
+// Using a custom extension to verify svelte options
+// in astro.config.mjs are passed properly to the svelte integration
+import Custom from '../components/Custom.sve'
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Svelte TypeScript</title>
+    <style>
+      html,
+      body {
+        font-family: system-ui;
+        margin: 0;
+      }
+      body {
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <TypeScript message="Hello, TypeScript" client:load />
+      <Custom message="Hello, Custom Extensions" client:idle />
+    </main>
+  </body>
+</html>

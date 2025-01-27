@@ -1,0 +1,19 @@
+---
+import { HelloWorld } from '../components/HelloWorld';
+---
+
+<div style="position: absolute; left: 0; top: 0;">
+	<HelloWorld name={"Left top"} client:load />
+</div>
+
+<div style="position: absolute; right: 0; top: 0;">
+	<HelloWorld name={"Right top"} client:load />
+</div>
+
+<div style="position: absolute; left: 0; bottom: 0;">
+	<HelloWorld name={"Left bottom"} client:load />
+</div>
+
+<div style="position: absolute; right: 0; bottom: 0;">
+	<HelloWorld name={"Right bottom"} client:load />
+</div>

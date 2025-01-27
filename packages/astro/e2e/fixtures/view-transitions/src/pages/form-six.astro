@@ -1,0 +1,11 @@
+---
+import Layout from '../components/Layout.astro';
+
+---
+<Layout>
+	<form method="POST" action="bar">
+		<p>This form has an input with `name=action`</p>
+		<input type="text" name="action" value="foo" />
+		<button id="submit">Submit</button>
+	</form>
+</Layout>

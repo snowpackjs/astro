@@ -1,0 +1,16 @@
+# Automatically labels PRs based on the configuration file
+# you are probably looking for 👉 `.github/labeler.yml`
+name: Label PRs
+
+on:
+  - pull_request_target
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'withastro'
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        sync-labels: true

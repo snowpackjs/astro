@@ -1,0 +1,9 @@
+---
+import { TITLE } from 'astro:env/client';
+---
+
+<div id="env-mode">{import.meta.env.MODE}</div>
+<div id="env-dev">{import.meta.env.DEV.toString()}</div>
+<div id="env-prod">{import.meta.env.PROD.toString()}</div>
+<div id="env-title">{import.meta.env.TITLE}</div>
+<div id="env-astro-title">{TITLE}</div>

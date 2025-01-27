@@ -1,0 +1,24 @@
+---
+import {
+	AsyncErrorInErrorBoundary,
+	SyncErrorInErrorBoundary,
+	// AsyncErrorComponent,
+	// SyncErrorComponent,
+} from '../components/async-components.jsx';
+---
+
+<html>
+	<head><title>Solid</title></head>
+	<body>
+		<div>
+			<!-- Async errors should be caught by ErrorBoundary -->
+			<AsyncErrorInErrorBoundary />
+			<!-- Sync errors should be caught by ErrorBoundary -->
+			<SyncErrorInErrorBoundary />
+
+			<!-- Error not wrapped in ErrorBoundary should bubble up to Astro renderToStaticMarkup() function. -->
+			<!-- <AsyncErrorComponent /> -->
+			<!-- <SyncErrorComponent /> -->
+		</div>
+	</body>
+</html>

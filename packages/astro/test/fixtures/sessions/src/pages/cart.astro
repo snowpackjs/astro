@@ -1,0 +1,24 @@
+---
+import { actions } from "astro:actions";
+
+const result = Astro.getActionResult(actions.addToCart);
+
+const cart = result?.data?.cart ?? await Astro.session.get('cart');
+const message = result?.data?.message ?? 'Add something to your cart!';
+---
+<p>Cart: <span id="cart">{JSON.stringify(cart)}</span></p>
+<p id="message">{message}</p>
+<form action={actions.addToCart} method="POST">
+	<input type="text" name="productId" value="shoe" />
+	<button type="submit">Add to Cart</button>
+</form>
+<input type="button" value="Clear Cart" id="clearCart" />
+<script>
+	import { actions } from "astro:actions";
+	async function clearCart() {
+		const result = await actions.clearCart({});
+		document.getElementById('cart').textContent = JSON.stringify(result.data.cart);
+		document.getElementById('message').textContent = result.data.message;
+	}
+	document.getElementById('clearCart').addEventListener('click', clearCart);
+</script>

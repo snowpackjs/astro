@@ -1,0 +1,10 @@
+{
+  "name": "@test/content-intellisense",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/mdx": "workspace:*",
+    "@astrojs/markdoc": "workspace:*"
+  }
+}
