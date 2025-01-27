@@ -45,7 +45,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vue/compiler-sfc": "^3.5.13",
-    "vite": "^6.0.9",
+    "vite": "^6.0.11",
     "vite-plugin-vue-devtools": "^7.7.0"
   },
   "devDependencies": {

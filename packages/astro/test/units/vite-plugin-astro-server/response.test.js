@@ -22,12 +22,12 @@ const fileSystem = {
 	}`,
 	'/src/pages/streaming.js': `export const GET = ({ locals }) => {
 		let sentChunks = 0;
-		
+
 		const readableStream = new ReadableStream({
 			async pull(controller) {
 				if (sentChunks === 3) return controller.close();
 				else sentChunks++;
-	
+
 				await new Promise(resolve => setTimeout(resolve, 1000));
 				controller.enqueue(new TextEncoder().encode('hello'));
 			},
@@ -35,7 +35,7 @@ const fileSystem = {
 				locals.cancelledByTheServer = true;
 			}
 		});
-	
+
 		return new Response(readableStream, {
 			headers: {
 				"Content-Type": "text/event-stream"
@@ -77,6 +77,7 @@ describe('endpoints', () => {
 			'x-single': 'single',
 			'x-triple': 'one, two, three',
 			'set-cookie': ['hello', 'world'],
+			vary: 'Origin',
 		});
 	});
 

@@ -168,7 +168,7 @@
     "unist-util-visit": "^5.0.0",
     "unstorage": "^1.14.4",
     "vfile": "^6.0.3",
-    "vite": "^6.0.9",
+    "vite": "^6.0.11",
     "vitefu": "^1.0.5",
     "which-pm": "^3.0.0",
     "xxhash-wasm": "^1.1.0",
