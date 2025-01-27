@@ -161,7 +161,7 @@
     "prompts": "^2.4.2",
     "rehype": "^13.0.2",
     "semver": "^7.6.3",
-    "shiki": "^1.29.1",
+    "shiki": "^2.1.0",
     "tinyexec": "^0.3.2",
     "tsconfck": "^3.1.4",
     "ultrahtml": "^1.5.3",

@@ -45,7 +45,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "remark-smartypants": "^3.0.2",
-    "shiki": "^1.29.1",
+    "shiki": "^2.1.0",
     "unified": "^11.0.5",
     "unist-util-remove-position": "^5.0.0",
     "unist-util-visit": "^5.0.0",
