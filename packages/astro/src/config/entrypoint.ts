@@ -5,6 +5,7 @@ import type { ImageServiceConfig } from '../types/public/index.js';
 
 export { defineConfig, getViteConfig } from './index.js';
 export { envField } from '../env/config.js';
+export { fontProviders } from '../assets/fonts/providers.js';
 
 /**
  * Return the configuration needed to use the Sharp-based image service
