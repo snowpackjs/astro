@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      // this can really trip up namespaced packages
+      "@*": [
+        "./src/*"
+      ],
+      // this approximates the functionality you get with a baseUrl set
+      "src/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}
