@@ -1,0 +1,59 @@
+---
+import type { IComment } from '../types.js';
+import For from './For.astro';
+import Show from './Show.astro';
+import Toggle from './Toggle.astro';
+
+interface Props {
+	comment: IComment;
+}
+
+const { comment } = Astro.props;
+---
+
+<li>
+	<div class="by">
+		<a href={`/users/${comment.user}`}>{comment.user}</a>{' '}
+		{comment.time_ago}
+	</div>
+	<div class="text" set:html={comment.content} />
+	<Show when={comment.comments.length}>
+		<Toggle open>
+			<For each={comment.comments}>{(comment: IComment) => <Astro.self comment={comment} />}</For>
+		</Toggle>
+	</Show>
+</li>
+
+<style>
+	li {
+		border-top: 1px solid #eee;
+		position: relative;
+	}
+
+	.by,
+	.text {
+		font-size: 0.9em;
+		margin: 1em 0;
+	}
+
+	.by {
+		color: rgb(51 65 85);
+	}
+
+	.by a {
+		color: rgb(51 65 85);
+		text-decoration: underline;
+	}
+
+	.text {
+		overflow-wrap: break-word;
+	}
+
+	.text :global(a:hover) {
+		color: #335d92;
+	}
+
+	.text :global(pre) {
+		white-space: pre-wrap;
+	}
+</style>

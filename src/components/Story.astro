@@ -1,0 +1,77 @@
+---
+import type { IStory } from '../types.js';
+import Show from './Show.astro';
+
+interface Props {
+	story: IStory;
+}
+
+const { story } = Astro.props;
+---
+
+<li>
+	<span class="score">{story.points}</span>
+	<span class="title">
+		<Show when={story.url}>
+			<a href={story.url} target="_blank" rel="noreferrer">
+				{story.title}
+			</a>
+			<span class="host"> ({story.domain})</span>
+			<a slot="fallback" href={`/item/${story.id}`}>{story.title}</a>
+		</Show>
+	</span>
+	<br />
+	<span class="meta">
+		<Show when={story.type !== 'job'}>
+			by <a href={`/users/${story.user}`}>{story.user}</a>{' '}
+			{story.time_ago}{' '}|{' '}
+			<a href={`/stories/${story.id}`}>
+				{story.comments_count ? `${story.comments_count} comments` : 'discuss'}
+			</a>
+			<a slot="fallback" href={`/stories/${story.id}`}>{story.time_ago}</a>
+		</Show>
+	</span>
+	<Show when={story.type !== 'link'}>
+		&nbsp;
+		<span class="label">{story.type}</span>
+	</Show>
+</li>
+
+<style>
+	li {
+		background-color: rgb(248 250 252);
+		padding: 20px 30px 20px 80px;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		line-height: 20px;
+	}
+
+	.score {
+		color: rgb(88 28 135);
+		font-size: 1.1em;
+		font-weight: 700;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 80px;
+		text-align: center;
+		margin-top: -10px;
+	}
+
+	.host,
+	.meta {
+		font-size: 0.85em;
+		color: rgb(51 65 85);
+	}
+
+	.host a,
+	.meta a {
+		color: rgb(51 65 85);
+		text-decoration: underline;
+	}
+
+	.host a:hover,
+	.meta a:hover {
+		color: #335d92;
+	}
+</style>
