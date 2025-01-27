@@ -1,0 +1,63 @@
+@use 'sass:map';
+
+@function color($color, $tone) {
+	// @warn map.get($palette,$color);
+
+	@if map.has-key($palette, $color) {
+		$color: map.get($palette, $color);
+
+		@if map.has-key($color, $tone) {
+			$tone: map.get($color, $tone);
+			@return $tone;
+		}
+
+		@warn "unknown tone `#{$tone}` in color";
+		@return null;
+	}
+
+	@warn "unknown color `#{$color}` in palette";
+	@return null;
+}
+
+$white: #ffffff;
+$palette: (
+	purple: (
+		50: #f2e8fd,
+		100: #e6d1fa,
+		200: #cfa3f5,
+		300: #ba75f0,
+		400: #a846ec,
+		500: #9818e7,
+		600: #7b13b4,
+		700: #5b0e81,
+		800: #3a084e,
+		900: #15031c,
+		950: #020002,
+	),
+	orange: (
+		50: #fbf0ea,
+		100: #f8e3d9,
+		200: #f2cab7,
+		300: #ecb194,
+		400: #e59872,
+		500: #df7f4f,
+		600: #d05f26,
+		700: #a1491d,
+		800: #713315,
+		900: #421e0c,
+		950: #2a1308,
+	),
+	gray: (
+		50: #f6f6f9,
+		100: #e6e7ef,
+		200: #c7c9db,
+		300: #a8abc7,
+		400: #898eb4,
+		500: #6a71a0,
+		600: #545b83,
+		700: #404664,
+		800: #2c3145,
+		900: #181b26,
+		950: #0e1016,
+	),
+);
