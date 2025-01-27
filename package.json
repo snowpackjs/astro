@@ -1,0 +1,22 @@
+{
+  "name": "@example/with-tailwindcss",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.7",
+    "@astrojs/tailwind": "^5.1.5",
+    "@types/canvas-confetti": "^1.9.0",
+    "astro": "^5.1.10",
+    "autoprefixer": "^10.4.20",
+    "canvas-confetti": "^1.9.3",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17"
+  }
+}
