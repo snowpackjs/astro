@@ -87,8 +87,9 @@ export function renderServerIsland(
 
 			const hostId = crypto.randomUUID();
 
-			const slash = result.base.endsWith('/') ? '' : '/';
-			let serverIslandUrl = `${result.base}${slash}_server-islands/${componentId}${result.trailingSlash === 'always' ? '/' : ''}`;
+			const _base = result.serverIslandDynamicBase ?? result.base;
+			const slash = _base.endsWith('/') ? '' : '/';
+			let serverIslandUrl = `${_base}${slash}_server-islands/${componentId}${result.trailingSlash === 'always' ? '/' : ''}`;
 
 			// Determine if its safe to use a GET request
 			const potentialSearchParams = createSearchParams(

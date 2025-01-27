@@ -214,6 +214,11 @@ export interface SSRResult {
 	 */
 	cancelled: boolean;
 	base: string;
+	// serverIslandDynamicBase allows users to specify that server islands will be served from a separate domain.
+	// This is an advanced option and won't be used in most cases. This should only be used if the static assets and
+	// SSR server are served on separate domains.
+	// If this is not set, it will use `base` instead.
+	serverIslandDynamicBase?: string;
 	styles: Set<SSRElement>;
 	scripts: Set<SSRElement>;
 	links: Set<SSRElement>;

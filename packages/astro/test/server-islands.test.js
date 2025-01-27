@@ -178,6 +178,61 @@ describe('Server islands', () => {
 		});
 	});
 
+	describe('SSR (change base URL)', () => {
+		/** @type {import('./test-utils').Fixture} */
+		let fixture;
+		before(async () => {
+			fixture = await loadFixture({
+				root: './fixtures/server-islands/ssr',
+				adapter: testAdapter(),
+				integrations: [
+					{
+						name: 'change-base-url',
+						hooks: {
+							'astro:config:setup': async ({ updateConfig, command }) => {
+								if (command === 'build') {
+									updateConfig({
+										serverIslandDynamicBase: 'https://api.example.com',
+									});
+								}
+							},
+						},
+					},
+				],
+			});
+		});
+
+		describe('prod', () => {
+			before(async () => {
+				process.env.ASTRO_KEY = 'eKBaVEuI7YjfanEXHuJe/pwZKKt3LkAHeMxvTU7aR0M=';
+				await fixture.build();
+			});
+
+			after(async () => {
+				delete process.env.ASTRO_KEY;
+			});
+
+			it('server island script has base URL', async () => {
+				const app = await fixture.loadTestAdapterApp();
+				const request = new Request('http://example.com/');
+				const response = await app.render(request);
+				const html = await response.text();
+
+				const $ = cheerio.load(html);
+				const serverIslandEl = $('h2#island');
+				assert.equal(serverIslandEl.length, 0);
+
+				const serverIslandScript = $('script[data-island-id]');
+				assert.equal(serverIslandScript.length, 1, 'has the island script');
+
+				assert.match(
+					serverIslandScript.text(),
+					/await fetch\('https:\/\/api.example.com\/_server-islands\//i,
+				);
+			});
+		});
+	});
+
 	describe('Hybrid mode', () => {
 		/** @type {import('./test-utils').Fixture} */
 		let fixture;
@@ -216,6 +271,54 @@ describe('Server islands', () => {
 				} catch (err) {
 					assert.equal(err.title, 'Cannot use Server Islands without an adapter.');
 				}
+			});
+		});
+	});
+
+	describe('Hybrid mode (change base URL)', () => {
+		/** @type {import('./test-utils').Fixture} */
+		let fixture;
+		before(async () => {
+			fixture = await loadFixture({
+				root: './fixtures/server-islands/hybrid',
+				integrations: [
+					{
+						name: 'change-base-url',
+						hooks: {
+							'astro:config:setup': async ({ updateConfig, command }) => {
+								if (command === 'build') {
+									updateConfig({
+										serverIslandDynamicBase: 'https://api.example.com',
+									});
+								}
+							},
+						},
+					},
+				],
+			});
+		});
+
+		describe('build', () => {
+			before(async () => {
+				await fixture.build({
+					adapter: testAdapter(),
+				});
+			});
+
+			it('Omits the island HTML from the static HTML', async () => {
+				let html = await fixture.readFile('/client/index.html');
+
+				const $ = cheerio.load(html);
+				const serverIslandEl = $('h2#island');
+				assert.equal(serverIslandEl.length, 0);
+
+				const serverIslandScript = $('script[data-island-id]');
+				assert.equal(serverIslandScript.length, 1, 'has the island script');
+
+				assert.match(
+					serverIslandScript.text(),
+					/await fetch\('https:\/\/api.example.com\/_server-islands\//i,
+				);
 			});
 		});
 	});

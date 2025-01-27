@@ -283,6 +283,7 @@ function buildManifest(
 		routes,
 		site: settings.config.site,
 		base: settings.config.base,
+		serverIslandDynamicBase: settings.config.serverIslandDynamicBase,
 		trailingSlash: settings.config.trailingSlash,
 		compressHTML: settings.config.compressHTML,
 		assetsPrefix: settings.config.build.assetsPrefix,
