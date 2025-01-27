@@ -1,0 +1,48 @@
+---
+// Style Imports
+import '../styles/global.css';
+
+// Component Imports
+// For JSX components, all the common ways of exporting (under a namespace, specific export, default export etc) are supported!
+import * as react from '../components/react/ReactCounter';
+import { PreactCounter } from '../components/preact/PreactCounter';
+import SolidCounter from '../components/solid/SolidCounter';
+
+import VueCounter from '../components/vue/VueCounter.vue';
+import SvelteCounter from '../components/svelte/SvelteCounter.svelte';
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/basics/astro-components/
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	</head>
+	<body>
+		<main>
+			<react.Counter client:visible>
+				<h1>Hello from React!</h1>
+			</react.Counter>
+
+			<PreactCounter client:visible>
+				<h1>Hello from Preact!</h1>
+			</PreactCounter>
+
+			<SolidCounter client:visible>
+				<h1>Hello from Solid!</h1>
+			</SolidCounter>
+
+			<VueCounter client:visible>
+				<h1>Hello from Vue!</h1>
+			</VueCounter>
+
+			<SvelteCounter client:visible>
+				<h1>Hello from Svelte!</h1>
+			</SvelteCounter>
+		</main>
+	</body>
+</html>
