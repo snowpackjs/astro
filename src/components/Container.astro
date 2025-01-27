@@ -1,0 +1,13 @@
+---
+const { tag = 'div' } = Astro.props;
+const Tag = tag;
+---
+
+<style>
+	.container {
+		width: 1248px; /** TODO: responsive */
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
+<Tag class="container"><slot /></Tag>

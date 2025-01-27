@@ -1,0 +1,70 @@
+---
+import type { Product } from '../api';
+
+interface Props {
+	products: Product[];
+}
+
+const { products } = Astro.props;
+---
+
+<style>
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+	}
+
+	figure {
+		width: 200px;
+		padding: 7px;
+		border: 1px solid black;
+		display: flex;
+		flex-direction: column;
+	}
+
+	figure figcaption {
+		text-align: center;
+		line-height: 1.6;
+	}
+
+	figure img {
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
+	}
+
+	.product a {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.name {
+		font-weight: 500;
+	}
+
+	.price {
+		font-size: 90%;
+		color: #787878;
+	}
+</style>
+<slot name="title" />
+<ul>
+	{
+		products.map((product) => (
+			<li class="product">
+				<a href={`/products/${product.id}`}>
+					<figure>
+						<img src={product.image} />
+						<figcaption>
+							<div class="name">{product.name}</div>
+							<div class="price">${product.price}</div>
+						</figcaption>
+					</figure>
+				</a>
+			</li>
+		))
+	}
+</ul>

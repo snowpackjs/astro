@@ -1,0 +1,51 @@
+---
+import Header from '../components/Header.astro';
+import Container from '../components/Container.astro';
+import { getCart } from '../api';
+
+if (!Astro.cookies.get('user-id')) {
+	return Astro.redirect('/');
+}
+
+// They must be logged in.
+
+const user = { name: 'test' }; // getUser?
+const cart = await getCart(Astro.request);
+---
+
+<html lang="en">
+	<head>
+		<title>Cart | Online Store</title>
+		<style>
+			h1 {
+				font-size: 36px;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+
+		<Container tag="main">
+			<h1>Cart</h1>
+			<p>Hi {user.name}! Here are your cart items:</p>
+			<table>
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Count</th>
+					</tr>
+				</thead>
+				<tbody>
+					{
+						cart.items.map((item) => (
+							<tr>
+								<td>{item.name}</td>
+								<td>{item.count}</td>
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
+		</Container>
+	</body>
+</html>

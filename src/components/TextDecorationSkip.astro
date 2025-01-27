@@ -1,0 +1,23 @@
+---
+interface Props {
+	text: string;
+}
+
+const { text } = Astro.props;
+const words = text.split(' ');
+const last = words.length - 1;
+---
+
+<style>
+	span {
+		text-decoration: underline;
+	}
+</style>
+{
+	words.map((word, i) => (
+		<Fragment>
+			<span>{word}</span>
+			{i !== last && <Fragment>&#32;</Fragment>}
+		</Fragment>
+	))
+}
