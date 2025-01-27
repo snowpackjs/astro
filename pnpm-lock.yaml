@@ -5435,6 +5435,9 @@ importers:
       shiki:
         specifier: ^1.29.1
         version: 1.29.1
+      smol-toml:
+        specifier: ^1.3.1
+        version: 1.3.1
       unified:
         specifier: ^11.0.5
         version: 11.0.5
@@ -10216,6 +10219,10 @@ packages:
   smartypants@0.2.2:
     resolution: {integrity: sha512-TzobUYoEft/xBtb2voRPryAUIvYguG0V7Tt3de79I1WfXgCwelqVsGuZSnu3GFGRZhXR90AeEYIM+icuB/S06Q==}
     hasBin: true
+
+  smol-toml@1.3.1:
+    resolution: {integrity: sha512-tEYNll18pPKHroYSmLLrksq233j021G0giwW7P3D24jC54pQ5W5BXMsQ/Mvw1OJCmEYDgY+lrzT+3nNUtoNfXQ==}
+    engines: {node: '>= 18'}
 
   solid-js@1.9.4:
     resolution: {integrity: sha512-ipQl8FJ31bFUoBNScDQTG3BjN6+9Rg+Q+f10bUbnO6EOTTf5NGerJeHc7wyu5I4RMHEl/WwZwUmy/PTRgxxZ8g==}
@@ -16467,6 +16474,8 @@ snapshots:
       is-fullwidth-code-point: 4.0.0
 
   smartypants@0.2.2: {}
+
+  smol-toml@1.3.1: {}
 
   solid-js@1.9.4:
     dependencies:
