@@ -4,6 +4,6 @@
   "private": true,
   "dependencies": {
     "astro": "workspace:*",
-    "@astrojs/node": "^9.0.1"
+    "@astrojs/node": "^9.0.2"
   }
 }

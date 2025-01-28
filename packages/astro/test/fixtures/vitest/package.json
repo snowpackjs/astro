@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "astro": "workspace:*",
-    "vitest": "^3.0.2"
+    "vitest": "^3.0.4"
   }
 }

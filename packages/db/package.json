@@ -80,7 +80,7 @@
     "open": "^10.1.0",
     "prompts": "^2.4.2",
     "yargs-parser": "^21.1.1",
-    "yocto-spinner": "^0.1.2",
+    "yocto-spinner": "^0.2.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -91,6 +91,6 @@
     "astro-scripts": "workspace:*",
     "cheerio": "1.0.0",
     "typescript": "^5.7.3",
-    "vite": "^6.0.9"
+    "vite": "^6.0.11"
   }
 }
