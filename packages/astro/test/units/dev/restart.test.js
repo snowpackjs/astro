@@ -179,6 +179,31 @@ describe('dev container restarts', { timeout: 20000 }, () => {
 		}
 	});
 
+	it('Is able to restart project on lockfile changes', async () => {
+		const fs = createFs(
+			{
+				'/src/pages/index.astro': ``,
+			},
+			root,
+		);
+
+		const restart = await createContainerWithAutomaticRestart({
+			fs,
+			inlineConfig: { root: fileURLToPath(root), logLevel: 'silent' },
+		});
+		await startContainer(restart.container);
+		assert.equal(isStarted(restart.container), true);
+
+		try {
+			let restartComplete = restart.restarted();
+			fs.writeFileSync('/pnpm-lock.yaml', `{}`);
+			triggerFSEvent(restart.container, fs, '/pnpm-lock.yaml', 'change');
+			await restartComplete;
+		} finally {
+			await restart.container.close();
+		}
+	});
+
 	it('Is able to restart on viteServer.restart API call', async () => {
 		const fixture = await createFixture({
 			'/src/pages/index.astro': ``,

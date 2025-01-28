@@ -121,7 +121,15 @@ export async function createSettings(config: AstroConfig, cwd?: string): Promise
 
 	let watchFiles = [];
 	if (cwd) {
-		watchFiles.push(fileURLToPath(new URL('./package.json', pathToFileURL(cwd))));
+		// We don't official support Bun, Yarn Berry, and Yarn 1 should not be used by anyone.
+		// Ok to add other obscure package managers.
+		const packageFiles = ['package.json', 'package-lock.json', 'pnpm-lock.yaml'];
+
+		for(const file of packageFiles) {
+			const rel = `./${file}`;
+			const url = new URL(rel, pathToFileURL(cwd));
+			watchFiles.push(fileURLToPath(url));
+		}
 	}
 
 	if (typeof tsconfig !== 'string') {
