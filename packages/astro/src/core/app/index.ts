@@ -1,3 +1,4 @@
+import { collapseDuplicateTrailingSlashes, hasFileExtension } from '@astrojs/internal-helpers/path';
 import { normalizeTheLocale } from '../../i18n/index.js';
 import type { ManifestData } from '../../types/astro.js';
 import type { RouteData, SSRManifest } from '../../types/public/internal.js';
@@ -20,6 +21,7 @@ import {
 } from '../path.js';
 import { RenderContext } from '../render-context.js';
 import { createAssetLink } from '../render/ssr-element.js';
+import { redirectTemplate } from '../routing/3xx.js';
 import { ensure404Route } from '../routing/astro-designed-error-pages.js';
 import { createDefaultRoutes } from '../routing/default.js';
 import { matchRoute } from '../routing/match.js';
@@ -250,11 +252,51 @@ export class App {
 		return pathname;
 	}
 
+	#redirectTrailingSlash(pathname: string): string {
+		const { trailingSlash } = this.#manifest;
+
+		// Ignore root and internal paths
+		if (pathname === '/' || pathname.startsWith('/_')) {
+			return pathname;
+		}
+
+		// Redirect multiple trailing slashes to collapsed path
+		const path = collapseDuplicateTrailingSlashes(pathname, trailingSlash !== 'never');
+		if (path !== pathname) {
+			return path;
+		}
+
+		if (trailingSlash === 'ignore') {
+			return pathname;
+		}
+
+		if (trailingSlash === 'always' && !hasFileExtension(pathname)) {
+			return appendForwardSlash(pathname);
+		}
+		if (trailingSlash === 'never') {
+			return removeTrailingForwardSlash(pathname);
+		}
+
+		return pathname;
+	}
+
 	async render(request: Request, renderOptions?: RenderOptions): Promise<Response> {
 		let routeData: RouteData | undefined;
 		let locals: object | undefined;
 		let clientAddress: string | undefined;
 		let addCookieHeader: boolean | undefined;
+		const url = new URL(request.url);
+		const redirect = this.#redirectTrailingSlash(url.pathname);
+
+		if (redirect !== url.pathname) {
+			const status = request.method === 'GET' ? 301 : 308;
+			return new Response(redirectTemplate({ status, location: redirect, from: request.url }), {
+				status,
+				headers: {
+					location: redirect + url.search,
+				},
+			});
+		}
 
 		addCookieHeader = renderOptions?.addCookieHeader;
 		clientAddress = renderOptions?.clientAddress ?? Reflect.get(request, clientAddressSymbol);

@@ -163,7 +163,7 @@ describe('trailing slashes for error pages', () => {
 		});
 
 		it('renders 404 page when a route does not match the request', async () => {
-			const response = await fixture.fetch('/ashbfjkasn');
+			const response = await fixture.fetch('/ashbfjkasn/');
 			assert.equal(response.status, 404);
 			const html = await response.text();
 			const $ = cheerio.load(html);
@@ -181,7 +181,7 @@ describe('trailing slashes for error pages', () => {
 		});
 
 		it('renders 404 page when a route does not match the request', async () => {
-			const response = await app.render(new Request('http://example.com/ajksalscla'));
+			const response = await app.render(new Request('http://example.com/ajksalscla/'));
 			assert.equal(response.status, 404);
 			const html = await response.text();
 			const $ = cheerio.load(html);

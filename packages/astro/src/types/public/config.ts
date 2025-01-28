@@ -236,14 +236,15 @@ export interface ViteUserConfig extends OriginalViteUserConfig {
 	 * @see build.format
 	 * @description
 	 *
-	 * Set the route matching behavior of the dev server. Choose from the following options:
-	 *   - `'always'` - Only match URLs that include a trailing slash (ex: "/foo/")
-	 *   - `'never'` - Never match URLs that include a trailing slash (ex: "/foo")
-	 *   - `'ignore'` - Match URLs regardless of whether a trailing "/" exists
+	 * Set the route matching behavior for trailing slashes in the dev server and on-demand rendered pages. Choose from the following options:
+	 *   - `'ignore'` - Match URLs regardless of whether a trailing "/" exists. Requests for "/about" and "/about/" will both match the same route.
+	 *   - `'always'` - Only match URLs that include a trailing slash (e.g: "/about/"). In production, requests for on-demand rendered URLs without a trailing slash will be redirected to the correct URL for your convenience. However, in development, they will display a warning page reminding you that you have `always` configured.
+	 *   - `'never'` - Only match URLs that do not include a trailing slash (e.g: "/about"). In production, requests for on-demand rendered URLs with a trailing slash will be redirected to the correct URL for your convenience. However, in development, they will display a warning page reminding you that you have `never` configured.
 	 *
-	 * Use this configuration option if your production host has strict handling of how trailing slashes work or do not work.
-	 *
-	 * You can also set this if you prefer to be more strict yourself, so that URLs with or without trailing slashes won't work during development.
+	 * When redirects occur in production for GET requests, the redirect will be a 301 (permanent) redirect. For all other request methods, it will be a 308 (permanent, and preserve the request method) redirect.
+	 * 
+	 * Trailing slashes on prerendered pages are handled by the hosting platform, and may not respect your chosen configuration.
+	 * See your hosting platform's documentation for more information.
 	 *
 	 * ```js
 	 * {

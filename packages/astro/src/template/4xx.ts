@@ -1,3 +1,4 @@
+import { appendForwardSlash, removeTrailingForwardSlash } from '@astrojs/internal-helpers/path';
 import { escape } from 'html-escaper';
 
 interface ErrorTemplateOptions {
@@ -126,6 +127,21 @@ export function subpathNotUsedTemplate(base: string, pathname: string) {
 		tabTitle: '404: Not Found',
 		body: `<p>In your <code>site</code> you have your base path set to <a href="${base}">${base}</a>. Do you want to go there instead?</p>
 <p>Come to our <a href="https://astro.build/chat">Discord</a> if you need help.</p>`,
+	});
+}
+
+export function trailingSlashMismatchTemplate(pathname: string, trailingSlash: 'always' | 'never' | 'ignore') {
+	const corrected =
+		trailingSlash === 'always'
+			? appendForwardSlash(pathname)
+			: removeTrailingForwardSlash(pathname);
+	return template({
+		pathname,
+		statusCode: 404,
+		title: 'Not found',
+		tabTitle: '404: Not Found',
+		body: `<p>Your site is configured with <code>trailingSlash</code> set to <code>${trailingSlash}</code>. Do you want to go to <a href="${corrected}">${corrected}</a> instead?</p>
+<p>See <a href=https://docs.astro.build/en/reference/configuration-reference/#trailingslash">the documentation for <code>trailingSlash</code></a> if you need help.</p>`,
 	});
 }
 

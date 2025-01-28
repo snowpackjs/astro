@@ -78,6 +78,9 @@ export function toPromise(res) {
 			if (ArrayBuffer.isView(data) && !Buffer.isBuffer(data)) {
 				data = Buffer.from(data.buffer);
 			}
+			if(typeof data === 'string') {
+				data = Buffer.from(data);
+			}
 			return write.call(this, data, encoding);
 		};
 		res.on('end', () => {

@@ -24,6 +24,7 @@ import { recordServerError } from './error.js';
 import { DevPipeline } from './pipeline.js';
 import { handleRequest } from './request.js';
 import { setRouteError } from './server-state.js';
+import { trailingSlashMiddleware } from './trailing-slash.js';
 
 export interface AstroPluginOptions {
 	settings: AstroSettings;
@@ -118,6 +119,10 @@ export default function createVitePluginAstroServer({
 				viteServer.middlewares.stack.unshift({
 					route: '',
 					handle: baseMiddleware(settings, logger),
+				});
+				viteServer.middlewares.stack.unshift({
+					route: '',
+					handle: trailingSlashMiddleware(settings),
 				});
 				// Note that this function has a name so other middleware can find it.
 				viteServer.middlewares.use(async function astroDevHandler(request, response) {
