@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { after, before, describe, it } from 'node:test';
+import { load as cheerioLoad } from 'cheerio';
 import { loadFixture } from './test-utils.js';
 
 describe('Astro dev headers', () => {
@@ -36,5 +37,38 @@ describe('Astro dev headers', () => {
 			assert.equal(result.status, 404);
 			assert.equal(Object.fromEntries(result.headers).hasOwnProperty('x-astro'), true);
 		});
+	});
+});
+
+describe('Astro dev with vite.base path', () => {
+	let fixture;
+	let devServer;
+	const headers = {
+		'x-astro': 'test',
+	};
+
+	before(async () => {
+		fixture = await loadFixture({
+			root: './fixtures/astro-dev-headers/',
+			server: {
+				headers,
+			},
+			vite: {
+				base: '/hello'
+			}
+		});
+		await fixture.build();
+		devServer = await fixture.startDevServer();
+	});
+
+	after(async () => {
+		await devServer.stop();
+	});
+
+	it('Generated script src get included with vite.base path', async () => {
+		const result = await fixture.fetch('/hello');
+		const html = await result.text();
+		const $ = cheerioLoad(html);
+		assert.match($('script').attr('src'), /^\/hello\/@vite\/client$/);
 	});
 });

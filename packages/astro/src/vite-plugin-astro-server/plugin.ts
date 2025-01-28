@@ -179,6 +179,7 @@ export function createDevelopmentManifest(settings: AstroSettings): SSRManifest 
 		clientDirectives: settings.clientDirectives,
 		renderers: [],
 		base: settings.config.base,
+		viteBase: settings.config?.vite?.base,
 		assetsPrefix: settings.config.build.assetsPrefix,
 		site: settings.config.site,
 		componentMetadata: new Map(),

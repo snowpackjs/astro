@@ -48,6 +48,7 @@ export type SSRManifest = {
 	routes: RouteInfo[];
 	site?: string;
 	base: string;
+	viteBase: string | undefined;
 	trailingSlash: 'always' | 'never' | 'ignore';
 	buildFormat: 'file' | 'directory' | 'preserve';
 	compressHTML: boolean;
