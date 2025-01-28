@@ -36,23 +36,23 @@ export function createRedirectsFromAstroRoutes({
 	dir,
 	buildOutput,
 	assets,
-}: CreateRedirectsFromAstroRoutesParams) {
+}: CreateRedirectsFromAstroRoutesParams): Redirects {
 	const base =
 		config.base && config.base !== '/'
 			? config.base.endsWith('/')
 				? config.base.slice(0, -1)
 				: config.base
 			: '';
-	const _redirects = new Redirects();
+	const redirects = new Redirects();
 
 	for (const [route, dynamicTarget = ''] of routeToDynamicTargetMap) {
 		const distURL = assets.get(route.pattern);
 		// A route with a `pathname` is as static route.
 		if (route.pathname) {
 			if (route.redirect) {
-				// A redirect route without dynami§c parts. Get the redirect status
+				// A redirect route without dynamic parts. Get the redirect status
 				// from the user if provided.
-				_redirects.add({
+				redirects.add({
 					dynamic: false,
 					input: `${base}${route.pathname}`,
 					target: typeof route.redirect === 'object' ? route.redirect.destination : route.redirect,
@@ -65,8 +65,10 @@ export function createRedirectsFromAstroRoutes({
 			// If this is a static build we don't want to add redirects to the HTML file.
 			if (buildOutput === 'static') {
 				continue;
-			} else if (distURL) {
-				_redirects.add({
+			}
+
+			if (distURL) {
+				redirects.add({
 					dynamic: false,
 					input: `${base}${route.pathname}`,
 					target: prependForwardSlash(distURL.toString().replace(dir.toString(), '')),
@@ -74,7 +76,7 @@ export function createRedirectsFromAstroRoutes({
 					weight: 2,
 				});
 			} else {
-				_redirects.add({
+				redirects.add({
 					dynamic: false,
 					input: `${base}${route.pathname}`,
 					target: dynamicTarget,
@@ -83,7 +85,7 @@ export function createRedirectsFromAstroRoutes({
 				});
 
 				if (route.pattern === '/404') {
-					_redirects.add({
+					redirects.add({
 						dynamic: true,
 						input: '/*',
 						target: dynamicTarget,
@@ -100,14 +102,13 @@ export function createRedirectsFromAstroRoutes({
 			// This route was prerendered and should be forwarded to the HTML file.
 			if (distURL) {
 				const targetRoute = route.redirectRoute ?? route;
-				const targetPattern = generateDynamicPattern(targetRoute);
-				let target = targetPattern;
+				let target = generateDynamicPattern(targetRoute);
 				if (config.build.format === 'directory') {
 					target = pathJoin(target, 'index.html');
 				} else {
 					target += '.html';
 				}
-				_redirects.add({
+				redirects.add({
 					dynamic: true,
 					input: `${base}${pattern}`,
 					target,
@@ -115,7 +116,7 @@ export function createRedirectsFromAstroRoutes({
 					weight: 1,
 				});
 			} else {
-				_redirects.add({
+				redirects.add({
 					dynamic: true,
 					input: `${base}${pattern}`,
 					target: dynamicTarget,
@@ -126,7 +127,7 @@ export function createRedirectsFromAstroRoutes({
 		}
 	}
 
-	return _redirects;
+	return redirects;
 }
 
 /**
@@ -135,7 +136,7 @@ export function createRedirectsFromAstroRoutes({
  * With stars replacing spread and :id syntax replacing [id]
  */
 function generateDynamicPattern(route: IntegrationResolvedRoute) {
-	const pattern =
+	return (
 		'/' +
 		route.segments
 			.map(([part]) => {
@@ -150,8 +151,8 @@ function generateDynamicPattern(route: IntegrationResolvedRoute) {
 					return part.content;
 				}
 			})
-			.join('/');
-	return pattern;
+			.join('/')
+	);
 }
 
 function prependForwardSlash(str: string) {

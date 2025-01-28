@@ -995,6 +995,20 @@ export const RedirectWithNoLocation = {
 	name: 'RedirectWithNoLocation',
 	title: 'A redirect must be given a location with the `Location` header.',
 } satisfies ErrorData;
+
+/**
+ * @docs
+ * @see
+ * - [Astro.redirect](https://docs.astro.build/en/reference/api-reference/#redirect)
+ * @description
+ * An external redirect must start with http or https, and must be a valid URL.
+ */
+export const UnsupportedExternalRedirect = {
+	name: 'UnsupportedExternalRedirect',
+	title: 'Unsupported or malformed URL.',
+	message: 'An external redirect must start with http or https, and must be a valid URL.',
+} satisfies ErrorData;
+
 /**
  * @docs
  * @see

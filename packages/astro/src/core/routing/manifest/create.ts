@@ -14,7 +14,10 @@ import { getPrerenderDefault } from '../../../prerender/utils.js';
 import type { AstroConfig } from '../../../types/public/config.js';
 import type { RouteData, RoutePart } from '../../../types/public/internal.js';
 import { SUPPORTED_MARKDOWN_FILE_EXTENSIONS } from '../../constants.js';
-import { MissingIndexForInternationalization } from '../../errors/errors-data.js';
+import {
+	MissingIndexForInternationalization,
+	UnsupportedExternalRedirect,
+} from '../../errors/errors-data.js';
 import { AstroError } from '../../errors/index.js';
 import { removeLeadingForwardSlash, slash } from '../../path.js';
 import { injectServerIslandRoute } from '../../server-islands/endpoint.js';
@@ -314,7 +317,6 @@ function createInjectedRoutes({ settings, cwd }: CreateRouteManifestParams): Rou
 function createRedirectRoutes(
 	{ settings }: CreateRouteManifestParams,
 	routeMap: Map<string, RouteData>,
-	logger: Logger,
 ): RouteData[] {
 	const { config } = settings;
 	const trailingSlash = config.trailingSlash;
@@ -348,11 +350,12 @@ function createRedirectRoutes(
 			destination = to.destination;
 		}
 
-		if (/^https?:\/\//.test(destination)) {
-			logger.warn(
-				'redirects',
-				`Redirecting to an external URL is not officially supported: ${from} -> ${destination}`,
-			);
+		// URLs that don't start with leading slash should be considered external
+		if (!destination.startsWith('/')) {
+			// check if the link starts with http or https; if not, log a warning
+			if (!/^https?:\/\//.test(destination) && !URL.canParse(destination)) {
+				throw new AstroError(UnsupportedExternalRedirect);
+			}
 		}
 
 		routes.push({
@@ -480,7 +483,7 @@ export async function createRouteManifest(
 		routeMap.set(route.route, route);
 	}
 
-	const redirectRoutes = createRedirectRoutes(params, routeMap, logger);
+	const redirectRoutes = createRedirectRoutes(params, routeMap);
 
 	// we remove the file based routes that were deemed redirects
 	const filteredFiledBasedRoutes = fileBasedRoutes.filter((fileBasedRoute) => {

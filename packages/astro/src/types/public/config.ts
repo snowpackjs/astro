@@ -264,16 +264,21 @@ export interface ViteUserConfig extends OriginalViteUserConfig {
 	 * and the value is the path to redirect to.
 	 *
 	 * You can redirect both static and dynamic routes, but only to the same kind of route.
-	 * For example you cannot have a `'/article': '/blog/[...slug]'` redirect.
+	 * For example, you cannot have a `'/article': '/blog/[...slug]'` redirect.
 	 *
 	 *
 	 * ```js
-	 * {
+	 * export default defineConfig({
 	 *   redirects: {
-	 *     '/old': '/new',
-	 *     '/blog/[...slug]': '/articles/[...slug]',
-	 *   }
-	 * }
+	 *   	'/old': '/new',
+	 *    '/blog/[...slug]': '/articles/[...slug]',
+	 *    '/about': 'https://example.com/about',
+	 *    '/news': {
+	 *        status: 302,
+	 *        destination: 'https://example.com/news'
+	 *  	}
+	 * 	}
+	 * })
 	 * ```
 	 *
 	 *
@@ -287,14 +292,14 @@ export interface ViteUserConfig extends OriginalViteUserConfig {
 	 * You can customize the [redirection status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#redirection_messages) using an object in the redirect config:
 	 *
 	 * ```js
-	 * {
+	 * export default defineConfig({
 	 *   redirects: {
 	 *     '/other': {
 	 *       status: 302,
 	 *       destination: '/place',
 	 *     },
 	 *   }
-	 * }
+	 * })
 	 * ```
 	 */
 	redirects?: Record<string, RedirectConfig>;
