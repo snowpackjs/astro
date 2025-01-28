@@ -1,5 +1,5 @@
 import notFoundTemplate from '../../template/4xx.js';
-import type { ComponentInstance, ManifestData } from '../../types/astro.js';
+import type { ComponentInstance, RoutesList } from '../../types/astro.js';
 import type { RouteData } from '../../types/public/internal.js';
 import { DEFAULT_404_COMPONENT, DEFAULT_500_COMPONENT } from '../constants.js';
 
@@ -33,7 +33,7 @@ export const DEFAULT_500_ROUTE: RouteData = {
 	origin: 'internal',
 };
 
-export function ensure404Route(manifest: ManifestData) {
+export function ensure404Route(manifest: RoutesList) {
 	if (!manifest.routes.some((route) => route.route === '/404')) {
 		manifest.routes.push(DEFAULT_404_ROUTE);
 	}

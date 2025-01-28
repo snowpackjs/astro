@@ -184,7 +184,7 @@ function buildManifest(
 	// Default components follow a special flow during build. We prevent their processing earlier
 	// in the build. As a result, they are not present on `internals.pagesByKeys` and not serialized
 	// in the manifest file. But we need them in the manifest, so we handle them here
-	for (const route of opts.manifest.routes) {
+	for (const route of opts.routesList.routes) {
 		if (!DEFAULT_COMPONENTS.find((component) => route.component === component)) {
 			continue;
 		}
@@ -197,7 +197,7 @@ function buildManifest(
 		});
 	}
 
-	for (const route of opts.manifest.routes) {
+	for (const route of opts.routesList.routes) {
 		if (!route.prerender) continue;
 		if (!route.pathname) continue;
 
@@ -214,7 +214,7 @@ function buildManifest(
 		staticFiles.push(file);
 	}
 
-	for (const route of opts.manifest.routes) {
+	for (const route of opts.routesList.routes) {
 		const pageData = internals.pagesByKeys.get(makePageDataKey(route.route, route.component));
 		if (route.prerender || !pageData) continue;
 		const scripts: SerializedRouteInfo['scripts'] = [];
@@ -279,6 +279,12 @@ function buildManifest(
 
 	return {
 		hrefRoot: opts.settings.config.root.toString(),
+		cacheDir: opts.settings.config.cacheDir.toString(),
+		outDir: opts.settings.config.outDir.toString(),
+		srcDir: opts.settings.config.srcDir.toString(),
+		publicDir: opts.settings.config.publicDir.toString(),
+		buildClientDir: opts.settings.config.build.client.toString(),
+		buildServerDir: opts.settings.config.build.server.toString(),
 		adapterName: opts.settings.adapter?.name ?? '',
 		routes,
 		site: settings.config.site,

@@ -1,7 +1,7 @@
 import * as assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { Logger } from '../../../dist/core/logger/core.js';
-import { createRouteManifest } from '../../../dist/core/routing/manifest/create.js';
+import { createRoutesList } from '../../../dist/core/routing/index.js';
 import { createBasicSettings, createFixture } from '../test-utils.js';
 
 function getManifestRoutes(manifest) {
@@ -36,7 +36,7 @@ function assertRouteRelations(routes, relations) {
 	}
 }
 
-describe('routing - createRouteManifest', () => {
+describe('routing - createRoutesList', () => {
 	it('using trailingSlash: "never" does not match the index route when it contains a trailing slash', async () => {
 		const fixture = await createFixture({
 			'/src/pages/index.astro': `<h1>test</h1>`,
@@ -46,7 +46,7 @@ describe('routing - createRouteManifest', () => {
 			base: '/search',
 			trailingSlash: 'never',
 		});
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});
@@ -79,7 +79,7 @@ describe('routing - createRouteManifest', () => {
 			},
 		];
 
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});
@@ -118,7 +118,7 @@ describe('routing - createRouteManifest', () => {
 			trailingSlash: 'never',
 		});
 
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});
@@ -151,7 +151,7 @@ describe('routing - createRouteManifest', () => {
 			trailingSlash: 'never',
 		});
 
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});
@@ -193,7 +193,7 @@ describe('routing - createRouteManifest', () => {
 			trailingSlash: 'never',
 		});
 
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});
@@ -254,7 +254,7 @@ describe('routing - createRouteManifest', () => {
 			},
 		];
 
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});
@@ -304,7 +304,7 @@ describe('routing - createRouteManifest', () => {
 				},
 			},
 		});
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});
@@ -360,7 +360,7 @@ describe('routing - createRouteManifest', () => {
 
 		const { logger, logs } = getLogger();
 
-		await createRouteManifest(manifestOptions, logger);
+		await createRoutesList(manifestOptions, logger);
 
 		assert.deepEqual(logs, [
 			{
@@ -399,7 +399,7 @@ describe('routing - createRouteManifest', () => {
 
 		const { logger, logs } = getLogger();
 
-		await createRouteManifest(manifestOptions, logger);
+		await createRoutesList(manifestOptions, logger);
 
 		assert.deepEqual(logs, [
 			{
@@ -443,7 +443,7 @@ describe('routing - createRouteManifest', () => {
 			},
 		];
 
-		const manifest = await createRouteManifest({
+		const manifest = await createRoutesList({
 			cwd: fixture.path,
 			settings,
 		});

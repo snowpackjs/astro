@@ -1,4 +1,4 @@
-import type { AstroSettings, ManifestData } from '../../../types/astro.js';
+import type { AstroSettings, RoutesList } from '../../../types/astro.js';
 import type { Logger } from '../../logger/core.js';
 
 import nodeFs from 'node:fs';
@@ -460,11 +460,11 @@ function detectRouteCollision(a: RouteData, b: RouteData, _config: AstroConfig, 
 }
 
 /** Create manifest of all static routes */
-export async function createRouteManifest(
+export async function createRoutesList(
 	params: CreateRouteManifestParams,
 	logger: Logger,
 	{ dev = false }: { dev?: boolean } = {},
-): Promise<ManifestData> {
+): Promise<RoutesList> {
 	const { settings } = params;
 	const { config } = settings;
 	// Create a map of all routes so redirects can refer to any route

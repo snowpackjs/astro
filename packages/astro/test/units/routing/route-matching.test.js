@@ -3,7 +3,7 @@ import { after, before, describe, it } from 'node:test';
 import * as cheerio from 'cheerio';
 import { createContainer } from '../../../dist/core/dev/container.js';
 import { createViteLoader } from '../../../dist/core/module-loader/vite.js';
-import { createRouteManifest, matchAllRoutes } from '../../../dist/core/routing/index.js';
+import { createRoutesList, matchAllRoutes } from '../../../dist/core/routing/index.js';
 import { getSortedPreloadedMatches } from '../../../dist/prerender/routing.js';
 import { DevPipeline } from '../../../dist/vite-plugin-astro-server/pipeline.js';
 import { createDevelopmentManifest } from '../../../dist/vite-plugin-astro-server/plugin.js';
@@ -144,7 +144,7 @@ describe('Route matching', () => {
 		const loader = createViteLoader(container.viteServer);
 		const manifest = createDevelopmentManifest(container.settings);
 		pipeline = DevPipeline.create(undefined, { loader, logger: defaultLogger, manifest, settings });
-		manifestData = await createRouteManifest(
+		manifestData = await createRoutesList(
 			{
 				cwd: fixture.path,
 				settings,

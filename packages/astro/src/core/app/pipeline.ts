@@ -1,4 +1,4 @@
-import type { ComponentInstance, ManifestData } from '../../types/astro.js';
+import type { ComponentInstance, RoutesList } from '../../types/astro.js';
 import type { RewritePayload } from '../../types/public/common.js';
 import type { RouteData, SSRElement, SSRResult } from '../../types/public/internal.js';
 import { Pipeline, type TryRewriteResult } from '../base-pipeline.js';
@@ -8,10 +8,10 @@ import { createModuleScriptElement, createStylesheetElementSet } from '../render
 import { findRouteToRewrite } from '../routing/rewrite.js';
 
 export class AppPipeline extends Pipeline {
-	#manifestData: ManifestData | undefined;
+	#manifestData: RoutesList | undefined;
 
 	static create(
-		manifestData: ManifestData,
+		manifestData: RoutesList,
 		{
 			logger,
 			manifest,

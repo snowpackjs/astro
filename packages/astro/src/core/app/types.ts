@@ -1,7 +1,7 @@
 import type { RoutingStrategies } from '../../i18n/utils.js';
 import type { ComponentInstance, SerializedRouteData } from '../../types/astro.js';
 import type { AstroMiddlewareInstance } from '../../types/public/common.js';
-import type { Locales, ResolvedSessionConfig } from '../../types/public/config.js';
+import type { AstroConfig, Locales, ResolvedSessionConfig } from '../../types/public/config.js';
 import type {
 	RouteData,
 	SSRComponentMetadata,
@@ -48,8 +48,8 @@ export type SSRManifest = {
 	routes: RouteInfo[];
 	site?: string;
 	base: string;
-	trailingSlash: 'always' | 'never' | 'ignore';
-	buildFormat: 'file' | 'directory' | 'preserve';
+	trailingSlash: AstroConfig['trailingSlash'];
+	buildFormat: NonNullable<AstroConfig['build']>['format'];
 	compressHTML: boolean;
 	assetsPrefix?: AssetsPrefix;
 	renderers: SSRLoadedRenderer[];
@@ -70,6 +70,12 @@ export type SSRManifest = {
 	middleware?: () => Promise<AstroMiddlewareInstance> | AstroMiddlewareInstance;
 	checkOrigin: boolean;
 	sessionConfig?: ResolvedSessionConfig<any>;
+	cacheDir: string | URL;
+	srcDir: string | URL;
+	outDir: string | URL;
+	publicDir: string | URL;
+	buildClientDir: string | URL;
+	buildServerDir: string | URL;
 };
 
 export type SSRManifestI18n = {

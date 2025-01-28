@@ -1808,6 +1808,18 @@ export const ActionCalledFromServerError = {
 	hint: 'See the `Astro.callAction()` reference for usage examples: https://docs.astro.build/en/reference/api-reference/#callaction',
 } satisfies ErrorData;
 
+/**
+ * @docs
+ * @description
+ * Cannot the module without enabling the experimental feature
+ */
+export const CantUseManifestModule = {
+	name: 'CantUseManifestModule',
+	title: 'Cannot the module without enabling the experimental feature.',
+	message: (moduleName) =>
+		`Cannot import the module "${moduleName}" because the experimental feature is disabled. Enable \`experimental.serializeManifest\` in your \`astro.config.mjs\` `,
+} satisfies ErrorData;
+
 // Generic catch-all - Only use this in extreme cases, like if there was a cosmic ray bit flip.
 export const UnknownError = { name: 'UnknownError', title: 'Unknown Error.' } satisfies ErrorData;
 

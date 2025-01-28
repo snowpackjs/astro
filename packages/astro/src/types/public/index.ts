@@ -9,6 +9,7 @@ export type * from './context.js';
 export type * from './preview.js';
 export type * from './content.js';
 export type * from './common.js';
+export type * from './manifest.js';
 
 export type { AstroIntegrationLogger } from '../../core/logger/core.js';
 export type { ToolbarServerHelpers } from '../../runtime/client/dev-toolbar/helpers.js';

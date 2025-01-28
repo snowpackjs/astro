@@ -6,7 +6,7 @@ import {
 } from '../../runtime/server/index.js';
 import { isAstroComponentFactory } from '../../runtime/server/render/astro/factory.js';
 import { createSlotValueFromString } from '../../runtime/server/render/slot.js';
-import type { ComponentInstance, ManifestData } from '../../types/astro.js';
+import type { ComponentInstance, RoutesList } from '../../types/astro.js';
 import type { RouteData, SSRManifest } from '../../types/public/internal.js';
 import { decryptString } from '../encryption.js';
 import { getPattern } from '../routing/manifest/pattern.js';
@@ -37,7 +37,7 @@ export function getServerIslandRouteData(config: ConfigFields) {
 	return route;
 }
 
-export function injectServerIslandRoute(config: ConfigFields, routeManifest: ManifestData) {
+export function injectServerIslandRoute(config: ConfigFields, routeManifest: RoutesList) {
 	routeManifest.routes.unshift(getServerIslandRouteData(config));
 }
 

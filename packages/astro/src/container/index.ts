@@ -140,6 +140,12 @@ function createManifest(
 
 	return {
 		hrefRoot: import.meta.url,
+		srcDir: manifest?.srcDir ?? ASTRO_CONFIG_DEFAULTS.srcDir,
+		buildClientDir: manifest?.buildClientDir ?? ASTRO_CONFIG_DEFAULTS.build.client,
+		buildServerDir: manifest?.buildServerDir ?? ASTRO_CONFIG_DEFAULTS.build.server,
+		publicDir: manifest?.publicDir ?? ASTRO_CONFIG_DEFAULTS.publicDir,
+		outDir: manifest?.outDir ?? ASTRO_CONFIG_DEFAULTS.outDir,
+		cacheDir: manifest?.cacheDir ?? ASTRO_CONFIG_DEFAULTS.cacheDir,
 		trailingSlash: manifest?.trailingSlash ?? ASTRO_CONFIG_DEFAULTS.trailingSlash,
 		buildFormat: manifest?.buildFormat ?? ASTRO_CONFIG_DEFAULTS.build.format,
 		compressHTML: manifest?.compressHTML ?? ASTRO_CONFIG_DEFAULTS.compressHTML,
@@ -235,6 +241,12 @@ type AstroContainerManifest = Pick<
 	| 'trailingSlash'
 	| 'buildFormat'
 	| 'i18n'
+	| 'srcDir'
+	| 'buildClientDir'
+	| 'buildServerDir'
+	| 'publicDir'
+	| 'outDir'
+	| 'cacheDir'
 >;
 
 type AstroContainerConstructor = {

@@ -82,7 +82,7 @@ export interface ComponentInstance {
 	getStaticPaths?: (options: GetStaticPathsOptions) => GetStaticPathsResult;
 }
 
-export interface ManifestData {
+export interface RoutesList {
 	routes: RouteData[];
 }
 

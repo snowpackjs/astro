@@ -1,5 +1,5 @@
 import { normalizeTheLocale } from '../../i18n/index.js';
-import type { ManifestData } from '../../types/astro.js';
+import type { RoutesList } from '../../types/astro.js';
 import type { RouteData, SSRManifest } from '../../types/public/internal.js';
 import {
 	REROUTABLE_STATUS_CODES,
@@ -78,7 +78,7 @@ export interface RenderErrorOptions {
 
 export class App {
 	#manifest: SSRManifest;
-	#manifestData: ManifestData;
+	#manifestData: RoutesList;
 	#logger = new Logger({
 		dest: consoleLogDestination,
 		level: 'info',
@@ -115,7 +115,7 @@ export class App {
 	 * @param streaming
 	 * @private
 	 */
-	#createPipeline(manifestData: ManifestData, streaming = false) {
+	#createPipeline(manifestData: RoutesList, streaming = false) {
 		return AppPipeline.create(manifestData, {
 			logger: this.#logger,
 			manifest: this.#manifest,
@@ -138,7 +138,7 @@ export class App {
 		});
 	}
 
-	set setManifestData(newManifestData: ManifestData) {
+	set setManifestData(newManifestData: RoutesList) {
 		this.#manifestData = newManifestData;
 	}
 

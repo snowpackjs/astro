@@ -11,7 +11,7 @@ import { createDefaultRoutes } from '../core/routing/default.js';
 import { findRouteToRewrite } from '../core/routing/rewrite.js';
 import { isPage, viteID } from '../core/util.js';
 import { resolveIdToUrl } from '../core/viteUtils.js';
-import type { AstroSettings, ComponentInstance, ManifestData } from '../types/astro.js';
+import type { AstroSettings, ComponentInstance, RoutesList } from '../types/astro.js';
 import type { RewritePayload } from '../types/public/common.js';
 import type {
 	RouteData,
@@ -30,7 +30,7 @@ export class DevPipeline extends Pipeline {
 	// so it needs to be mutable here unlike in other environments
 	override renderers = new Array<SSRLoadedRenderer>();
 
-	manifestData: ManifestData | undefined;
+	routesList: RoutesList | undefined;
 
 	componentInterner: WeakMap<RouteData, ComponentInstance> = new WeakMap<
 		RouteData,
@@ -54,7 +54,7 @@ export class DevPipeline extends Pipeline {
 	}
 
 	static create(
-		manifestData: ManifestData,
+		manifestData: RoutesList,
 		{
 			loader,
 			logger,
@@ -63,7 +63,7 @@ export class DevPipeline extends Pipeline {
 		}: Pick<DevPipeline, 'loader' | 'logger' | 'manifest' | 'settings'>,
 	) {
 		const pipeline = new DevPipeline(loader, logger, manifest, settings);
-		pipeline.manifestData = manifestData;
+		pipeline.routesList = manifestData;
 		return pipeline;
 	}
 
@@ -193,13 +193,13 @@ export class DevPipeline extends Pipeline {
 	}
 
 	async tryRewrite(payload: RewritePayload, request: Request): Promise<TryRewriteResult> {
-		if (!this.manifestData) {
+		if (!this.routesList) {
 			throw new Error('Missing manifest data. This is an internal error, please file an issue.');
 		}
 		const { routeData, pathname, newUrl } = findRouteToRewrite({
 			payload,
 			request,
-			routes: this.manifestData?.routes,
+			routes: this.routesList?.routes,
 			trailingSlash: this.config.trailingSlash,
 			buildFormat: this.config.build.format,
 			base: this.config.base,
@@ -209,8 +209,8 @@ export class DevPipeline extends Pipeline {
 		return { newUrl, pathname, componentInstance, routeData };
 	}
 
-	setManifestData(manifestData: ManifestData) {
-		this.manifestData = manifestData;
+	setManifestData(manifestData: RoutesList) {
+		this.routesList = manifestData;
 	}
 
 	rewriteKnownRoute(route: string, sourceRoute: RouteData): ComponentInstance {

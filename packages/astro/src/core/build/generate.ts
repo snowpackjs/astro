@@ -55,7 +55,7 @@ export async function generatePages(options: StaticBuildOptions, internals: Buil
 	const ssr = options.settings.buildOutput === 'server';
 	let manifest: SSRManifest;
 	if (ssr) {
-		manifest = await BuildPipeline.retrieveManifest(options, internals);
+		manifest = await BuildPipeline.retrieveManifest(options.settings, internals);
 	} else {
 		const baseDirectory = getOutputDirectory(options.settings);
 		const renderersEntryUrl = new URL('renderers.mjs', baseDirectory);
@@ -360,7 +360,7 @@ async function getPathsForRoute(
 				// NOTE: The same URL may match multiple routes in the manifest.
 				// Routing priority needs to be verified here for any duplicate
 				// paths to ensure routing priority rules are enforced in the final build.
-				const matchedRoute = matchRoute(staticPath, options.manifest);
+				const matchedRoute = matchRoute(staticPath, options.routesList);
 				return matchedRoute === route;
 			});
 
@@ -614,6 +614,12 @@ function createBuildManifest(
 	}
 	return {
 		hrefRoot: settings.config.root.toString(),
+		srcDir: settings.config.srcDir,
+		buildClientDir: settings.config.build.client,
+		buildServerDir: settings.config.build.server,
+		publicDir: settings.config.publicDir,
+		outDir: settings.config.outDir,
+		cacheDir: settings.config.cacheDir,
 		trailingSlash: settings.config.trailingSlash,
 		assets: new Set(),
 		entryModules: Object.fromEntries(internals.entrySpecifierToBundleMap.entries()),

@@ -13,8 +13,10 @@ import { syncAstroEnv } from '../../env/sync.js';
 import { telemetry } from '../../events/index.js';
 import { eventCliSession } from '../../events/session.js';
 import { runHookConfigDone, runHookConfigSetup } from '../../integrations/hooks.js';
-import type { AstroSettings, ManifestData } from '../../types/astro.js';
+import type { AstroSettings, RoutesList } from '../../types/astro.js';
 import type { AstroInlineConfig } from '../../types/public/config.js';
+import { createDevelopmentManifest } from '../../vite-plugin-astro-server/plugin.js';
+import type { SSRManifest } from '../app/types.js';
 import { getTimeStat } from '../build/util.js';
 import { resolveConfig } from '../config/config.js';
 import { createNodeLogger } from '../config/logging.js';
@@ -29,7 +31,7 @@ import {
 	isAstroError,
 } from '../errors/index.js';
 import type { Logger } from '../logger/core.js';
-import { createRouteManifest } from '../routing/index.js';
+import { createRoutesList } from '../routing/index.js';
 import { ensureProcessNodeEnv } from '../util.js';
 import { normalizePath } from '../viteUtils.js';
 
@@ -48,7 +50,8 @@ export type SyncOptions = {
 		// Cleanup can be skipped in dev as some state can be reused on updates
 		cleanup?: boolean;
 	};
-	manifest: ManifestData;
+	routesList: RoutesList;
+	manifest: SSRManifest;
 	command: 'build' | 'dev' | 'sync';
 	watcher?: FSWatcher;
 };
@@ -69,8 +72,8 @@ export default async function sync(
 		settings,
 		logger,
 	});
-	const manifest = await createRouteManifest({ settings, fsMod: fs }, logger);
-
+	const routesList = await createRoutesList({ settings, fsMod: fs }, logger);
+	const manifest = createDevelopmentManifest(settings);
 	await runHookConfigDone({ settings, logger });
 
 	return await syncInternal({
@@ -79,8 +82,9 @@ export default async function sync(
 		mode: 'production',
 		fs,
 		force: inlineConfig.force,
-		manifest,
+		routesList,
 		command: 'sync',
+		manifest,
 	});
 }
 
@@ -119,9 +123,10 @@ export async function syncInternal({
 	settings,
 	skip,
 	force,
-	manifest,
+	routesList,
 	command,
 	watcher,
+	manifest,
 }: SyncOptions): Promise<void> {
 	const isDev = command === 'dev';
 	if (force) {
@@ -131,7 +136,7 @@ export async function syncInternal({
 	const timerStart = performance.now();
 
 	if (!skip?.content) {
-		await syncContentCollections(settings, { mode, fs, logger, manifest });
+		await syncContentCollections(settings, { mode, fs, logger, routesList, manifest });
 		settings.timer.start('Sync content layer');
 
 		let store: MutableDataStore | undefined;
@@ -230,8 +235,9 @@ async function syncContentCollections(
 		mode,
 		logger,
 		fs,
+		routesList,
 		manifest,
-	}: Required<Pick<SyncOptions, 'mode' | 'logger' | 'fs' | 'manifest'>>,
+	}: Required<Pick<SyncOptions, 'mode' | 'logger' | 'fs' | 'routesList' | 'manifest'>>,
 ): Promise<void> {
 	// Needed to load content config
 	const tempViteServer = await createServer(
@@ -242,7 +248,7 @@ async function syncContentCollections(
 				ssr: { external: [] },
 				logLevel: 'silent',
 			},
-			{ settings, logger, mode, command: 'build', fs, sync: true, manifest },
+			{ settings, logger, mode, command: 'build', fs, sync: true, routesList, manifest },
 		),
 	);
 

@@ -13,11 +13,11 @@ import { patchOverlay } from '../core/errors/overlay.js';
 import type { Logger } from '../core/logger/core.js';
 import { NOOP_MIDDLEWARE_FN } from '../core/middleware/noop-middleware.js';
 import { createViteLoader } from '../core/module-loader/index.js';
-import { createRouteManifest } from '../core/routing/index.js';
+import { createRoutesList } from '../core/routing/index.js';
 import { getRoutePrerenderOption } from '../core/routing/manifest/prerender.js';
 import { toFallbackType, toRoutingStrategy } from '../i18n/utils.js';
 import { runHookRoutesResolved } from '../integrations/hooks.js';
-import type { AstroSettings, ManifestData } from '../types/astro.js';
+import type { AstroSettings, RoutesList } from '../types/astro.js';
 import { baseMiddleware } from './base.js';
 import { createController } from './controller.js';
 import { recordServerError } from './error.js';
@@ -29,25 +29,25 @@ export interface AstroPluginOptions {
 	settings: AstroSettings;
 	logger: Logger;
 	fs: typeof fs;
-	manifest: ManifestData;
-	ssrManifest: SSRManifest;
+	routesList: RoutesList;
+	manifest: SSRManifest;
 }
 
 export default function createVitePluginAstroServer({
 	settings,
 	logger,
 	fs: fsMod,
-	manifest: routeManifest,
-	ssrManifest: devSSRManifest,
+	routesList,
+	manifest,
 }: AstroPluginOptions): vite.Plugin {
 	return {
 		name: 'astro:server',
 		configureServer(viteServer) {
 			const loader = createViteLoader(viteServer);
-			const pipeline = DevPipeline.create(routeManifest, {
+			const pipeline = DevPipeline.create(routesList, {
 				loader,
 				logger,
-				manifest: devSSRManifest,
+				manifest,
 				settings,
 			});
 			const controller = createController({ loader });
@@ -59,7 +59,7 @@ export default function createVitePluginAstroServer({
 
 				// If a route changes, we check if it's part of the manifest and check for its prerender value
 				if (path !== null) {
-					const route = routeManifest.routes.find(
+					const route = routesList.routes.find(
 						(r) =>
 							normalizePath(path) ===
 							normalizePath(fileURLToPath(new URL(r.component, settings.config.root))),
@@ -73,16 +73,16 @@ export default function createVitePluginAstroServer({
 					try {
 						const content = await fsMod.promises.readFile(routePath, 'utf-8');
 						await getRoutePrerenderOption(content, route, settings, logger);
-						await runHookRoutesResolved({ routes: routeManifest.routes, settings, logger });
+						await runHookRoutesResolved({ routes: routesList.routes, settings, logger });
 					} catch (_) {}
 				} else {
-					routeManifest = await createRouteManifest({ settings, fsMod }, logger, { dev: true });
+					routesList = await createRoutesList({ settings, fsMod }, logger, { dev: true });
 				}
 
 				warnMissingAdapter(logger, settings);
 				pipeline.manifest.checkOrigin =
 					settings.config.security.checkOrigin && settings.buildOutput === 'server';
-				pipeline.setManifestData(routeManifest);
+				pipeline.setManifestData(routesList);
 			}
 
 			// Rebuild route manifest on file change
@@ -129,7 +129,7 @@ export default function createVitePluginAstroServer({
 					localStorage.run(request, () => {
 						handleRequest({
 							pipeline,
-							manifestData: routeManifest,
+							routesList,
 							controller,
 							incomingRequest: request,
 							incomingResponse: response,
@@ -169,6 +169,12 @@ export function createDevelopmentManifest(settings: AstroSettings): SSRManifest 
 
 	return {
 		hrefRoot: settings.config.root.toString(),
+		srcDir: settings.config.srcDir,
+		cacheDir: settings.config.cacheDir,
+		outDir: settings.config.outDir,
+		buildServerDir: settings.config.build.server,
+		buildClientDir: settings.config.build.client,
+		publicDir: settings.config.publicDir,
 		trailingSlash: settings.config.trailingSlash,
 		buildFormat: settings.config.build.format,
 		compressHTML: settings.config.compressHTML,

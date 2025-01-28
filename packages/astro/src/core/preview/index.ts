@@ -11,7 +11,7 @@ import { resolveConfig } from '../config/config.js';
 import { createNodeLogger } from '../config/logging.js';
 import { createSettings } from '../config/settings.js';
 import { apply as applyPolyfills } from '../polyfill.js';
-import { createRouteManifest } from '../routing/index.js';
+import { createRoutesList } from '../routing/index.js';
 import { ensureProcessNodeEnv } from '../util.js';
 import createStaticPreviewServer from './static-preview-server.js';
 import { getResolvedHostForHttpServer } from './util.js';
@@ -38,7 +38,7 @@ export default async function preview(inlineConfig: AstroInlineConfig): Promise<
 	});
 
 	// Create a route manifest so we can know if the build output is a static site or not
-	await createRouteManifest({ settings: settings, cwd: inlineConfig.root }, logger);
+	await createRoutesList({ settings: settings, cwd: inlineConfig.root }, logger);
 
 	await runHookConfigDone({ settings: settings, logger: logger, command: 'preview' });
 

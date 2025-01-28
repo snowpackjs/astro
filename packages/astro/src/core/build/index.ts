@@ -11,8 +11,10 @@ import {
 	runHookConfigDone,
 	runHookConfigSetup,
 } from '../../integrations/hooks.js';
-import type { AstroSettings, ManifestData } from '../../types/astro.js';
+import type { AstroSettings, RoutesList } from '../../types/astro.js';
 import type { AstroInlineConfig, RuntimeMode } from '../../types/public/config.js';
+import { createDevelopmentManifest } from '../../vite-plugin-astro-server/plugin.js';
+import type { SSRManifest } from '../app/types.js';
 import { resolveConfig } from '../config/config.js';
 import { createNodeLogger } from '../config/logging.js';
 import { createSettings } from '../config/settings.js';
@@ -22,7 +24,7 @@ import { AstroError, AstroErrorData } from '../errors/index.js';
 import type { Logger } from '../logger/core.js';
 import { levels, timerMessage } from '../logger/core.js';
 import { apply as applyPolyfill } from '../polyfill.js';
-import { createRouteManifest } from '../routing/index.js';
+import { createRoutesList } from '../routing/index.js';
 import { getServerIslandRouteData } from '../server-islands/endpoint.js';
 import { clearContentLayerCache } from '../sync/index.js';
 import { ensureProcessNodeEnv } from '../util.js';
@@ -93,9 +95,10 @@ class AstroBuilder {
 	private mode: string;
 	private runtimeMode: RuntimeMode;
 	private origin: string;
-	private manifest: ManifestData;
+	private routesList: RoutesList;
 	private timer: Record<string, number>;
 	private teardownCompiler: boolean;
+	private manifest: SSRManifest;
 
 	constructor(settings: AstroSettings, options: AstroBuilderOptions) {
 		this.mode = options.mode;
@@ -106,7 +109,10 @@ class AstroBuilder {
 		this.origin = settings.config.site
 			? new URL(settings.config.site).origin
 			: `http://localhost:${settings.config.server.port}`;
-		this.manifest = { routes: [] };
+		this.routesList = { routes: [] };
+		// NOTE: this manifest is only used by the first build pass to make the `astro:manifest` function.
+		// After the first build, the BuildPipeline comes into play, and it creates the proper manifest for generating the pages.
+		this.manifest = createDevelopmentManifest(settings);
 		this.timer = {};
 	}
 
@@ -121,7 +127,7 @@ class AstroBuilder {
 			logger: logger,
 		});
 
-		this.manifest = await createRouteManifest({ settings: this.settings }, this.logger);
+		this.routesList = await createRoutesList({ settings: this.settings }, this.logger);
 
 		await runHookConfigDone({ settings: this.settings, logger: logger, command: 'build' });
 
@@ -144,6 +150,7 @@ class AstroBuilder {
 				mode: this.mode,
 				command: 'build',
 				sync: false,
+				routesList: this.routesList,
 				manifest: this.manifest,
 			},
 		);
@@ -154,8 +161,9 @@ class AstroBuilder {
 			settings: this.settings,
 			logger,
 			fs,
-			manifest: this.manifest,
+			routesList: this.routesList,
 			command: 'build',
+			manifest: this.manifest,
 		});
 
 		return { viteConfig };
@@ -176,7 +184,7 @@ class AstroBuilder {
 		const { assets, allPages } = collectPagesData({
 			settings: this.settings,
 			logger: this.logger,
-			manifest: this.manifest,
+			manifest: this.routesList,
 		});
 
 		this.logger.debug('build', timerMessage('All pages loaded', this.timer.loadStart));
@@ -199,7 +207,7 @@ class AstroBuilder {
 			allPages,
 			settings: this.settings,
 			logger: this.logger,
-			manifest: this.manifest,
+			routesList: this.routesList,
 			runtimeMode: this.runtimeMode,
 			origin: this.origin,
 			pageNames,
