@@ -43,7 +43,7 @@ test.describe('Tailwind CSS', () => {
 		await expect(button, 'should have bg-purple-600').toHaveClass(/bg-purple-600/);
 		await expect(button, 'should have background color').toHaveCSS(
 			'background-color',
-			'rgb(147, 51, 234)',
+			'oklch(0.558 0.288 302.321)',
 		);
 
 		await expect(button, 'should have lg:py-3').toHaveClass(/lg:py-3/);
@@ -66,7 +66,7 @@ test.describe('Tailwind CSS', () => {
 		await expect(button, 'should have bg-purple-400').toHaveClass(/bg-purple-400/);
 		await expect(button, 'should have background color').toHaveCSS(
 			'background-color',
-			'rgb(192, 132, 252)',
+			'oklch(0.714 0.203 305.504)',
 		);
 	});
 });

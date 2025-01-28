@@ -373,6 +373,6 @@ describe('Middleware with tailwind', () => {
 		const bundledCSS = (await fixture.readFile(bundledCSSHREF.replace(/^\/?/, '/')))
 			.replace(/\s/g, '')
 			.replace('/n', '');
-		assert.equal(bundledCSS.includes('--tw-content'), true);
+		assert.equal(bundledCSS.includes('--tw'), true);
 	});
 });
