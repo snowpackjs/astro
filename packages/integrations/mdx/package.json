@@ -58,7 +58,7 @@
     "astro": "workspace:*",
     "astro-scripts": "workspace:*",
     "cheerio": "1.0.0",
-    "linkedom": "^0.18.6",
+    "linkedom": "^0.18.7",
     "mdast-util-mdx": "^3.0.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "mdast-util-to-string": "^4.0.0",
@@ -70,7 +70,7 @@
     "remark-toc": "^9.0.0",
     "shiki": "^1.29.1",
     "unified": "^11.0.5",
-    "vite": "^6.0.9"
+    "vite": "^6.0.11"
   },
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=22.0.0"

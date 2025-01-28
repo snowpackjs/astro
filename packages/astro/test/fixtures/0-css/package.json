@@ -9,7 +9,7 @@
     "astro": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "svelte": "^5.19.0",
+    "svelte": "^5.19.4",
     "vue": "^3.5.13"
   }
 }

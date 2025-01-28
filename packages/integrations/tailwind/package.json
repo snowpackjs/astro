@@ -43,7 +43,7 @@
     "astro": "workspace:*",
     "astro-scripts": "workspace:*",
     "tailwindcss": "^3.4.17",
-    "vite": "^6.0.9"
+    "vite": "^6.0.11"
   },
   "peerDependencies": {
     "astro": "^3.0.0 || ^4.0.0 || ^5.0.0",

@@ -6,6 +6,6 @@
     "@astrojs/mdx": "workspace:*",
     "@astrojs/svelte": "workspace:*",
     "astro": "workspace:*",
-    "svelte": "^5.19.0"
+    "svelte": "^5.19.4"
   }
 }

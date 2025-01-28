@@ -45,14 +45,14 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vue/compiler-sfc": "^3.5.13",
-    "vite": "^6.0.9",
-    "vite-plugin-vue-devtools": "^7.7.0"
+    "vite": "^6.0.11",
+    "vite-plugin-vue-devtools": "^7.7.1"
   },
   "devDependencies": {
     "astro": "workspace:*",
     "astro-scripts": "workspace:*",
     "cheerio": "1.0.0",
-    "linkedom": "^0.18.6",
+    "linkedom": "^0.18.7",
     "vue": "^3.5.13"
   },
   "peerDependencies": {
