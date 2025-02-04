@@ -32,6 +32,7 @@ import type {
 } from '../types/public/integrations.js';
 import type { RouteData } from '../types/public/internal.js';
 import { validateSupportedFeatures } from './features-validation.js';
+import { ASTRO_VERSION } from '../core/constants.js';
 
 async function withTakingALongTimeMsg<T>({
 	name,
@@ -176,6 +177,7 @@ export async function runHookConfigSetup({
 				config: updatedConfig,
 				command,
 				isRestart,
+				astroVersion: ASTRO_VERSION,
 				addRenderer(renderer: AstroRenderer) {
 					if (!renderer.name) {
 						throw new Error(`Integration ${bold(integration.name)} has an unnamed renderer.`);
