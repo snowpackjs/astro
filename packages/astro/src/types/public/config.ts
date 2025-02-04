@@ -996,6 +996,22 @@ export interface ViteUserConfig extends OriginalViteUserConfig {
 
 	/**
 	 * @docs
+	 * @name disableTelemetry
+	 * @type {boolean}
+	 * @version 5.0.0
+	 * @default `false`
+	 * @description
+	 * Disable anonymous telemetry collection for this project.
+	 *
+	 * You can also disable telemetry globally by running `astro telemetry disable`.
+	 *
+	 * Visit https://astro.build/telemetry/ for more information about our approach to anonymous telemetry in Astro.
+	 */
+
+	disableTelemetry?: boolean;
+
+	/**
+	 * @docs
 	 * @kind heading
 	 * @name Image Options
 	 */
