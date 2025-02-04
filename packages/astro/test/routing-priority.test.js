@@ -127,6 +127,14 @@ const routes = [
 		url: '/api/catch/a-b.json',
 		htmlMatch: JSON.stringify({ foo: 'a', bar: 'b' }),
 	},
+	{
+		description: 'matches /404 to /[code].astro',
+		url: '/404',
+		h1: '[code].astro',
+		p: '404',
+		devOnly: true,
+	},
+
 ];
 
 function appendForwardSlash(path) {
@@ -144,8 +152,11 @@ describe('Routing priority', () => {
 			await fixture.build();
 		});
 
-		routes.forEach(({ description, url, fourOhFour, h1, p, htmlMatch }) => {
+		routes.forEach(({ description, url, fourOhFour, h1, p, htmlMatch, devOnly }) => {
 			const isEndpoint = htmlMatch && !h1 && !p;
+
+			//skip for devOnly routes
+			if (devOnly) return;
 
 			it(description, async () => {
 				const htmlFile = isEndpoint ? url : `${appendForwardSlash(url)}index.html`;
@@ -189,7 +200,7 @@ describe('Routing priority', () => {
 			await devServer.stop();
 		});
 
-		routes.forEach(({ description, url, fourOhFour, h1, p, htmlMatch }) => {
+		routes.forEach(({ description, url, fourOhFour, h1, p, htmlMatch, devOnly }) => {
 			const isEndpoint = htmlMatch && !h1 && !p;
 
 			// checks URLs as written above
@@ -240,6 +251,10 @@ describe('Routing priority', () => {
 					assert.equal(html, htmlMatch);
 				}
 			});
+
+
+			// skip for for dev only routes
+			if (devOnly) return;
 
 			// checks with index.html, ex: '/de/index.html' instead of '/de'
 			it(`${description} (index.html)`, async () => {

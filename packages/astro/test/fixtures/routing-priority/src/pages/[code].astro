@@ -1,0 +1,27 @@
+---
+export async function getStaticPaths() {
+		return [
+			{
+				params: { code: "404" },
+			},
+			{
+				params: { code: "403" },
+			}
+		]
+	}
+---
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Routing</title>
+</head>
+
+<body>
+	<h1>[code].astro</h1>
+	<p>{Astro.params.code}</p>
+</body>
+
+</html>

@@ -17,7 +17,7 @@ import { redirectTemplate } from '../core/routing/3xx.js';
 import { matchAllRoutes } from '../core/routing/index.js';
 import { isRoute404, isRoute500 } from '../core/routing/match.js';
 import { PERSIST_SYMBOL } from '../core/session.js';
-import { getSortedPreloadedMatches } from '../prerender/routing.js';
+import { getSortedPreloadedMatches, type GetSortedPreloadedMatchesParams } from '../prerender/routing.js';
 import type { ComponentInstance, RoutesList } from '../types/astro.js';
 import type { RouteData } from '../types/public/internal.js';
 import type { DevPipeline } from './pipeline.js';
@@ -49,6 +49,17 @@ function getCustom500Route(manifestData: RoutesList): RouteData | undefined {
 	return manifestData.routes.find((r) => isRoute500(r.route));
 }
 
+async function getDevSortedPreloadedMatches(getSortedPreloadedMatchesArgs: GetSortedPreloadedMatchesParams) {
+	return (await getSortedPreloadedMatches(getSortedPreloadedMatchesArgs)).sort((a, b) => {
+		const aIsUserDefined = a.route.origin === 'project'
+		const bIsUserDefined = b.route.origin === 'project'
+		if (aIsUserDefined !== bIsUserDefined) {
+			return aIsUserDefined ? -1 : 1;
+		}
+		return 0;
+	})
+}
+
 export async function matchRoute(
 	pathname: string,
 	routesList: RoutesList,
@@ -57,7 +68,7 @@ export async function matchRoute(
 	const { config, logger, routeCache, serverLike, settings } = pipeline;
 	const matches = matchAllRoutes(pathname, routesList);
 
-	const preloadedMatches = await getSortedPreloadedMatches({ pipeline, matches, settings });
+	const preloadedMatches = await getDevSortedPreloadedMatches({ pipeline, matches, settings });
 
 	for await (const { preloadedComponent, route: maybeRoute, filePath } of preloadedMatches) {
 		// attempt to get static paths
@@ -205,10 +216,10 @@ export async function handleRoute({
 		const statusCodedMatched = getStatusByMatchedRoute(matchedRoute);
 		statusCode = isRewrite
 			? // Ignore `matchedRoute` status for rewrites
-				response.status
+			response.status
 			: // Our internal noop middleware sets a particular header. If the header isn't present, it means that the user have
-				// their own middleware, so we need to return what the user returns.
-				!response.headers.has(NOOP_MIDDLEWARE_HEADER) && !isReroute
+			// their own middleware, so we need to return what the user returns.
+			!response.headers.has(NOOP_MIDDLEWARE_HEADER) && !isReroute
 				? response.status
 				: (statusCodedMatched ?? response.status);
 	} catch (err: any) {
