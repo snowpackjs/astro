@@ -1,0 +1,23 @@
+{
+  "name": "@example/integration",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "src",
+    "index.ts"
+  ],
+  "keywords": [
+    "withastro"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "astro": "^5.2.5"
+  },
+  "peerDependencies": {
+    "astro": "^4.0.0"
+  }
+}
