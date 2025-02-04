@@ -1,0 +1,23 @@
+---
+import Show from './Show.astro';
+
+interface Props<T> {
+	each: Iterable<T>;
+}
+
+const { each } = Astro.props;
+---
+
+{
+	(async function* () {
+		for await (const value of each) {
+			let html = await Astro.slots.render('default', [value]);
+			yield <Fragment set:html={html} />;
+			yield '\n';
+		}
+	})()
+}
+
+<Show when={!each.length}>
+	<slot name="fallback" />
+</Show>
