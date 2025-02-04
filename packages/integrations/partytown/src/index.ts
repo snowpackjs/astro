@@ -48,7 +48,8 @@ export default function createPlugin(options?: PartytownOptions): AstroIntegrati
 				);
 			},
 			'astro:build:done': async ({ dir }) => {
-				await copyLibFiles(fileURLToPath(new URL('~partytown', dir)), {
+				let libValue = options?.config?.lib?.replace(/^\/?/, '');
+				await copyLibFiles(fileURLToPath(new URL(libValue || '~partytown', dir)), {
 					debugDir: options?.config?.debug ?? false,
 				});
 			},
