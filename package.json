@@ -1,0 +1,21 @@
+{
+  "name": "@example/toolbar-app",
+  "type": "module",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "astro": "^4.6.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublish": "npm run build"
+  },
+  "exports": {
+    ".": "./dist/integration.js",
+    "./app": "./dist/app.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.17.8",
+    "astro": "^5.2.5"
+  }
+}
