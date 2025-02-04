@@ -92,7 +92,10 @@ describe('defineConfig()', () => {
 			defineConfig({
 				experimental: {
 					fonts: {
-						families: [{ provider: 'google' }, { provider: 'local', src: 'test' }],
+						families: [
+							{ name: 'foo', provider: 'google' },
+							{ name: 'bar', provider: 'local', src: 'test' },
+						],
 					},
 				},
 			}),
@@ -103,8 +106,9 @@ describe('defineConfig()', () => {
 						never,
 						never,
 						[
-							{ readonly provider: 'google' },
+							{ readonly name: 'foo'; readonly provider: 'google' },
 							{
+								readonly name: 'bar';
 								readonly provider: 'local';
 								readonly src: 'test';
 							},
@@ -116,11 +120,8 @@ describe('defineConfig()', () => {
 				>();
 				expectTypeOf(config.experimental!.fonts!.families).toEqualTypeOf<
 					[
-						{ readonly provider: 'google' },
-						{
-							readonly provider: 'local';
-							readonly src: 'test';
-						},
+						{ readonly name: 'foo'; readonly provider: 'google' },
+						{ readonly name: 'bar'; readonly provider: 'local'; readonly src: 'test' },
 					]
 				>();
 			},
@@ -183,9 +184,9 @@ describe('defineConfig()', () => {
 					fonts: {
 						providers: [{ name: 'adobe', entrypoint: '' }],
 						families: [
-							{ provider: 'google' },
-							{ provider: 'local', src: 'test' },
-							{ provider: 'adobe' },
+							{ name: 'foo', provider: 'google' },
+							{ name: 'bar', provider: 'local', src: 'test' },
+							{ name: 'baz', provider: 'adobe' },
 						],
 					},
 				},
@@ -202,12 +203,19 @@ describe('defineConfig()', () => {
 							},
 						],
 						[
-							{ readonly provider: 'google' },
 							{
+								readonly name: 'foo';
+								readonly provider: 'google';
+							},
+							{
+								readonly name: 'bar';
 								readonly provider: 'local';
 								readonly src: 'test';
 							},
-							{ readonly provider: 'adobe' },
+							{
+								readonly name: 'baz';
+								readonly provider: 'adobe';
+							},
 						]
 					>
 				>();
@@ -221,12 +229,19 @@ describe('defineConfig()', () => {
 				>();
 				expectTypeOf(config.experimental!.fonts!.families).toEqualTypeOf<
 					[
-						{ readonly provider: 'google' },
 						{
+							readonly name: 'foo';
+							readonly provider: 'google';
+						},
+						{
+							readonly name: 'bar';
 							readonly provider: 'local';
 							readonly src: 'test';
 						},
-						{ readonly provider: 'adobe' },
+						{
+							readonly name: 'baz';
+							readonly provider: 'adobe';
+						},
 					]
 				>();
 			},

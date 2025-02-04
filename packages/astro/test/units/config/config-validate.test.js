@@ -486,7 +486,7 @@ describe('Config Validation', () => {
 				{
 					experimental: {
 						fonts: {
-							families: [{ provider: 'custom' }],
+							families: [{ provider: 'custom', name: 'foo' }],
 						},
 					},
 				},
