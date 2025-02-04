@@ -1,0 +1,44 @@
+<h1>Astronaut Figurine</h1>
+<p class="limited-edition-badge">Limited Edition</p>
+<p>
+	The limited edition Astronaut Figurine is the perfect gift for any Astro contributor. This
+	fully-poseable action figurine comes equipped with:
+</p>
+<ul>
+	<li>A fabric space suit with adjustable straps</li>
+	<li>Boots lightly dusted by the lunar surface *</li>
+	<li>An adjustable space visor</li>
+</ul>
+<p>
+	<sub>* Dust not actually from the lunar surface</sub>
+</p>
+
+<style>
+	h1 {
+		margin: 0;
+		margin-block-start: 2rem;
+	}
+
+	.limited-edition-badge {
+		font-weight: 700;
+		text-transform: uppercase;
+		background-image: linear-gradient(0deg, var(--astro-blue), var(--astro-pink));
+		background-size: 100% 200%;
+		background-position-y: 100%;
+		border-radius: 0.4rem;
+		animation: pulse 4s ease-in-out infinite;
+		display: inline-block;
+		color: white;
+		padding: 0.2rem 0.4rem;
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			background-position-y: 0%;
+		}
+		50% {
+			background-position-y: 80%;
+		}
+	}
+</style>
