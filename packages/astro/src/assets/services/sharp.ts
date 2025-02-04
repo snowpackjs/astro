@@ -1,4 +1,12 @@
-import type { FitEnum, FormatEnum, SharpOptions } from 'sharp';
+import type {
+	AvifOptions,
+	FitEnum,
+	FormatEnum,
+	JpegOptions,
+	PngOptions,
+	SharpOptions,
+	WebpOptions,
+} from 'sharp';
 import { AstroError, AstroErrorData } from '../../core/errors/index.js';
 import type { ImageFit, ImageOutputFormat, ImageQualityPreset } from '../types.js';
 import {
@@ -8,11 +16,20 @@ import {
 	parseQuality,
 } from './service.js';
 
+export interface SharpFormatOptions {
+	jpeg?: JpegOptions;
+	jpg?: JpegOptions;
+	avif?: AvifOptions;
+	png?: PngOptions;
+	webp?: WebpOptions;
+}
+
 export interface SharpImageServiceConfig {
 	/**
 	 * The `limitInputPixels` option passed to Sharp. See https://sharp.pixelplumbing.com/api-constructor for more information
 	 */
 	limitInputPixels?: SharpOptions['limitInputPixels'];
+	formatConfig?: SharpFormatOptions;
 }
 
 let sharp: typeof import('sharp');
@@ -108,7 +125,10 @@ const sharpService: LocalImageService<SharpImageServiceConfig> = {
 				}
 			}
 
-			result.toFormat(transform.format as keyof FormatEnum, { quality: quality });
+			result.toFormat(transform.format as keyof FormatEnum, {
+				quality: quality,
+				...config.service.config.formatConfig?.[transform.format as keyof SharpFormatOptions],
+			});
 		}
 
 		const { data, info } = await result.toBuffer({ resolveWithObject: true });
