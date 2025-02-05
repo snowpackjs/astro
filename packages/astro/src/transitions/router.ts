@@ -132,12 +132,19 @@ export function getFallback(): Fallback {
 	return 'animate';
 }
 
+const scriptsAlreadyRan = new Set<string>();
+const detectScriptExecuted = (script: HTMLScriptElement) => {
+	const key = script.src ? new URL(script.src, location.href).href : script.textContent!;
+	if (scriptsAlreadyRan.has(key)) return true;
+	scriptsAlreadyRan.add(key);
+	return false;
+};
 function runScripts() {
 	let wait = Promise.resolve();
 	for (const script of document.getElementsByTagName('script')) {
-		if (script.dataset.astroExec === '') continue;
 		const type = script.getAttribute('type');
 		if (type && type !== 'module' && type !== 'text/javascript') continue;
+		if (detectScriptExecuted(script)) continue;
 		const newScript = document.createElement('script');
 		newScript.innerHTML = script.innerHTML;
 		for (const attr of script.attributes) {
@@ -149,7 +156,6 @@ function runScripts() {
 			}
 			newScript.setAttribute(attr.name, attr.value);
 		}
-		newScript.dataset.astroExec = '';
 		script.replaceWith(newScript);
 	}
 	return wait;
@@ -644,7 +650,7 @@ if (inBrowser) {
 		}
 	}
 	for (const script of document.getElementsByTagName('script')) {
-		script.dataset.astroExec = '';
+		detectScriptExecuted(script);
 	}
 }
 
