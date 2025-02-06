@@ -30,6 +30,7 @@ declare const Astro: {
 		9: (value) => new Uint16Array(value),
 		10: (value) => new Uint32Array(value),
 		11: (value) => Infinity * value,
+		12: (value) => value,
 	};
 
 	// Not using JSON.parse reviver because it's bottom-up but we want top-down
