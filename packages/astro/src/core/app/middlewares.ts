@@ -13,6 +13,8 @@ const FORM_CONTENT_TYPES = [
 	'text/plain',
 ];
 
+const SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS', 'TRACE'];
+
 /**
  * Returns a middleware function in charge to check the `origin` header.
  *
@@ -25,15 +27,11 @@ export function createOriginCheckMiddleware(): MiddlewareHandler {
 		if (isPrerendered) {
 			return next();
 		}
-		if (request.method === 'GET') {
+		// Safe methods don't require origin check
+		if (SAFE_METHODS.includes(request.method)) {
 			return next();
 		}
-		const sameOrigin =
-			(request.method === 'POST' ||
-				request.method === 'PUT' ||
-				request.method === 'PATCH' ||
-				request.method === 'DELETE') &&
-			request.headers.get('origin') === url.origin;
+		const sameOrigin = request.headers.get('origin') === url.origin;
 
 		const hasContentType = request.headers.has('content-type');
 		if (hasContentType) {
