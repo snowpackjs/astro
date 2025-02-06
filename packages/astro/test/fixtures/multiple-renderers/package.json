@@ -1,0 +1,9 @@
+{
+  "name": "@test/multiple-renderers",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@test/astro-renderer-one": "file:./renderers/one",
+    "@test/astro-renderer-two": "file:./renderers/two"
+  }
+}

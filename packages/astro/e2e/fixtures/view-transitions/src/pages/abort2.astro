@@ -1,0 +1,24 @@
+---
+import { ClientRouter, fade } from 'astro:transitions';
+---
+<html transition:animate="none">
+	<head>
+		<ClientRouter />
+	</head>
+	<body>
+		<h1 transition:name="h1" transition:animate={fade({duration:500})}>Abort</h1>
+	</body>
+</html>
+
+<style is:global>::view-transition-group(h1){animation:none}</style>
+<script>
+	import {navigate } from 'astro:transitions/client';
+
+	setTimeout(()=>{
+		[...document.getAnimations()].forEach((a) => a.addEventListener('cancel', (e) => console.log("[test]", e.type, a.animationName)));
+		console.log("[test] navigate to /one");
+		navigate("/one");
+	}, 200);
+	console.log('[test] navigate to "."')
+	navigate("/abort2");
+</script>

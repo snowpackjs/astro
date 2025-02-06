@@ -1,0 +1,9 @@
+{
+  "name": "@test/markdown",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/preact": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

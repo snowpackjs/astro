@@ -1,0 +1,10 @@
+---
+import Island from '../components/Island';
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<p id="page-two">Page 2</p>
+	<div transition:persist="island">
+		<Island id="two" client:only="react" count={5}>message here</Island>
+	</div>
+</Layout>

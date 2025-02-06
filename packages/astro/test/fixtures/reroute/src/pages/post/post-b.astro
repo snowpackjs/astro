@@ -1,0 +1,15 @@
+---
+let email = ''
+if (Astro.request.method === 'POST') {
+	try {
+		const data = await Astro.request.json();
+		email = data.email?.toString().trim();
+	} catch (e) {
+		console.log(e)
+	}
+}
+---
+
+<h1>Post B</h1>
+
+<h2>{email}</h2>

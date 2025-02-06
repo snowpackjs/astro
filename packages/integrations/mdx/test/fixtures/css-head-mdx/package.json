@@ -1,0 +1,10 @@
+{
+  "name": "@test/mdx-css-head-mdx",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "astro": "workspace:*",
+    "astro-remote": "0.3.3"
+  }
+}

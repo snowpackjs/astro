@@ -1,0 +1,9 @@
+---
+import { getEntryBySlug } from 'astro:content';
+import H3 from '../components/H3.astro';
+
+const entry = await getEntryBySlug('blog', 'with-layout-prop');
+const { Content } = await entry.render();
+---
+<H3>H3 directly inserted to the page</H3>
+<Content />

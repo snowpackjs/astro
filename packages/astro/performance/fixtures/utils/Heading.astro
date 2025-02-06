@@ -1,0 +1,20 @@
+---
+type Props = {
+	level: number;
+}
+const { level } = Astro.props;
+---
+
+{level === 1 && <h1><slot /></h1>}
+{level === 2 && <h2><slot /></h2>}
+{level === 3 && <h3><slot /></h3>}
+{level === 4 && <h4><slot /></h4>}
+{level === 5 && <h5><slot /></h5>}
+{level === 6 && <h6><slot /></h6>}
+
+<style>
+	h1, h2, h3, h4, h5, h6 {
+		color: red;
+		text-transform: uppercase;
+	}
+</style>

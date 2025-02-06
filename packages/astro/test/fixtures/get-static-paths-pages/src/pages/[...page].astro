@@ -1,0 +1,37 @@
+---
+export async function getStaticPaths({ paginate }) {
+	const astronautPages = [{
+		astronaut: 'Neil Armstrong',
+	}, {
+		astronaut: 'Buzz Aldrin',
+	}, {
+		astronaut: 'Sally Ride',
+	}, {
+		astronaut: 'John Glenn',
+	}];
+	// Generate pages from our array of astronauts, with 2 to a page
+	return paginate(astronautPages, { pageSize: 2 });
+}
+
+// All paginated data is passed on the "page" prop
+const { page } = Astro.props;
+---
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="generator" content={Astro.generator} />
+	<title>Astro</title>
+</head>
+
+<body>
+	<h1>Page {page.currentPage}</h1>
+	<ul>
+		<!--List the array of astronaut info-->
+		{page.data.map(({ astronaut }: { astronaut: string }) => <li>{astronaut}</li>)}
+	</ul>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+---
+export interface Props {
+	title: string;
+}
+
+const { title } = Astro.props as Props;
+---
+
+<section>
+	<h1>{title}</h1>
+	<slot />
+</section>
+
+<style>
+section {
+	width: 100%;
+	height: 80vh;
+	background: white;
+	color: black;
+}
+
+h1 {
+	text-align: center;
+}
+</style>

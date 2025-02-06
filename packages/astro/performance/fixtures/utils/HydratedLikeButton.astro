@@ -1,0 +1,12 @@
+---
+import LikeButton from "./LikeButton";
+
+type Props = {
+	liked: boolean;
+}
+
+---
+
+<!-- Markdoc doesn't support `client:` directives -->
+<!-- Use this Astro wrapper as a stand-in -->
+<LikeButton client:load liked={Astro.props.liked} />

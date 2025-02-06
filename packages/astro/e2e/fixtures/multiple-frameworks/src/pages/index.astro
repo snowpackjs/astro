@@ -1,0 +1,50 @@
+---
+// Component Imports
+import { A, B as Renamed } from '../components';
+import { PreactCounter } from '../components/preact/PreactCounter.tsx';
+import * as react from '../components/react/ReactCounter.jsx';
+import SolidCounter from '../components/solid/SolidCounter.tsx';
+import SvelteCounter from '../components/svelte/SvelteCounter.svelte';
+import VueCounter from '../components/vue/VueCounter.vue';
+// Style Imports
+import '../styles/global.css';
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/basics/astro-components/
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	</head>
+	<body>
+		<main>
+			<react.Counter id="react-counter" client:idle>
+				<h1>Hello React!</h1>
+				<p>What's up?</p>
+			</react.Counter>
+
+			<PreactCounter id="preact-counter" client:idle>
+				<h1>Hello Preact!</h1>
+			</PreactCounter>
+
+			<SolidCounter id="solid-counter" client:idle>
+				<h1>Hello Solid!</h1>
+			</SolidCounter>
+
+			<VueCounter id="vue-counter" client:idle>
+				<h1>Hello Vue!</h1>
+			</VueCounter>
+
+			<SvelteCounter id="svelte-counter" client:idle>
+				<h1>Hello Svelte!</h1>
+			</SvelteCounter>
+
+			<A id="astro-a" />
+
+			<Renamed id="astro-b" />
+		</main>
+	</body>
+</html>

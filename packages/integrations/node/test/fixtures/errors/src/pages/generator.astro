@@ -1,0 +1,11 @@
+---
+function * generator () {
+    yield 1
+    throw Error('ohnoes')
+}
+---
+<h1>Astro</h1>
+{generator()}
+<footer>
+	Footer
+</footer>

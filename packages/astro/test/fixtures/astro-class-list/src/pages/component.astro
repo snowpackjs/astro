@@ -1,0 +1,20 @@
+---
+import Component from '../components/Span.astro'
+---
+
+<Component class="test control" />
+
+<Component class:list={'test expression'} />
+
+<Component class:list={[ 'array' ]} />
+
+<Component class:list={{ test: true, true: true, false: false }} />
+<Component class:list={{ test: 1, truthy: '0', noshow1: 0, noshow2: '', noshow3: null, noshow4: undefined }} />
+
+<Component class:list={['test', 'set']} />
+
+<Component class:list={[ 'hello goodbye', { hello: true, world: true }, [ 'hello', 'friend' ] ]} />
+
+<Component class:list={['foo', false && 'bar', true && 'baz']} />
+
+<Component class:list={[false && 'empty']} />

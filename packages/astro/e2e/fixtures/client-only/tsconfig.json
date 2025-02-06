@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "importsNotUsedAsValues": "error"
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}

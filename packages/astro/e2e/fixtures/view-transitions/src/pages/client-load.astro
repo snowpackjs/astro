@@ -1,0 +1,13 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import ClickToNavigate from '../components/ClickToNavigate.jsx';
+---
+
+<html>
+	<head>
+		<ClientRouter />
+	</head>
+	<body>
+		<ClickToNavigate id="react-client-load-navigate-button" to="/two" client:load />
+	</body>
+</html>

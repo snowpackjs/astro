@@ -1,0 +1,82 @@
+{
+  "name": "root",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git"
+  },
+  "scripts": {
+    "release": "pnpm run build && changeset publish",
+    "build": "turbo run build --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"@benchmark/*\"",
+    "build:ci": "turbo run build:ci --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"@benchmark/*\"",
+    "build:ci:no-cache": "pnpm -r --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"@benchmark/*\" build:ci",
+    "build:examples": "turbo run build --filter=\"@example/*\"",
+    "dev": "turbo run dev --concurrency=40 --parallel --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --filter=\"@benchmark/*\"",
+    "format": "pnpm run format:code && pnpm run format:imports",
+    "format:ci": "pnpm run format:code:ci && pnpm run format:imports:ci",
+    "format:code": "biome format --write && prettier -w \"**/*\" --ignore-unknown --cache",
+    "format:code:ci": "biome format && prettier -w \"**/*\" --ignore-unknown --cache --check",
+    "format:imports": "biome check --formatter-enabled=false --write",
+    "format:imports:ci": "biome ci --formatter-enabled=false",
+    "test": "turbo run test --concurrency=1 --filter=astro --filter=create-astro --filter=\"@astrojs/*\"",
+    "test:citgm": "pnpm -r --filter=astro test",
+    "test:match": "cd packages/astro && pnpm run test:match",
+    "test:unit": "cd packages/astro && pnpm run test:unit",
+    "test:types": "cd packages/astro && pnpm run test:types",
+    "test:smoke": "pnpm test:smoke:example && pnpm test:smoke:docs",
+    "test:smoke:example": "turbo run build --concurrency=100% --filter=\"@example/*\"",
+    "test:smoke:docs": "turbo run build --filter=docs",
+    "test:check-examples": "node ./scripts/smoke/check.js",
+    "test:vite-ci": "cd packages/astro && pnpm run test:unit && pnpm run test:integration",
+    "test:e2e": "cd packages/astro && pnpm playwright install chromium firefox && pnpm run test:e2e",
+    "test:e2e:match": "cd packages/astro && pnpm playwright install chromium firefox && pnpm run test:e2e:match",
+    "test:e2e:hosts": "turbo run test:hosted",
+    "benchmark": "astro-benchmark",
+    "lint": "biome lint && eslint . --report-unused-disable-directives-severity=warn",
+    "lint:ci": "biome ci --formatter-enabled=false --organize-imports-enabled=false --reporter=github && eslint . --report-unused-disable-directives-severity=warn",
+    "lint:fix": "biome lint --write --unsafe",
+    "publint": "pnpm -r --filter=astro --filter=create-astro --filter=\"@astrojs/*\" --no-bail exec publint",
+    "version": "changeset version && node ./scripts/deps/update-example-versions.js && pnpm install --no-frozen-lockfile && pnpm run format",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "workspaces": [
+    "packages/markdown/*",
+    "packages/integrations/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=22.0.0"
+  },
+  "packageManager": "pnpm@9.12.1",
+  "dependencies": {
+    "astro-benchmark": "workspace:*"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@biomejs/biome": "1.9.4",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.12",
+    "@types/node": "^18.17.8",
+    "esbuild": "^0.24.2",
+    "eslint": "^9.19.0",
+    "eslint-plugin-regexp": "^2.7.0",
+    "globby": "^14.0.2",
+    "only-allow": "^1.2.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "publint": "^0.3.2",
+    "turbo": "^2.4.0",
+    "typescript": "~5.7.3",
+    "typescript-eslint": "^8.23.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowAny": [
+        "astro",
+        "vite"
+      ]
+    }
+  }
+}

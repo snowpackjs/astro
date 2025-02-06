@@ -1,0 +1,19 @@
+---
+import inline from '../inline.css?inline';
+import Layout from '../layouts/Layout.astro';
+import raw from '../raw.css?raw';
+---
+<Layout title="Welcome to Astro.">
+	<main>
+	<h1>Welcome to Astro</h1>
+	<p>
+	This are some `?inline` styles to show as object:
+	</p>
+	<p id="inline">
+		{inline}
+	</p>
+	<p id="raw">
+		{raw}
+	</p>
+	</main>
+</Layout>

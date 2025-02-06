@@ -1,0 +1,28 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<p id="name">Keep Style</p>
+	<a id="click" href="/keep-two">go to next page</a>
+</Layout>
+<script>
+
+	import { swapFunctions } from 'astro:transitions/client';
+
+	document.addEventListener('astro:before-swap', (e) => {
+		e.swap = () => keepStyle(e.newDocument)
+	});
+
+	function keepStyle(doc: Document) {
+		swapFunctions.deselectScripts(doc);
+		swapFunctions.swapRootAttributes(doc);
+		{
+			const dynamicStyle = document.head.querySelector('style:not(:empty)');
+			swapFunctions.swapHeadElements(doc);
+			dynamicStyle && document.head.insertAdjacentElement('afterbegin', dynamicStyle);
+		}
+		const restoreFocusFunction = swapFunctions.saveFocus();
+		swapFunctions.swapBodyElement(doc.body, document.body)
+		restoreFocusFunction();
+	}
+</script>

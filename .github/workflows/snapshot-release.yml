@@ -1,0 +1,169 @@
+name: Create a Snapshot Release
+
+on:
+  workflow_dispatch:
+  issue_comment:
+    types: [created]
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  FORCE_COLOR: 1
+
+jobs:
+  snapshot-release:
+    name: Create a snapshot release of a pull request
+    if: ${{ github.repository_owner == 'withastro' && github.event.issue.pull_request && (contains(github.event.comment.body, '!preview') || contains(github.event.comment.body, '/preview') || contains(github.event.comment.body, '!snapshot') || contains(github.event.comment.body, '/snapshot')) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Check if user has write access
+        uses: lannonbr/repo-permission-check-action@2.0.2
+        with:
+          permission: write
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract the snapshot name from comment body
+        id: getSnapshotName
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { body } = context.payload.comment;
+            const PREVIEW_RE = /^[!\/](?:preview|snapshot)\s+(\S*)\s*$/gim;
+            const [_, name] = PREVIEW_RE.exec(body) ?? [];
+            if (name) return name;
+
+            const error = 'Invalid command. Expected: "/preview <snapshot-name>"'
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: error,
+            })
+            core.setFailed(error)
+          result-encoding: string
+
+      - name: resolve pr refs
+        id: refs
+        uses: eficode/resolve-pr-refs@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.refs.outputs.head_ref }}
+          fetch-depth: 0
+
+      - name: Extract base branch from .changeset/config.json
+        id: getBaseBranch
+        run: |
+          baseBranch=$(jq -r '.baseBranch' .changeset/config.json)
+          echo "baseBranch=${baseBranch}" >> $GITHUB_OUTPUT
+
+      - run: git fetch origin ${{ steps.getBaseBranch.outputs.baseBranch }}:${{ steps.getBaseBranch.outputs.baseBranch }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Bump Package Versions
+        id: changesets
+        run: |
+          pnpm exec changeset status --output status.output.json 2>&1
+          # Snapshots don't work in pre mode. See https://github.com/changesets/changesets/issues/1195
+          pnpm exec changeset pre exit || true
+          pnpm exec changeset version --snapshot ${{ steps.getSnapshotName.outputs.result }}
+
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "status<<$EOF" >> $GITHUB_OUTPUT
+          echo "$(cat status.output.json)" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+        env:
+          # Needs access to run the script
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Disable color
+          FORCE_COLOR: 0
+          NO_COLOR: 1
+
+      - name: Publish Release
+        id: publish
+        run: |
+          GITHUB_ACTIONS=0 pnpm run build > build.output.txt 2>&1
+          pnpm exec changeset publish --tag experimental--${{ steps.getSnapshotName.outputs.result }} > publish.output.txt 2>&1
+
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+
+          echo "build<<$EOF" >> $GITHUB_OUTPUT
+          echo "$(cat build.output.txt)" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+          cat build.output.txt
+
+          echo "publish<<$EOF" >> $GITHUB_OUTPUT
+          echo "$(cat publish.output.txt)" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+          cat publish.output.txt
+        env:
+          # Needs access to publish to npm
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Disable color
+          FORCE_COLOR: 0
+          NO_COLOR: 1
+
+      - name: Pull Request Notification
+        uses: actions/github-script@v7
+        env:
+          TAG: ${{ steps.getSnapshotName.outputs.result }}
+          STATUS_DATA: ${{ steps.changesets.outputs.status }}
+          BUILD_LOG: ${{ steps.publish.outputs.build }}
+          PUBLISH_LOG: ${{ steps.publish.outputs.publish }}
+        with:
+          script: |
+            let changeset = { releases: [] };
+            try {
+              changeset = JSON.parse(process.env.STATUS_DATA);
+            } catch (e) {}
+            let message = 'Snapshots have been released for the following packages:'
+            for (const release of changeset.releases) {
+              if (release.type === 'none') continue;
+              message += `\n- \`${release.name}@experimental--${process.env.TAG}\``;
+            }
+
+            function details(title, body) {
+              message += '\n';
+              message += `<details><summary><strong>${title}</strong></summary>`
+              message += '\n\n```\n';
+              message += body;
+              message += '\n```\n\n</details>';
+            }
+
+            details('Publish Log', process.env.PUBLISH_LOG);
+            details('Build Log', process.env.BUILD_LOG);
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message,
+            })

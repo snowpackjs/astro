@@ -1,0 +1,26 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<p id="one">Persist 1</p>
+	<form transition:persist="form" action="/persist-2">
+		<input type="text" name="name" />
+		<input type="checkbox" />
+	</form>
+	<div id="test">test content</div>
+</Layout>
+<script>
+	const input = document.querySelector<HTMLInputElement>("form input")!;
+	input.focus();
+	input.value = "some cool text";
+	input.selectionStart=5;
+	input.selectionEnd=9;
+
+	document.addEventListener('astro:after-swap', () => {
+		const textInput = document.querySelector<HTMLInputElement>("form input:first-of-type")!;
+		console.log(textInput === document.activeElement, textInput.value, textInput.selectionStart, textInput.selectionEnd);
+		const checkBox = document.querySelector<HTMLInputElement>("form input:nth-of-type(2)")!;
+		checkBox.checked = true;
+		checkBox.focus();
+	}, {once:true});
+</script>

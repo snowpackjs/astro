@@ -1,0 +1,13 @@
+---
+import Island from '../components/Island.jsx';
+import Layout from '../components/Layout.astro';
+export const prerender = false;
+
+const persistProps = Astro.url.searchParams.has('persist');
+---
+<Layout>
+	<p id="island-one">Page 1</p>
+	<a id="click-two" href="/island-two">go to 2</a>
+	<Island count={5} page="Island 1" client:load transition:persist transition:name="counter"
+		transition:persist-props={persistProps} />
+</Layout>

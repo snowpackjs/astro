@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import myImage from "../assets/penguin1.jpg";
+---
+<html>
+<head>
+
+</head>
+<body>
+	<div id="all-the-same">
+		<Image src={myImage} alt="a penguin" />
+		<Image src={myImage} alt="a penguin" class="something" />
+		<Image src={myImage} alt="a penguin" id="something-else" class="something" />
+		<Image src={myImage} alt="a penguin" id="something-else" class="something" transition:animate={"none"} transition:name='' transition:persist style="color: red" />
+	</div>
+
+	<div id="use-data">
+		<Image src={myImage} alt="a penguin" />
+		<Image src={myImage} alt="a penguin" data-custom="value" />
+	</div>
+</body>
+</html>

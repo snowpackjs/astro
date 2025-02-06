@@ -1,0 +1,9 @@
+import Render from '../components/Render.astro';
+import RenderFn from '../components/RenderFn.astro';
+import RenderArgs from '../components/RenderArgs.astro';
+
+# Slots: MDX
+
+<Render id="render">render</Render>
+<RenderFn id="render-fn">{() => "render-fn"}</RenderFn>
+<RenderArgs id="render-args" text="render-args">{(text) => <span>{text}</span>}</RenderArgs>

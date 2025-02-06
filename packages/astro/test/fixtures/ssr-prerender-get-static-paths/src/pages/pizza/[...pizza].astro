@@ -1,0 +1,23 @@
+---
+export function getStaticPaths() {
+	return [{
+		params: { pizza: 'papa-johns' },
+	}, {
+		params: { pizza: 'dominos' },
+  }, {
+		params: { pizza: 'grimaldis/new-york' },
+  }]
+}
+export const prerender = true;
+const { pizza } = Astro.params
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{pizza ?? 'The landing page'}</title>
+	</head>
+	<body>
+		<h1>Welcome to {pizza ?? 'The landing page'}</h1>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "@test/with-endpoint-routes",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

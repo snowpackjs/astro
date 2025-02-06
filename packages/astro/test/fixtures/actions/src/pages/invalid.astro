@@ -1,0 +1,6 @@
+---
+import { actions } from "astro:actions";
+
+// this is invalid, it should fail
+const result = await actions.subscribe({ channel: "hey" });
+---

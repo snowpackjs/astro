@@ -1,0 +1,8 @@
+{
+  "name": "@test/dynamic-route-build-file",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

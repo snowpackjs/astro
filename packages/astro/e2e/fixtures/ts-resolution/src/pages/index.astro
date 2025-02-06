@@ -1,0 +1,18 @@
+---
+import Counter from '../components/Counter.jsx';
+
+const someProps = {
+	count: 0,
+};
+---
+
+<html>
+	<head>
+		<!-- Head Stuff -->
+	</head>
+	<body>
+		<Counter id="client-idle" {...someProps} client:idle>
+			<h1>Hello, client:idle!</h1>
+		</Counter>
+	</body>
+</html>

@@ -1,0 +1,16 @@
+---
+export async function getStaticPaths({ paginate }) {
+  const astronautPages = [{
+    astronaut: 'Neil Armstrong',
+  }, {
+    astronaut: 'Buzz Aldrin',
+  }, {
+    astronaut: 'Sally Ride',
+  }, {
+    astronaut: 'John Glenn',
+  }];
+  return paginate(astronautPages, { pageSize: 1 });
+}
+const { page } = Astro.props;
+---
+<a id="prev" href={page.url.prev}>Back</a>

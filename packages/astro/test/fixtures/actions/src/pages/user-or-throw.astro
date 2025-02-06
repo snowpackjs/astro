@@ -1,0 +1,12 @@
+---
+import { actions } from 'astro:actions';
+
+const res = Astro.getActionResult(actions.getUserOrThrow);
+
+if (res?.error) {
+	Astro.response.status = res.error.status;
+}
+---
+
+<p id="error-message">{res?.error?.message}</p>
+<p id="error-code">{res?.error?.code}</p>

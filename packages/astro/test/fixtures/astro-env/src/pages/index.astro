@@ -1,0 +1,15 @@
+---
+import { FOO } from "astro:env/client"
+import { BAZ } from "astro:env/server"
+
+console.log({ BAZ })
+---
+
+<div id="server-rendered">{FOO}</div>
+<div id="client-rendered"></div>
+
+<script>
+    import { BAR } from "astro:env/client"
+
+    document.getElementById("client-rendered").innerText = BAR
+</script>

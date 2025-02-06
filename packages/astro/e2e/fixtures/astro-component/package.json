@@ -1,0 +1,11 @@
+{
+  "name": "@e2e/astro-component",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/preact": "workspace:*",
+    "@e2e/astro-linked-lib": "link:../_deps/astro-linked-lib",
+    "astro": "workspace:*",
+    "preact": "^10.25.4"
+  }
+}

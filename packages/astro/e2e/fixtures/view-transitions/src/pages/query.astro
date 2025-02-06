@@ -1,0 +1,10 @@
+---
+import Layout from '../components/Layout.astro';
+export const prerender = false;
+// this works only with SSR, not with SSG. E2e tests run with output=hybrid or server
+const page = Astro.url.searchParams.get('page') || 1;
+---
+<Layout>
+	<p id="query-page">Page {page}</p>
+	<a id="click-two" href="/query?page=2">go to 2</a>
+</Layout>

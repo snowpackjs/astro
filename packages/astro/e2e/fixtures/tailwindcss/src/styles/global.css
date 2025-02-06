@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-dawn: #f3e9fa;
+    --color-dusk: #514375;
+    --color-midnight: #31274a;
+}

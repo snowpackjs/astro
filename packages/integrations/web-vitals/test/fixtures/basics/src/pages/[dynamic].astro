@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from "astro";
+export const getStaticPaths = (() => {
+	return [{ params: { dynamic: 'test' } }];
+}) satisfies GetStaticPaths;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web Vitals basics — dynamic route test</title>
+</head>
+<body>
+	<h1>Web Vitals basics</h1>
+	<p>Dynamic route test</p>
+</body>
+</html>

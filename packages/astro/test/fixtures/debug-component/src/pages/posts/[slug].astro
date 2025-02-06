@@ -1,0 +1,24 @@
+---
+import Debug from 'astro/debug';
+
+// all the content that should be generated
+export async function getStaticPaths() {
+    const data = await Astro.glob('../../data/posts/*.md')
+
+    const allArticles = data.map((article) => {
+        return {
+      	    params: { slug: article.frontmatter.slug },
+      	    props: {
+	            article: article,
+	        }
+        }
+    })
+    
+    return allArticles
+
+}
+
+const x = Astro.props
+
+---
+<Debug {x} />

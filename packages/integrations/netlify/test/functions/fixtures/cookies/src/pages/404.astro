@@ -1,0 +1,7 @@
+---
+export const prerender = false
+const header = Astro.request.headers.get("x-test")
+---
+
+<p>This is my custom 404 page</p>
+<p>x-test: {header}</p>

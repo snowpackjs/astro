@@ -1,0 +1,30 @@
+---
+import CustomRendererTest from '../components/CustomRendererTest';
+---
+
+<html>
+	<head>
+		<title>Custom Framework / Custom Renderer</title>
+	</head>
+	<body>
+		<h1>Client Directives</h1>
+		<div>
+			<CustomRendererTest msg="client:only" client:only="custom-renderer" />
+		</div>
+		<div>
+			<CustomRendererTest msg="client:load" client:load />
+		</div>
+		<div>
+			<CustomRendererTest msg="client:visible" client:visible />
+		</div>
+		<div>
+			<CustomRendererTest msg="client:media" client:media="(max-width: 50em)" />
+		</div>
+		<div>
+			<CustomRendererTest msg="client:idle" client:idle />
+		</div>
+		<div>
+			<CustomRendererTest msg="none (SSR)" />
+		</div>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+---
+function * iterator(id = 'iterator') {
+	for(const num of [1, 2, 3, 4, 5]) {
+		yield `<span id="${id}-num">${num}</span>`;
+	}
+}
+
+async function * asynciterator() {
+	for(const num of iterator('asynciterator')) {
+		yield Promise.resolve(num);
+	}
+}
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+		<div id="html" set:html={`<span id="html-inner">works</span>`}></div>
+		<div id="promise-html" set:html={Promise.resolve(`<span id="promise-html-inner">works</span>`)}></div>
+		<div id="response" set:html={new Response(`<span id="response-html-inner"></span>`, {
+			headers: {
+				'content-type': 'text/html'
+			}
+		})}></div>
+		<div id="iterator" set:html={iterator()}></div>
+		<div id="asynciterator" set:html={asynciterator()}></div>
+		<div id="readablestream" set:html={new ReadableStream({
+			start(controller) {
+				controller.enqueue(`<span id="readable-inner">read me</span>`);
+				controller.close();
+			},
+		})}></div>
+	</body>
+</html>

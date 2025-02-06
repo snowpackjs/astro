@@ -1,0 +1,7 @@
+---
+import { getImage } from "astro:assets";
+
+const optimizedImage = await getImage({src: import('../assets/penguin1.jpg')})
+---
+
+<img src={optimizedImage.src} {...optimizedImage.attributes} />

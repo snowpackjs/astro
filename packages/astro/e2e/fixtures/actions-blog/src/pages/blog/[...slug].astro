@@ -1,0 +1,81 @@
+---
+import { type CollectionEntry, getEntry } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+import { Logout } from '../../components/Logout';
+import { db, eq, Comment, Likes } from 'astro:db';
+import { Like } from '../../components/Like';
+import { PostComment } from '../../components/PostComment';
+import { actions } from 'astro:actions';
+import { isInputError } from 'astro:actions';
+
+type Props = CollectionEntry<'blog'>;
+
+const post = await getEntry('blog', Astro.params.slug)!;
+const { Content } = await post.render();
+
+if (Astro.url.searchParams.has('like')) {
+	await Astro.callAction(actions.blog.like.orThrow, { postId: post.id });
+}
+
+const comment = Astro.getActionResult(actions.blog.comment);
+
+const comments = await db.select().from(Comment).where(eq(Comment.postId, post.id));
+
+const initialLikes = await db.select().from(Likes).where(eq(Likes.postId, post.id)).get();
+
+// Used to force validation errors for testing
+const commentPostIdOverride = Astro.url.searchParams.get('commentPostIdOverride');
+---
+
+<BlogPost {...post.data}>
+	<Like postId={post.id} initial={initialLikes?.likes ?? 0} client:load />
+
+	<Logout client:load />
+
+	<form>
+		<input type="hidden" name="like" />
+		<button type="submit" aria-label="get-request">Like GET request</button>
+	</form>
+
+	<Content />
+
+	<h2>Comments</h2>
+	<PostComment
+		postId={commentPostIdOverride ?? post.id}
+		serverBodyError={isInputError(comment?.error)
+			? comment.error.fields.body?.toString()
+			: undefined}
+		client:load
+	/>
+	<form method="POST" data-testid="progressive-fallback" action={actions.blog.comment.queryString}>
+		<input type="hidden" name="postId" value={post.id} />
+		<label for="fallback-author"> Author </label>
+		<input id="fallback-author" type="text" name="author" required />
+		<label for="fallback-body" class="sr-only"> Comment </label>
+		<textarea id="fallback-body" rows={10} name="body" required></textarea>
+		{
+			isInputError(comment?.error) && comment.error.fields.body && (
+				<p class="error" data-error="body">
+					{comment.error.fields.body.toString()}
+				</p>
+			)
+		}
+		<button type="submit">Post Comment</button>
+	</form>
+	<div data-testid="server-comments">
+		{
+			comments.map((c) => (
+				<article>
+					<p>{c.body}</p>
+					<p>{c.author}</p>
+				</article>
+			))
+		}
+	</div>
+</BlogPost>
+
+<style>
+	.error {
+		color: red;
+	}
+</style>

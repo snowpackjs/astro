@@ -1,0 +1,12 @@
+{
+  "name": "@test/parallel-components",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "astro build",
+    "dev": "astro dev"
+  },
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

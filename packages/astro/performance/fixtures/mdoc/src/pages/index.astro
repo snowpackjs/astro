@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import { RenderContent } from '@performance/utils';
+import ContentRenderer from '../ContentRenderer.astro';
+
+const posts = await getCollection('generated');
+---
+
+<RenderContent
+	{posts}
+	renderer={ContentRenderer}
+/>

@@ -1,0 +1,25 @@
+{
+  "name": "@performance/mdx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "unlicensed",
+  "dependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "@astrojs/react": "workspace:*",
+    "@performance/utils": "workspace:*",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "astro": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

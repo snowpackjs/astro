@@ -1,0 +1,8 @@
+---
+import { Image } from "astro:assets";
+import penguin from "../assets/some_penguin.png";
+export const prerender = false;
+---
+
+<Image src={penguin} alt="Penguins" width={50} />
+<Image src="https://images.unsplash.com/photo-1707229190979-f2d99f7823a8?q=80&w=800&auto=format&fit=crop" alt="Cornwall" width={400} height={300} />

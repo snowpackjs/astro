@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import image from "../assets/penguin2.jpg";
+
+---
+
+<div id="local-3-images">
+	<!--
+		In this example, only three images should be generated :
+		- The base image
+		- The 1.5x image
+		- The 2x image
+	-->
+	<Image src={image} width={image.width / 2} densities={[1.5, 2]} alt="" />
+</div>
+
+<div id="remote-3-images">
+	<!--
+		In this example, only three images should be generated :
+		- The base image
+		- The 1.5x image
+		- The 2x image
+	-->
+	<Image src={"https://avatars.githubusercontent.com/u/622227?s=64"} width={32} height={32} densities={[1.5, 2]} alt="" />
+</div>
+
+<div id="local-1x">
+	<!--
+		In this example, only one image should be generated :
+		- The base image, 1x density should be the same as the base image
+	-->
+	<Image src={image} width={image.width / 2} densities={[1]} alt="" />
+</div>
+
+<div id="remote-1x">
+	<!--
+		In this example, only one image should be generated :
+		- The base image, 1x density should be the same as the base image
+	-->
+	<Image src={"https://avatars.githubusercontent.com/u/622227?s=64"} width={32} height={32} densities={[1]} alt="" />
+</div>
+
+<div id="local-2-widths">
+	<!--
+		In this example, only two images should be generated :
+		- The base image
+		- The 2x image
+	-->
+	<Image src={image} width={image.width / 2} widths={[image.width]} alt="" />
+</div>
+
+<div id="remote-2-widths">
+	<!--
+		In this example, only two images should be generated :
+		- The base image
+		- The 2x image
+	-->
+	<Image src={"https://avatars.githubusercontent.com/u/622227?s=64"} width={32} height={32} widths={[64]} alt="" />
+</div>

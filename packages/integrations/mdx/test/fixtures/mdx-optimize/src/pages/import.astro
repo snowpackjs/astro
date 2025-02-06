@@ -1,0 +1,15 @@
+---
+import Strong from '../components/Strong.astro'
+import { Content, components } from './index.mdx'
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Import MDX component</title>
+  </head>
+  <body>
+    <h1>Astro page</h1>
+    <Content components={{ ...components, strong: Strong }} />
+  </body>
+</html>

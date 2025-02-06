@@ -1,0 +1,18 @@
+---
+export const prerender = true;
+
+const { searchParams } = Astro.url;
+---
+
+<html>
+<head>
+	<title>Static Page</title>
+	<script>
+		console.log('hello world');
+	</script>
+</head>
+	<body>
+		<h1 id="greeting">Hello world!</h1>
+		<div id="searchparams">{searchParams.get('q')}</div>
+	</body>
+</html>

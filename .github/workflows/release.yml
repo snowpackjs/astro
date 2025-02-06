@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - "1-legacy"
+      - "2-legacy"
+      - "3-legacy"
+      - "4-legacy"
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  FORCE_COLOR: true
+
+jobs:
+  changelog:
+    name: Changelog PR or Release
+    if: ${{ github.repository_owner == 'withastro' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # Note: pnpm install after versioning is necessary to refresh lockfile
+          version: pnpm run version
+          publish: pnpm exec changeset publish
+          commit: "[ci] release"
+          title: "[ci] release"
+        env:
+          # Needs access to push to main
+          GITHUB_TOKEN: ${{ secrets.FREDKBOT_GITHUB_TOKEN }}
+          # Needs access to publish to npm
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Generate Announcement
+        id: message
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: node .github/scripts/announce.mjs '${{ steps.changesets.outputs.publishedPackages }}'
+
+      - name: Send message on Discord
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: "${{ steps.message.outputs.DISCORD_MESSAGE }}"

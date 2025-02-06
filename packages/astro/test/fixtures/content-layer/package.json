@@ -1,0 +1,10 @@
+{
+  "name": "@test/content-layer",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/mdx": "workspace:*",
+    "toml": "^3.0.0"
+  }
+}

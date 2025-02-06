@@ -1,0 +1,11 @@
+---
+import Field from '../components/FunctionsToAPI.astro'
+---
+<Field>
+  <div slot="before">
+    {({content}) => <div>{content} BEFORE</div>}
+  </div>
+  <div slot="after">
+    {({content}) => <div>{content} AFTER</div>}
+  </div>
+</Field>

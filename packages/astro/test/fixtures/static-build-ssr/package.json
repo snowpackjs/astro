@@ -1,0 +1,10 @@
+{
+  "name": "@test/static-build-ssr",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/node": "^9.0.2",
+    "@test/static-build-pkg": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

@@ -1,0 +1,22 @@
+---
+const currentLocale = Astro.currentLocale;
+
+
+export async function getStaticPaths() {
+	return [
+		{ params: { lang: undefined } },
+		{ params: { lang: 'es' } }
+	]
+}
+
+---
+
+
+<html>
+<head>
+	<title>Astro</title>
+</head>
+<body>
+Current Locale: {currentLocale ? currentLocale : "none"}
+</body>
+</html>

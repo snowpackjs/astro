@@ -1,0 +1,96 @@
+{
+  "name": "@astrojs/db",
+  "version": "0.14.6",
+  "description": "Add libSQL and Astro Studio support to your Astro site",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/db"
+  },
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/db/",
+  "type": "module",
+  "author": "withastro",
+  "types": "./index.d.ts",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.js"
+    },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "default": "./dist/runtime/index.js"
+    },
+    "./dist/runtime/virtual.js": {
+      "default": "./dist/runtime/virtual.js"
+    },
+    "./types": {
+      "types": "./dist/core/types.d.ts",
+      "default": "./dist/core/types.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./index.d.ts"
+      ],
+      "types": [
+        "./dist/types.d.ts"
+      ],
+      "utils": [
+        "./dist/utils.d.ts"
+      ],
+      "runtime": [
+        "./dist/runtime/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "index.d.ts",
+    "virtual.d.ts",
+    "dist"
+  ],
+  "keywords": [
+    "withastro",
+    "astro-integration"
+  ],
+  "scripts": {
+    "types:virtual": "tsc -p ./tsconfig.virtual.json",
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc && pnpm types:virtual",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test": "astro-scripts test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "@astrojs/studio": "workspace:*",
+    "@libsql/client": "^0.14.0",
+    "async-listen": "^3.0.1",
+    "deep-diff": "^1.0.2",
+    "drizzle-orm": "^0.31.2",
+    "github-slugger": "^2.0.0",
+    "kleur": "^4.1.5",
+    "nanoid": "^5.0.9",
+    "open": "^10.1.0",
+    "prompts": "^2.4.2",
+    "yargs-parser": "^21.1.1",
+    "yocto-spinner": "^0.2.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/deep-diff": "^1.0.5",
+    "@types/prompts": "^2.4.9",
+    "@types/yargs-parser": "^21.0.3",
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*",
+    "cheerio": "1.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
+  }
+}

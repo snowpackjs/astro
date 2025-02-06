@@ -1,0 +1,13 @@
+{
+  "name": "@test/static-build-frameworks",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/preact": "workspace:*",
+    "@astrojs/react": "workspace:*",
+    "astro": "workspace:*",
+    "preact": "^10.25.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

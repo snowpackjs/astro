@@ -1,0 +1,23 @@
+---
+
+export function getStaticPaths( ) {
+	return [{
+		params: {
+			id: "1234"
+		}
+	}]
+}
+
+const { id } = Astro.params;
+const auth = Astro.locals.auth;
+---
+<html>
+<head>
+	<title>Index with params</title>
+</head>
+<body>
+<h1>Index with params</h1>
+<p id="params">Param: {id}</p>
+<p id="locals">Locals: {auth}</p>
+</body>
+</html>

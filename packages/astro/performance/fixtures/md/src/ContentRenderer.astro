@@ -1,0 +1,12 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+	entry: CollectionEntry<'generated'>;
+}
+
+const { entry }  = Astro.props as Props;
+const { Content } = await entry.render();
+---
+
+<Content />

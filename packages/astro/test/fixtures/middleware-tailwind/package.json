@@ -1,0 +1,10 @@
+{
+  "name": "@test/middleware-tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@tailwindcss/vite": "^4.0.3",
+    "tailwindcss": "^4.0.3"
+  }
+}

@@ -1,0 +1,11 @@
+---
+import '../styles/main.scss';
+const { title = 'Static Build', description = 'This is a demo of the static build' } = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="description" property="og:description" content={description} />
+<meta name="viewport" content="width=device-width" />
+<title>{title}</title>
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />

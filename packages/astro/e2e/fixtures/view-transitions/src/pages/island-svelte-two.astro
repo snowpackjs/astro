@@ -1,0 +1,11 @@
+---
+import Counter from '../components/SvelteCounter.svelte';
+import Layout from '../components/Layout.astro';
+export const prerender = false;
+
+---
+<Layout>
+	<p id="island-two">Page 2</p>
+	<a id="click-one" href="/island-svelte-one">go to 1</a>
+	<Counter prefix="B" client:load transition:persist transition:name="counter"/>
+</Layout>

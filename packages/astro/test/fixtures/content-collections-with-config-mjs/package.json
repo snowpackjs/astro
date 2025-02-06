@@ -1,0 +1,8 @@
+{
+  "name": "@test/content-collections-with-config-mjs",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

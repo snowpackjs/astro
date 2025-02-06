@@ -1,0 +1,13 @@
+---
+ export const prerender = true;
+ import Counter from "../components/Counter";
+ ---
+
+ <html>
+ <head>
+ 	<title>Static Page should not exist in chunks</title>
+ </head>
+ 	<body>
+ 		<Counter client:load />
+ 	</body>
+ </html>

@@ -1,0 +1,8 @@
+{
+  "name": "@test/css-no-code-split",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

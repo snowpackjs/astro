@@ -1,0 +1,23 @@
+---
+export async function getStaticPaths() {
+		return [
+			{ params: { pid: 'post-1' } },
+			{ params: { pid: 'post-2' } }
+		]
+	}
+---
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Routing</title>
+</head>
+
+<body>
+	<h1>posts/[pid].astro</h1>
+	<p>{Astro.params.pid}</p>
+</body>
+
+</html>

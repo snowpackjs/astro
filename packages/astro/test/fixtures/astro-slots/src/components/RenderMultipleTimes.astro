@@ -1,0 +1,15 @@
+---
+interface Props {
+    count: number;
+}
+const {count} = Astro.props;
+
+const renders: string[] = [];
+for (let i = 0; i < count; i++) {
+    renders.push(await Astro.slots.render('default'));
+}
+---
+
+{renders.map(
+    (render, i) => <Fragment key={i} set:html={render} />
+)}

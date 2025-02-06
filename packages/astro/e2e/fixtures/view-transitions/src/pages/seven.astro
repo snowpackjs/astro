@@ -1,0 +1,10 @@
+---
+import Layout from '../components/Layout.astro';
+
+Astro.response.headers.set('Content-Type', 'text/html ; charset=utf-8');
+---
+<Layout link="/one.css">
+	<p id="seven">Page 7</p>
+
+	<div id="test">test content</div>
+</Layout>

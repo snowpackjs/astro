@@ -1,0 +1,21 @@
+---
+export async function getStaticPaths() {
+	return [
+		{ params: { id: 'injected-1' } },
+		{ params: { id: 'injected-2' } }
+	];
+}
+
+const { id } = Astro.params;
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Routing</title>
+	</head>
+	<body>
+		<h1>[id].astro</h1>
+		<p>{id}</p>
+	</body>
+</html>

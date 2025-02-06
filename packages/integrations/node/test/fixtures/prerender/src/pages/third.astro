@@ -1,0 +1,15 @@
+---
+import { shared} from "../shared";
+export const prerender = false;
+
+const shared = Astro.locals.name;
+---
+
+<html>
+<head>
+	<title>One</title>
+</head>
+<body>
+<h1>{shared}</h1>
+</body>
+</html>

@@ -1,0 +1,9 @@
+---
+import ReactComp from '../components/react.tsx';
+
+export const prerender = false;
+
+const foo = { bar: null } as any;
+---
+<ReactComp foo={foo} />
+{foo.bar.baz.length > 0 && <div/>}

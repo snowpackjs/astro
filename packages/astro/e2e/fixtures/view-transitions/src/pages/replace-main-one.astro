@@ -1,0 +1,34 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<section>
+		<p id="name">Replace Main Section</p>
+		<p>This is the main section</p>
+	</section>
+	<a id="click" href="/keep-two">go to next page</a>
+</Layout>
+<script>
+	import { swapFunctions } from 'astro:transitions/client';
+
+	document.addEventListener('astro:before-swap', (e) => {
+		e.swap = () => replaceMain(e.newDocument)
+	});
+
+	function replaceMain(doc:Document){
+		swapFunctions.deselectScripts(doc);
+		swapFunctions.swapRootAttributes(doc);
+		swapFunctions.swapHeadElements(doc);
+		const restoreFocusFunction = swapFunctions.saveFocus();
+		{
+			const newMain = doc.body.querySelector('main section');
+				const oldMain = document.body.querySelector('main section');
+				if (newMain && oldMain) {
+					swapFunctions.swapBodyElement(newMain, oldMain);
+				} else {
+					swapFunctions.swapBodyElement(doc.body, document.body);
+				}
+		}
+		restoreFocusFunction();
+	}
+</script>

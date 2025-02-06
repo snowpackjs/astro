@@ -1,0 +1,34 @@
+{
+  "name": "Markdown with Shiki",
+  "build": {
+    "dockerfile": "../examples.Dockerfile"
+  },
+
+  "workspaceFolder": "/workspaces/astro/examples/with-markdown-shiki",
+
+  "portsAttributes": {
+    "4321": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
+    }
+  },
+
+  "forwardPorts": [4321],
+
+  "postCreateCommand": "pnpm install && cd /workspaces/astro && pnpm run build",
+
+  "waitFor": "postCreateCommand",
+
+  "postAttachCommand": {
+    "Server": "pnpm start --host"
+  },
+
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["src/pages/index.md"]
+    },
+    "vscode": {
+      "extensions": ["astro-build.astro-vscode", "esbenp.prettier-vscode"]
+    }
+  }
+}

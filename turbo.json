@@ -1,0 +1,67 @@
+{
+	"$schema": "https://turborepo.org/schema.json",
+	"tasks": {
+		"build": {
+			"dependsOn": [
+				"^build"
+			],
+			"inputs": [
+				"**/*",
+				"!test/**/*",
+				"!e2e/**/*",
+				"!performance/**/*",
+				"!.astro/**/*",
+				"!.cache/**/*",
+				"!mod.js",
+				"!mod.js.map"
+			],
+			"outputs": [
+				"dist/**/*",
+				"!vendor/**",
+				"mod.js",
+				"mod.js.map"
+			],
+			"outputLogs": "new-only"
+		},
+		"build:ci": {
+			"dependsOn": [
+				"^build:ci"
+			],
+			"inputs": [
+				"**/*",
+				"!test/**/*",
+				"!e2e/**/*",
+				"!performance/**/*",
+				"!.astro/**/*",
+				"!.cache/**/*",
+				"!mod.js",
+				"!mod.js.map"
+			],
+			"outputs": [
+				"dist/**/*",
+				"!vendor/**",
+				"mod.js",
+				"mod.js.map"
+			],
+			"outputLogs": "new-only"
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"test": {
+			"dependsOn": [
+				"^test"
+			],
+			"env": [
+				"RUNNER_OS",
+				"NODE_VERSION"
+			],
+			"outputLogs": "new-only"
+		},
+		"test:hosted": {
+			"cache": false,
+			"outputLogs": "new-only"
+		}
+	}
+}

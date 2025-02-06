@@ -1,0 +1,31 @@
+---
+import AstroComponent from '../components/Astro.astro';
+import JSX from '../components/Solid.jsx';
+import Svelte from '../components/Svelte.svelte';
+import Vue from '../components/Vue.vue';
+---
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/global.css">
+	<style>
+		@import '../styles/linked.css';
+	</style>
+  <style>
+    .astro-page {
+			&.nested {
+				color: red;
+			}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="astro-page nested">
+    <AstroComponent />
+    <JSX />
+    <Svelte />
+    <Vue />
+  </div>
+</body>
+
+</html>

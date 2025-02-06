@@ -1,0 +1,20 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+	<h2>Form 1</h2>
+	<form transition:persist>
+		<input id="input" type="text" name="name" autocomplete="false"/>
+	</form>
+
+	<script>
+		import {navigate} from "astro:transitions/client"
+		const form = document.querySelector("form");
+		form.addEventListener("submit", (e) => {
+			console.log("submit");
+			e.preventDefault();
+			navigate(`${location.pathname}?name=${input.value}`,{history: "replace"});
+			return false;
+		});
+	</script>
+</Layout>

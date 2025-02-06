@@ -1,0 +1,22 @@
+---
+import SomeComponent from '../components/SomeComponent';
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Hello world!</h1>
+		<SomeComponent client:idle />
+
+		<style>
+			h1 {
+				color: red;
+			}
+		</style>
+
+		<script>
+			console.log("Hello world!")
+		</script>
+	</body>
+</html>

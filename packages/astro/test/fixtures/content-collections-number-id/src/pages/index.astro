@@ -1,0 +1,6 @@
+---
+import { getEntry } from 'astro:content';
+const data = await getEntry('blog', 1);
+---
+
+{JSON.stringify(data)}

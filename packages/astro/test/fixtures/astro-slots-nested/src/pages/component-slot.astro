@@ -1,0 +1,17 @@
+---
+import SlotRender from '../components/SlotRender.astro'
+import Inner from '../components/react/Inner'
+---
+
+<html lang="en">
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<main>
+			<SlotRender>
+				<Inner client:load />
+			</SlotRender>
+		</main>
+	</body>
+</html>

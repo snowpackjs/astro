@@ -1,0 +1,9 @@
+{
+  "name": "@test/custom-assets-name",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/node": "^9.0.2"
+  }
+}

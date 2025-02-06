@@ -1,0 +1,20 @@
+---
+import { ClientRouter } from 'astro:transitions';
+---
+
+<html>
+	<head>
+		<ClientRouter handleForms />
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		<h2>Voting Form</h2>
+		{Astro.url.search}
+		<h3>This form does neither have a `method`, nor an `action`, nor an `input` defined</h3>
+		<form>
+			<button name="stars" value="1">⭐</button>
+			<button id="three" name="stars" value="3">⭐⭐⭐</button>
+			<button name="stars" value="5">⭐⭐⭐⭐⭐</button>
+		</form>
+	</body>
+</html>

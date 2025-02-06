@@ -1,0 +1,43 @@
+---
+import Island from '../components/Island.astro';
+import Self from '../components/Self.astro';
+import HTMLError from '../components/HTMLError.astro';
+import { generateLongText } from '../lorem';
+import MediaTypeInHeader from '../components/MediaTypeInHeader.astro';
+
+const content = generateLongText(5);
+
+export const prerender = false;
+---
+
+<html>
+	<head>
+		<!-- Head Stuff -->
+	</head>
+	<body>
+		<div id="basics">
+			<Island server:defer secret="test">
+				<h3 id="children">children</h3>
+			</Island>
+		</div>
+
+		<Self server:defer />
+
+		<MediaTypeInHeader server:defer />
+
+		<div id="big">
+			<Island server:defer secret="test" content={content} />
+		</div>
+
+		<div id="error-test">
+			<HTMLError server:defer>
+				<script is:inline slot="fallback">
+					// Delete the previous element, the island comment
+					document.currentScript.previousSibling.remove();
+
+					// This simulates a host which has minified the HTML, destroying the comment
+				</script>
+			</HTMLError>
+		</div>
+	</body>
+</html>

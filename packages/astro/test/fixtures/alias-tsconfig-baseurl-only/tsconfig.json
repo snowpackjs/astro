@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src"
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}

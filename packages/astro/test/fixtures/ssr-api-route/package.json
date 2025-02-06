@@ -1,0 +1,9 @@
+{
+  "name": "@test/ssr-api-route",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/node": "^9.0.2",
+    "astro": "workspace:*"
+  }
+}

@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+type Props = {
+	src: string | ImageMetadata;
+	alt: string;
+};
+
+const { src, alt } = Astro.props;
+---
+
+{
+	typeof src === 'string' ? (
+		<img data-my-image src={src} alt={alt} />
+	) : (
+		<Image data-my-image {src} {alt} />
+	)
+}
+
+<style>
+	[data-my-image] {
+		border: 1px solid red;
+	}
+</style>

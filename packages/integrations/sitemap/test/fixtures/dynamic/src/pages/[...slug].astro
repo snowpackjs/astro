@@ -1,0 +1,21 @@
+---
+export async function getStaticPaths() {
+	return [
+		{
+			params: {
+				slug: undefined,
+			}
+		},
+		{
+			params: {
+				slug: '/blog'
+			}
+		},
+		{
+			params: {
+				slug: '/test'
+			}
+		}
+	];
+}
+---

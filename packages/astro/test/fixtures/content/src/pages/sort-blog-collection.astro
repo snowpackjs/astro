@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+
+const blog = await getCollection('blog');
+
+// Sort descending by title, make sure mutating `blog` doesn't mutate other pages that call `getCollection` too
+blog.sort((a, b) => a.data.title < b.data.title ? 1 : -1)
+---
+<html>
+<head>
+	<title>Index</title>
+</head>
+<body>
+	<h1>Blog Posts</h1>
+
+	<ul>
+		{blog.map(post => (
+			<li>{ post.data.title }</li>
+		))}
+	</ul>
+</body>
+</html>

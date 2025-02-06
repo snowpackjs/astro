@@ -1,0 +1,14 @@
+---
+const currentLocale = Astro.currentLocale;
+const search = Astro.url.search.toString()
+---
+
+<html>
+<head>
+	<title>Astro</title>
+</head>
+<body>
+Oi essa e start: {currentLocale}
+Search: {search}
+</body>
+</html>

@@ -1,0 +1,68 @@
+{
+  "name": "@astrojs/vue",
+  "version": "5.0.6",
+  "description": "Use Vue components within Astro",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/integrations/vue"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "renderer",
+    "vue"
+  ],
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/vue/",
+  "exports": {
+    ".": "./dist/index.js",
+    "./editor": "./dist/editor.cjs",
+    "./*": "./*",
+    "./client.js": "./client.js",
+    "./server.js": "./server.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "client.js",
+    "context.js",
+    "server.js",
+    "server.d.ts",
+    "static-html.js"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/index.ts\" && astro-scripts build \"src/editor.cts\" --force-cjs --no-clean-dist && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\" && astro-scripts build \"src/editor.cts\" --force-cjs --no-clean-dist",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test": "astro-scripts test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vue/compiler-sfc": "^3.5.13",
+    "vite": "^6.0.11",
+    "vite-plugin-vue-devtools": "^7.7.1"
+  },
+  "devDependencies": {
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*",
+    "cheerio": "1.0.0",
+    "linkedom": "^0.18.7",
+    "vue": "^3.5.13"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0",
+    "vue": "^3.2.30"
+  },
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=22.0.0"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

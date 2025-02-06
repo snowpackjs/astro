@@ -1,0 +1,19 @@
+---
+interface Props {
+  error: unknown
+}
+
+const { error } = Astro.props
+
+throw "custom 500 fail"
+---
+
+<html lang="en">
+<head>
+  <title>Server error - Custom 500</title>
+</head>
+<body>
+  <h1>Server error</h1>
+	<p>{error}</p>
+</body>
+</html>

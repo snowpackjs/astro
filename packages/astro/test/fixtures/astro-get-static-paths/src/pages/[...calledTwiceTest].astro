@@ -1,0 +1,21 @@
+---
+export function getStaticPaths({ paginate }) {
+  if (globalThis.isCalledOnce) {
+    throw new Error("Can only be called once!");
+  }
+  globalThis.isCalledOnce = true;
+  return [
+    {params: {calledTwiceTest: 'a'}},
+    {params: {calledTwiceTest: 'b'}},
+    {params: {calledTwiceTest: 'c'}},
+  ];
+}
+const { params } = Astro;
+---
+
+<html>
+  <head>
+    <title>Page {params.calledTwiceTest}</title>
+  </head>
+  <body></body>
+</html>

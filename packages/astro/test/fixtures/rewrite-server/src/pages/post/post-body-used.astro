@@ -1,0 +1,17 @@
+---
+let data
+if (Astro.request.method === 'POST') {
+	try {
+		data = await Astro.request.text();
+	} catch (e) {
+		console.log(e)
+	}
+}
+
+return Astro.rewrite('/post/post-b')
+
+---
+
+<h1>Post body used</h1>
+
+<h2>{data}</h2>

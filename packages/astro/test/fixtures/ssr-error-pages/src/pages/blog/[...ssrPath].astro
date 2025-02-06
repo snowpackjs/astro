@@ -1,0 +1,9 @@
+---
+import { getEntry } from 'astro:content';
+const { ssrPath } = Astro.params;
+const page = await getEntry('pages', ssrPath === undefined ? 'index' : ssrPath);
+if (!page) return new Response(null, {
+  status: 404,
+  statusText: 'Not found'
+});
+---

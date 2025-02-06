@@ -1,0 +1,16 @@
+{
+  "name": "@test/performance",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "benchmark": "node ./content-benchmark.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "kleur": "^4.1.5"
+  }
+}

@@ -1,0 +1,32 @@
+---
+import Counter from '../components/Counter.jsx';
+const largeArray = []
+for (let i = 0; i < 600; i++) {
+	largeArray.push({ a: 'abc', b: 'abc', c: 'abc', d: 'abc', e: 'abc', foo: 'bar' })
+}
+---
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<style>
+			html,
+			body {
+				font-family: system-ui;
+				margin: 0;
+			}
+			body {
+				padding: 2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<Counter client:visible largeProp={largeArray}>
+				<h1>Hello, Solid!</h1>
+			</Counter>
+		</main>
+	</body>
+</html>

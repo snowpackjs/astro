@@ -1,0 +1,9 @@
+{
+  "name": "@e2e/hmr",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "astro": "workspace:*",
+    "sass": "^1.83.4"
+  }
+}

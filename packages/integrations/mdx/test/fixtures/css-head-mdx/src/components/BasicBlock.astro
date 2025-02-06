@@ -1,0 +1,14 @@
+---
+const { inlineStyle, title, display = 'horizontal' } = Astro.props;
+const lineEnding = display === 'horizontal' ? ', ' : '<br>';
+---
+
+{title && <h2 set:html={title} />}
+<address style={inlineStyle}>
+	<span class="name">some name</span><Fragment set:html={lineEnding} />
+	line 1<Fragment set:html={lineEnding} />
+	line 2<Fragment set:html={lineEnding} />
+	line 3<Fragment set:html={lineEnding} />
+	line 4<Fragment set:html={lineEnding} />
+	line 5
+</address>

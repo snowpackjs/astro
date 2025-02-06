@@ -1,0 +1,6 @@
+{
+  "files": ["i-have-base-url"],
+  "compilerOptions": {
+    "baseUrl": ".",
+  }
+}

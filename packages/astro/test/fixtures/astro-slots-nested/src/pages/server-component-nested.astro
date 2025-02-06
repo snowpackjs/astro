@@ -1,0 +1,62 @@
+---
+import PassesChildrenSv from '../components/PassesChildrenSv.svelte';
+import PassesChildrenV from '../components/PassesChildrenV.vue';
+import PassesChildrenP from '../components/preact/PassesChildrenP.jsx';
+import PassesChildren from '../components/react/PassesChildren.jsx';
+import PassesChildrenS from '../components/solid/PassesChildrenS.jsx';
+---
+
+<html lang="en">
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<main>
+			<div id="react">
+				<PassesChildren>
+					<div>
+						<PassesChildren client:load>
+							<span>Inner children</span>
+						</PassesChildren>
+					</div>
+				</PassesChildren>
+			</div>
+			<div id="preact">
+				<PassesChildrenP>
+					<div>
+						<PassesChildrenP client:load>
+							<span>Inner children</span>
+						</PassesChildrenP>
+					</div>
+				</PassesChildrenP>
+			</div>
+			<div id="solid">
+				<PassesChildrenS>
+					<div>
+						<PassesChildrenS client:load>
+							<span>Inner children</span>
+						</PassesChildrenS>
+					</div>
+				</PassesChildrenS>
+			</div>
+			<div id="svelte">
+				<PassesChildrenSv>
+					<div>
+						<PassesChildrenSv client:load>
+							<span>Inner children</span>
+						</PassesChildrenSv>
+					</div>
+				</PassesChildrenSv>
+			</div>
+			<div id="vue">
+				<PassesChildrenV>
+					<div>
+						<PassesChildrenV client:load>
+							<span>Inner children</span>
+						</PassesChildrenV>
+					</div>
+				</PassesChildrenV>
+			</div>
+		</main>
+	</body>
+</html>

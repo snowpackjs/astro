@@ -1,0 +1,5 @@
+---
+import {getEntryBySlug} from "astro:content"
+const blogEntry = await getEntryBySlug("blog", "introduction");
+---
+{blogEntry.data.title}

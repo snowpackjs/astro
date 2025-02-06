@@ -1,0 +1,45 @@
+{
+  "name": "@astrojs/partytown",
+  "description": "Use Partytown to move scripts into a web worker in your Astro project",
+  "version": "2.1.3",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/integrations/partytown"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "analytics",
+    "performance"
+  ],
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/partytown/",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "@qwik.dev/partytown": "^0.11.0",
+    "mrmime": "^2.0.0"
+  },
+  "devDependencies": {
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

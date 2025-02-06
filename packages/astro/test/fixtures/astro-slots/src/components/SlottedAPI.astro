@@ -1,0 +1,15 @@
+{Astro.slots.has("a") && <div id="a">
+  <slot name="a" />
+</div>}
+
+{Astro.slots.has("b") && <div id="b">
+  <slot name="b" />
+</div>}
+
+{Astro.slots.has("c") && <div id="c">
+  <slot name="c" />
+</div>}
+
+{Astro.slots.has("default") && <div id="default">
+  <slot />
+</div>}

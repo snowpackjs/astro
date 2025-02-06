@@ -1,0 +1,9 @@
+{
+  "name": "@test/content-collections-number-id",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

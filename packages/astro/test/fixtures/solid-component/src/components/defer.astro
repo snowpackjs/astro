@@ -1,0 +1,7 @@
+---
+import { AsyncComponent } from './async-components.jsx';
+
+await new Promise((resolve) => setTimeout(resolve, Astro.props.delay));
+---
+
+<AsyncComponent client:load />

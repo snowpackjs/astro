@@ -1,0 +1,8 @@
+{
+  "name": "@test/i18n-server-island",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

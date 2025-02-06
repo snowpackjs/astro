@@ -1,0 +1,26 @@
+---
+import p1Url from '../images/penguin1.jpg';
+import p2Url from '../images/penguin2.jpg?url';
+---
+<html lang="en">
+<head><title>This Site</title></head>
+<style>
+  body { background: black; }
+</style>
+<body>
+  <h1>Icons</h1>
+  <img src={(await import('../images/twitter.png')).default.src} srcset={`${(await import('../images/twitter.png')).default.src} 1x, ${(await import('../images/twitter@2x.png')).default.src} 2x, ${(await import('../images/twitter@3x.png')).default.src} 3x`} />
+  <img srcset="https://ik.imagekit.io/demo/tr:w-300,h-300/medium_cafe_B1iTdD0C.jpg, https://ik.imagekit.io/demo/tr:w-450,h-450/medium_cafe_B1iTdD0C.jpg 600w, https://ik.imagekit.io/demo/tr:w-600,h-600/medium_cafe_B1iTdD0C.jpg 800w">
+  <img srcset="https://ik.imagekit.io/demo/tr:w-300,h-300/medium_cafe_B1iTdD0C.jpg, https://ik.imagekit.io/demo/tr:w-450,h-450/medium_cafe_B1iTdD0C.jpg 1.5x, https://ik.imagekit.io/demo/tr:w-600,h-600/medium_cafe_B1iTdD0C.jpg 2x">
+  <!--
+    A srcset in <source> does not trigger an error in aforementioned versions
+    as no checking is done for this tag (a good way to circumvent the check.)
+  -->
+  <picture>
+    <source srcset="https://ik.imagekit.io/demo/tr:w-300,h-300/medium_cafe_B1iTdD0C.jpg, https://ik.imagekit.io/demo/tr:w-450,h-450/medium_cafe_B1iTdD0C.jpg 600w, https://ik.imagekit.io/demo/tr:w-600,h-600/medium_cafe_B1iTdD0C.jpg 800w">
+  </picture>
+
+  <img src={p1Url.src} id="import-no-url" />
+  <img src={p2Url} id="import-url" />
+</body>
+</html>

@@ -1,0 +1,27 @@
+---
+export async function getStaticPaths() {
+	const pages = [
+		{
+			page: 'order',
+			title: 'Order from A',
+		},
+	];
+	return pages.map(({ page, title }) => {
+		return {
+			params: { 'aOrder': page },
+			props: { title },
+		};
+	});
+}
+
+const { title } = Astro.props;
+---
+
+<html>
+<head>
+	<title>{title}</title>
+</head>
+<body>
+<h1>{title}</h1>
+</body>
+</html>

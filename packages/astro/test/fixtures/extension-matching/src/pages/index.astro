@@ -1,0 +1,12 @@
+---
+let success =  'false'
+
+try {
+	success = (await import('virtual:test')).default
+} catch (e) {
+	console.error('Failed to load virtual module:', e)
+}
+
+console.log('Loaded virtual module:', success)
+---
+<h1>{String(success)}</h1>

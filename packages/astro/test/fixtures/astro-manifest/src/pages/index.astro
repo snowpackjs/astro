@@ -1,0 +1,19 @@
+
+---
+import { base, i18n, trailingSlash, compressHTML, site, build } from "astro:config/client";
+
+const config = JSON.stringify({ base, i18n, build, trailingSlash, compressHTML, site });
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Document</title>
+</head>
+<body>
+	<h1>Hello, World!</h1>
+	<p>Welcome to this Astro page.</p>
+	<p id="config">{config}</p>
+</body>
+</html>

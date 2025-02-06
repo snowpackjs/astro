@@ -1,0 +1,17 @@
+---
+import { Event, db } from 'astro:db';
+
+const firstEvent = await db.select().from(Event).get();
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Eventbrite</title>
+	</head>
+	<body>
+		<meta http-equiv="refresh" content={`0; url=${firstEvent!.id}`} />
+	</body>
+</html>

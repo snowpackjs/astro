@@ -1,0 +1,5 @@
+---
+const files = await Astro.glob('./**/*.mdx')
+---
+
+{files.map((file: any) => <file.Content />)}

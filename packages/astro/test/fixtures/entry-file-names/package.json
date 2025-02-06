@@ -1,0 +1,10 @@
+{
+  "name": "@test/entry-file-names",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/preact": "workspace:",
+    "astro": "workspace:*",
+    "preact": "^10.25.4"
+  }
+}

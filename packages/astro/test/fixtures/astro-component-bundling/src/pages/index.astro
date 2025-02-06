@@ -1,0 +1,10 @@
+---
+import { BarComponent, BazComponent } from '../components/ManyComponents.jsx'
+---
+<html>
+<head><title>Component bundling</title></head>
+<body>
+  <BarComponent client:idle />
+  <BazComponent client:only="react" />
+</body>
+</html>

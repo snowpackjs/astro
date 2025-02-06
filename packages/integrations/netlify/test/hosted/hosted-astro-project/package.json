@@ -1,0 +1,12 @@
+{
+  "name": "@test/netlify-hosted-astro-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "astro build"
+  },
+  "dependencies": {
+    "@astrojs/netlify": "workspace:*",
+    "astro": "^5.1.6"
+  }
+}

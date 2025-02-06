@@ -1,0 +1,13 @@
+---
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<html>
+<head>
+  <title>Test</title>
+  <link rel="canonical" href={canonicalURL.href}>
+</head>
+<body>
+  <div id="pathname">{Astro.url.pathname}</div>
+  <a id="site" href={Astro.site}>Home</a>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "@e2e/server-islands-key",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev"
+  },
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/node": "^9.0.2"
+  }
+}

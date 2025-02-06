@@ -1,0 +1,39 @@
+---
+export async function getStaticPaths() {
+	const pages = [
+		{
+			slug: undefined,
+			title: 'Rest Index',
+		},
+		{
+			slug: 'blog',
+			title: 'Rest Blog',
+		},
+		{
+			slug: 'who',
+			title: 'Rest Who We Are',
+		},
+		{
+			slug: '/test/ing/',
+			title: 'Rest TestIng',
+		},
+	];
+	return pages.map(({ slug, title }) => {
+		return {
+			params: { slug },
+			props: { title },
+		};
+	});
+}
+
+const { title } = Astro.props;
+---
+
+<html>
+	<head>
+		<title>{title}</title>
+	</head>
+	<body>
+		<h1>{title}</h1>
+	</body>
+</html>

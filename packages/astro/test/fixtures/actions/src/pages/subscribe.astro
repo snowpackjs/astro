@@ -1,0 +1,11 @@
+---
+import { actions } from 'astro:actions';
+
+const res = await Astro.callAction(actions.subscribeFromServer.orThrow, {
+	channel: 'bholmesdev',
+});
+---
+
+<p data-url>{res.url}</p>
+<p data-channel>{res.channel}</p>
+

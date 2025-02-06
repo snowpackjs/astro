@@ -1,0 +1,21 @@
+---
+import { root, outDir, srcDir, build, cacheDir } from "astro:config/server";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Document</title>
+</head>
+<body>
+<h1>Hello, World!</h1>
+<p>Welcome to this Astro page.</p>
+<p id="out-dir">{outDir}</p>
+<p id="src-dir">{srcDir}</p>
+<p id="root">{root}</p>
+<p id="cache-dir">{cacheDir}</p>
+<p id="build-client">{build.client}</p>
+<p id="build-server">{build.server}</p>
+</body>
+</html>

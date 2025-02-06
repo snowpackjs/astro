@@ -1,0 +1,11 @@
+{
+  "name": "@test/alpinejs-directive",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/alpinejs": "workspace:*",
+    "@types/alpinejs": "^3.13.11",
+    "alpinejs": "^3.14.8",
+    "astro": "workspace:*"
+  }
+}

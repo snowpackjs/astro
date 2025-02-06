@@ -1,0 +1,27 @@
+{
+  "name": "Contribute to Astro",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {}
+  },
+
+  "postCreateCommand": "pnpm install && pnpm run build",
+
+  "waitFor": "postCreateCommand",
+
+  "postAttachCommand": {
+    "Astro tests": "pnpm run test"
+  },
+
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["README.md", "CONTRIBUTING.md"]
+    },
+    "vscode": {
+      "extensions": ["astro-build.astro-vscode", "esbenp.prettier-vscode"]
+    }
+  }
+}

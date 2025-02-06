@@ -1,0 +1,19 @@
+
+---
+export function getStaticPaths() {
+    return [
+        { params: {id: "lorem"}}
+    ]
+}
+const currentLocale = Astro.currentLocale;
+
+---
+
+<html>
+<head>
+    <title>Astro</title>
+</head>
+<body>
+Current Locale: {currentLocale ? currentLocale : "none"}
+</body>
+</html>

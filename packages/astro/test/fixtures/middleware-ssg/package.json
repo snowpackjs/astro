@@ -1,0 +1,8 @@
+{
+  "name": "@test/middleware-ssg",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@test/tailwind-basic",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/tailwind": "workspace:*"
+  }
+}

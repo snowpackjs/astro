@@ -1,0 +1,36 @@
+---
+# Commands to start on workspace startup
+tasks:
+  - before: |
+      # Get latest pnpm version, in case the custom docker image was not updated
+      # Until this issue gets resolved - https://github.com/gitpod-io/gitpod/issues/12551
+      curl -fsSL https://get.pnpm.io/install.sh | SHELL=`which bash` bash -
+    init: |
+      pnpm install
+      pnpm run build
+    command: |
+      .gitpod/gitpod-setup.sh
+vscode:
+  extensions:
+    - astro-build.astro-vscode
+    - esbenp.prettier-vscode
+    - dbaeumer.vscode-eslint
+ports:
+  - port: 4321
+    onOpen: open-preview
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: true
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to true)
+    addComment: true
+    # add a "Review in Gitpod" button to pull requests (defaults to false)
+    addBadge: false
+    # add a label once the prebuild is ready to pull requests (defaults to false)
+    addLabel: prebuilt-in-gitpod

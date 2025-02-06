@@ -1,0 +1,28 @@
+{
+	"name": "@e2e/actions-react-19",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.9.4",
+		"@astrojs/db": "workspace:*",
+		"@astrojs/node": "^9.0.2",
+		"@astrojs/react": "workspace:*",
+		"@types/react": "npm:types-react",
+		"@types/react-dom": "npm:types-react-dom",
+		"astro": "workspace:*",
+		"react": "19.0.0",
+		"react-dom": "19.0.0",
+		"typescript": "^5.7.3"
+	},
+  "overrides": {
+    "@types/react": "npm:types-react",
+    "@types/react-dom": "npm:types-react-dom"
+  }
+}

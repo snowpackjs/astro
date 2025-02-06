@@ -1,0 +1,105 @@
+---
+import For from '../components/For.astro';
+import Show from '../components/Show.astro';
+import Story from '../components/Story.astro';
+import Layout from '../layouts/Layout.astro';
+import fetchAPI from '../lib/api';
+import type { IStory } from '../types.js';
+
+const mapStories = {
+	top: 'news',
+	new: 'newest',
+	show: 'show',
+	ask: 'ask',
+	job: 'jobs',
+};
+
+function safeParseInt(value: any, fallback: number) {
+	try {
+		return parseInt(value) || fallback;
+	} catch {
+		return fallback;
+	}
+}
+
+const page = safeParseInt(Astro.url.searchParams.get('page'), 1);
+const type =
+	Astro.params.stories && Astro.params.stories in mapStories
+		? (Astro.params.stories.toString() as keyof typeof mapStories)
+		: 'top';
+
+const stories = (await fetchAPI(`${mapStories[type]}?page=${page}`)) as IStory[];
+---
+
+<Layout>
+	<section>
+		<nav aria-labelledby="current-page">
+			<Show when={page > 1}>
+				<a href={`/${type}?page=${page - 1}`} aria-label="Previous Page"> &lt; prev</a>
+				<span slot="fallback" aria-disabled="true"> &lt; prev</span>
+			</Show>
+			<span id="current-page">page {page}</span>
+			<Show when={stories?.length >= 29}>
+				<a href={`/${type}?page=${page + 1}`} aria-label="Next Page">more &gt;</a>
+				<span slot="fallback" aria-disabled="true"> more &gt;</span>
+			</Show>
+		</nav>
+		<main>
+			<Show when={stories}>
+				<ul>
+					<For each={stories}>{(story: IStory) => <Story story={story} />}</For>
+				</ul>
+			</Show>
+		</main>
+	</section>
+</Layout>
+
+<style>
+	section {
+		padding-top: 45px;
+	}
+
+	nav,
+	main {
+		background-color: rgb(248 250 252);
+		border-radius: 2px;
+	}
+
+	nav {
+		padding: 15px 30px;
+		position: fixed;
+		text-align: center;
+		top: 55px;
+		left: 0;
+		right: 0;
+		z-index: 998;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	nav a {
+		margin: 0 1em;
+	}
+
+	[aria-disabled='true'] {
+		color: rgb(71 85 105);
+		margin: 0 1em;
+	}
+
+	main {
+		position: absolute;
+		margin: 30px 0;
+		width: 100%;
+	}
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	@media (max-width: 600px) {
+		main {
+			margin: 10px 0;
+		}
+	}
+</style>

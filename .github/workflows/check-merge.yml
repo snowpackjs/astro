@@ -1,0 +1,96 @@
+name: Check mergeability
+
+on: pull_request_target
+
+permissions:
+  pull-requests: write
+  checks: write
+  statuses: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if there is already a block on this PR
+        id: blocked
+        uses: actions/github-script@v7
+        env:
+          issue_number:  ${{ github.event.number }}
+        with:
+          script: |
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: process.env.issue_number,
+            });
+
+            for (const review of reviews) {
+              if (review.user.login === 'github-actions[bot]' && review.state === 'CHANGES_REQUESTED') {
+                return 'true'
+              }
+            }
+            return 'false'
+          result-encoding: string
+
+      - uses: actions/checkout@v4
+        if: steps.blocked.outputs.result != 'true'
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Get changed files in the .changeset folder
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        if: steps.blocked.outputs.result != 'true'
+        with:
+          files: |
+            .changeset/**/*.md
+
+      - name: Check if any changesets contain minor or major changes
+        id: check
+        if: steps.blocked.outputs.result != 'true'
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo "Checking for changesets marked as minor or major"
+          echo "found=false" >> $GITHUB_OUTPUT
+
+          regex="[\"']astro[\"']: (minor|major)"
+          for file in ${ALL_CHANGED_FILES}; do
+              if [[ $(cat $file) =~ $regex ]]; then
+                  version="${BASH_REMATCH[1]}"
+                  echo "version=$version" >> $GITHUB_OUTPUT
+                  echo "found=true" >> $GITHUB_OUTPUT
+                  echo "$file has a $version release tag"
+              fi
+          done
+
+      - name: Add label
+        uses: actions/github-script@v7
+        if: steps.check.outputs.found == 'true'
+        env:
+          issue_number: ${{ github.event.number }}
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: process.env.issue_number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['semver: ${{ steps.check.outputs.version }}']
+            });
+
+      - name: Change PR Status
+        uses: actions/github-script@v7
+        if: steps.check.outputs.found == 'true'
+        env:
+          issue_number: ${{ github.event.number }}
+        with:
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: process.env.issue_number,
+              event: 'REQUEST_CHANGES',
+              body: 'This PR is blocked because it contains a `${{ steps.check.outputs.version }}` changeset. A reviewer will merge this at the next release if approved.'
+            });

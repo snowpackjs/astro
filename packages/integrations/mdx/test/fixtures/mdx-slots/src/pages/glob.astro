@@ -1,0 +1,11 @@
+---
+const components = await Astro.glob('../components/*.mdx');
+---
+
+<div data-default-export>
+	{components.map(Component => <Component.default />)}
+</div>
+
+<div data-content-export>
+	{components.map(({ Content }) => <Content />)}
+</div>

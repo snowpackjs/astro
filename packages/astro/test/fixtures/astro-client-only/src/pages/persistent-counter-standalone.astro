@@ -1,0 +1,15 @@
+---
+import PersistentCounter from '../components/PersistentCounterStandalone.svelte';
+---
+<html>
+<head>
+	<title>Client only pages - Only PersistentCounter, nothing else</title>
+</head>
+<body>
+	<!--
+		Do not add another test-case to this file. This is meant to test if only a single component is used.
+	 -->
+
+  <PersistentCounter client:only />
+</body>
+</html>

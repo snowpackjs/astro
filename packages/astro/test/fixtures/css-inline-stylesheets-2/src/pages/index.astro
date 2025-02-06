@@ -1,0 +1,17 @@
+---
+import { getEntryBySlug } from 'astro:content';
+import Button from '../components/Button.astro';
+
+const entry = await getEntryBySlug('en', 'endeavour');
+const { Content } = await entry.render();
+---
+<style>
+    #welcome::after {
+        content: '🚀'
+    }
+</style>
+<main>
+    <h1 id="welcome">Welcome to Astro</h1>
+    <Content/>
+    <Button>Button used directly in page</Button>
+</main>

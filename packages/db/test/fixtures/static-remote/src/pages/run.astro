@@ -1,0 +1,17 @@
+---
+import { User, db, sql } from 'astro:db';
+
+const results = await db.run(sql`SELECT 1 as value`);
+const row = results.rows[0];
+---
+
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+
+		<span id="row">{row.value}</span>
+	</body>
+</html>

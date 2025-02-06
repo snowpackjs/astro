@@ -1,0 +1,11 @@
+{
+  "name": "@e2e/e2e-tailwindcss",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/tailwind": "workspace:*",
+    "@tailwindcss/vite": "^4.0.3",
+    "astro": "workspace:*",
+    "tailwindcss": "^4.0.3"
+  }
+}

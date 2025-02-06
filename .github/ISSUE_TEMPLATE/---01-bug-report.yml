@@ -1,0 +1,55 @@
+name: "\U0001F41B Bug Report"
+description: Report an issue or possible bug
+labels: []
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ##  Quick Checklist
+        Thank you for taking the time to file a bug report! Please fill out this form as completely as possible.
+
+        ✅ I am using the **latest version of Astro** and all plugins.
+        ✅ I am using a version of Node that Astro supports (`v18.17.1` or `v20.3.0` or higher.)
+  - type: textarea
+    id: astro-info
+    attributes:
+      label: Astro Info
+      description: Run the command `astro info` in your terminal and paste the output here. Please review the data before submitting in case there is any sensitive information you don't want to share.
+      render: block
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: If this issue only occurs in one browser, which browser is a problem?
+      placeholder: Chrome, Firefox, Safari
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: bug-expectation
+    attributes:
+      label: What's the expected result?
+      description: Describe what you expect to happen.
+    validations:
+      required: true
+  - type: input
+    id: bug-reproduction
+    attributes:
+      label: Link to Minimal Reproducible Example
+      description: 'Use [StackBlitz](https://astro.new/repro) to create a minimal reproduction of the problem. **A minimal reproduction is required** so that others can help debug your issue. If a report is vague (e.g. just a generic error message) and has no reproduction, it may be auto-closed. Not sure how to create a minimal example? [Read our guide](https://docs.astro.build/en/guides/troubleshooting/#creating-minimal-reproductions)'
+      placeholder: 'https://stackblitz.com/abcd1234'
+    validations:
+      required: true
+  - type: checkboxes
+    id: will-pr
+    attributes:
+      label: Participation
+      options:
+        - label:  I am willing to submit a pull request for this issue.
+          required: false

@@ -1,0 +1,21 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import SEO, { type Props as SEOProps } from './SEO.astro';
+import { SiteTitle, SiteDescription } from '../consts';
+
+export type Props = Partial<SEOProps>;
+const { title = SiteTitle, name = SiteTitle, description = SiteDescription, ...seo } = Astro.props;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<SEO {title} {description} {name} {...seo} />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Source+Code+Pro&display=swap"
+	rel="stylesheet"
+/>
+
+<ClientRouter />

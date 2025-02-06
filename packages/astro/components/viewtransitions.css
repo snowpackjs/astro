@@ -1,0 +1,66 @@
+@keyframes astroFadeInOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes astroFadeIn {
+	from {
+		opacity: 0;
+		mix-blend-mode: plus-lighter;
+	}
+	to {
+		opacity: 1;
+		mix-blend-mode: plus-lighter;
+	}
+}
+
+@keyframes astroFadeOut {
+	from {
+		opacity: 1;
+		mix-blend-mode: plus-lighter;
+	}
+	to {
+		opacity: 0;
+		mix-blend-mode: plus-lighter;
+	}
+}
+
+@keyframes astroSlideFromRight {
+	from {
+		transform: translateX(100%);
+	}
+}
+
+@keyframes astroSlideFromLeft {
+	from {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes astroSlideToRight {
+	to {
+		transform: translateX(100%);
+	}
+}
+
+@keyframes astroSlideToLeft {
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+@media (prefers-reduced-motion) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+
+	[data-astro-transition-scope] {
+		animation: none !important;
+	}
+}

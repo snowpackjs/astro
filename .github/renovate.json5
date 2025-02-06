@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "schedule:weekly",
+    "group:allNonMajor",
+    ":disablePeerDependencies", 
+    "regexManagers:biomeVersions",
+  ],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "postUpdateOptions": ["pnpmDedupe"],
+  "ignorePaths": ["**/node_modules/**"],
+  "packageRules": [
+    // TODO: remove once the tailwind integration is removed
+    {
+      "matchPackageNames": ["tailwindcss"],
+      "ignorePaths": ["packages/integrations/tailwind"]
+    }
+  ],
+  "ignoreDeps": [
+    // manually bumping deps
+    "@biomejs/biome",
+    "@types/node",
+    "astro-embed", // TODO: investigate upgrade (zod import issues with atproto)
+    "drizzle-orm", // TODO: investigate upgrade (has type issues)
+    "sharp",
+
+    // manually bumping workflow actions
+    "actions/labeler",
+
+    // ignore "engines" update
+    "node",
+    "npm",
+    "pnpm",
+
+    // follow vite deps version
+    "postcss-load-config",
+    "esbuild",
+  ],
+}

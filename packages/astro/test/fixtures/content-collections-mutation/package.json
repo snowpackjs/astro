@@ -1,0 +1,9 @@
+{
+  "name": "@test/content-collections-mutation",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/mdx": "workspace:*"
+  }
+}

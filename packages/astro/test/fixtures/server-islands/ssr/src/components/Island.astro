@@ -1,0 +1,5 @@
+---
+await new Promise(resolve => setTimeout(resolve, 1));
+Astro.response.headers.set('X-Works', 'true');
+---
+<h2 id="island">I'm an island</h2>

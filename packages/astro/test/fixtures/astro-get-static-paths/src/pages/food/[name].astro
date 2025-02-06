@@ -1,0 +1,26 @@
+---
+export async function getStaticPaths() {
+	return [
+		{
+			params: { name: 'tacos' },
+		},
+		{
+			params: { name: 'potatoes' },
+		},
+		{
+			params: { name: 'spaghetti' }
+		}
+	]
+}
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Food</title>
+	</head>
+	<body>
+		<p id="url">{ Astro.url.pathname }</p>
+	</body>
+</html>

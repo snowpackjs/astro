@@ -1,0 +1,17 @@
+---
+import Slotted from '../components/Slotted.astro';
+
+const Component = 'astro-component';
+---
+
+<html>
+  <head>
+    <!-- Head Stuff -->
+  </head>
+  <body>
+    <Slotted>
+      <Component slot="a">A</Component>
+      <Component>Default</Component>
+    </Slotted>
+  </body>
+</html>

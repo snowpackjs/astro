@@ -1,0 +1,16 @@
+---
+let title = 'My App';
+
+let colors = ['red', 'yellow', 'blue'];
+---
+
+<html>
+<head>
+  <title>{title}</title>
+</head>
+<body>
+  {colors.map(color => (
+    'foo < > < }' && <div id={color}>color</div>
+  ))}
+</body>
+</html>

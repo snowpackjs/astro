@@ -1,0 +1,27 @@
+---
+/// <reference path="../../.astro/db-types.d.ts" />
+import { Author, Themes, db } from 'astro:db';
+
+const authors = await db.select().from(Author);
+const themes = await db.select().from(Themes);
+---
+
+<h2>Authors</h2>
+<ul class="authors-list">
+	{authors.map((author) => <li>{author.name}</li>)}
+</ul>
+
+<h2>Themes</h2>
+<ul class="themes-list">
+	{
+		themes.map((theme) => (
+			<li>
+				<div class="theme-name">{theme.name}</div>
+				<div class="theme-added">{theme.added}</div>
+				<div class="theme-updated">{theme.updated}</div>
+				<div class="theme-dark">{theme.isDark ? 'dark' : 'light'} mode</div>
+				<div class="theme-owner">{theme.owner}</div>
+			</li>
+		))
+	}
+</ul>

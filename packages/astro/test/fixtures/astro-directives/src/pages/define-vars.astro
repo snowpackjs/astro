@@ -1,0 +1,42 @@
+---
+import Title from "../components/Title.astro"
+let foo = 'bar'
+let bg = 'white'
+let fg = 'black'
+let bar = '<script>bar</script>'
+let undef: undefined;
+---
+
+<html>
+  <head>
+		<style define:vars={{bg}}>
+      h1 {
+        background: var(--bg);
+      }
+    </style>
+    <style define:vars={{fg}}>
+      h1 {
+        color: var(--fg);
+      }
+    </style>
+  </head>
+  <body>
+    <script id="inline" define:vars={{ foo }}>
+			console.log(foo);
+		</script>
+    <script id="inline-2" define:vars={{ foo }}>
+			console.log(foo);
+		</script>
+		<script id="inline-3" define:vars={{ 'dash-case': foo }}>
+			console.log(foo);
+		</script>
+		<script id="inline-4" define:vars={{ bar }}>
+			console.log(bar);
+		</script>
+		<script id="inline-5" define:vars={{ undef }}>
+			console.log(undef);
+		</script>
+    <div id="compound-style" style={{ color: `var(--fg)` }}></div>
+		<Title />
+  </body>
+</html>

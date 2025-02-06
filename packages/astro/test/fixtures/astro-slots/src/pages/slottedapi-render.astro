@@ -1,0 +1,20 @@
+---
+import Render from '../components/Render.astro';
+import RenderArgs from '../components/RenderArgs.astro';
+import RenderFn from '../components/RenderFn.astro';
+---
+
+<html>
+  <head>
+    <!--
+      Test Astro.slots.render behavior.
+      - `Render` is basic imperative `render` call
+			- `RenderFn` is `render` that calls child function with arguments
+    -->
+  </head>
+  <body>
+    <Render id="render">render</Render>
+		<RenderFn id="render-fn">{() => "render-fn"}</RenderFn>
+		<RenderArgs id="render-args" text="render-args">{(text: string) => <span>{text}</span>}</RenderArgs>
+  </body>
+</html>

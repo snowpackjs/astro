@@ -1,0 +1,29 @@
+---
+import { ClientRouter } from 'astro:transitions';
+---
+
+<html>
+	<head>
+		<ClientRouter />
+	</head>
+	<body>
+		<p>Local transitions</p>
+		<slot />
+		<script>
+			document.addEventListener('astro:after-swap', () => {
+				document.documentElement.setAttribute('class', 'blue');
+				document.documentElement.setAttribute('animations', '' + document.getAnimations().length);
+			});
+		</script>
+	</body><style>
+		p {
+			transition: color 1s;
+		}
+		p {
+			color: red;
+		}
+		.blue p {
+			color: #0000ff;
+		}
+	</style>
+</html>

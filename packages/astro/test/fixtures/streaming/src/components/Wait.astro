@@ -1,0 +1,6 @@
+---
+import { wait } from '../wait';
+const { ms } = Astro.props;
+await wait(ms);
+---
+<slot></slot>

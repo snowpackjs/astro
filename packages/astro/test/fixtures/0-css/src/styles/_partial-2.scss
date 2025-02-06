@@ -1,0 +1,5 @@
+// relies on partial-1. make sure astro don't inline this style.
+
+.partial-test {
+  @include make-red;
+}

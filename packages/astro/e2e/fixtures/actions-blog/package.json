@@ -1,0 +1,24 @@
+{
+	"name": "@e2e/actions-blog",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.9.4",
+		"@astrojs/db": "workspace:*",
+		"@astrojs/node": "^9.0.2",
+		"@astrojs/react": "workspace:*",
+		"@types/react": "^18.3.18",
+		"@types/react-dom": "^18.3.5",
+		"astro": "workspace:*",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"typescript": "^5.7.3"
+	}
+}

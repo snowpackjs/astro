@@ -1,0 +1,16 @@
+---
+const getHtml = async  () => {
+	if(Astro.slots.has("default")) {
+		let output = await Astro.slots.render("default", [{
+			foo: "bar"
+		}]);
+		return output;
+	} else {
+		return "";
+	}
+};
+
+---
+
+
+<Fragment set:html={getHtml()} />

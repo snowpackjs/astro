@@ -1,0 +1,17 @@
+---
+import Bar from '../components/Foo.vue';
+import Parent from '../components/Parent.astro';
+import WithId from '../components/WithId.vue';
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<Parent>
+			<Bar slot="footer" />
+		</Parent>
+		<WithId client:idle />
+		<WithId client:idle />
+	</body>
+</html>

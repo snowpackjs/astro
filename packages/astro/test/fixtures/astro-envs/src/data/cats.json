@@ -1,0 +1,27 @@
+{
+  "tiddles": {
+    "name": "Tiddles",
+    "age": 3,
+    "colour": "black"
+  },
+  "mittens": {
+    "name": "Mittens",
+    "age": 5,
+    "colour": "white"
+  },
+  "fluffy": {
+    "name": "Fluffy",
+    "age": 2,
+    "colour": "grey"
+  },
+  "whiskers": {
+    "name": "Whiskers",
+    "age": 4,
+    "colour": "tabby"
+  },
+  "bobby-env": {
+    "name": "import.meta.env.KITTY",
+    "age": 1,
+    "colour": "calico"
+  }
+}

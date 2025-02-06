@@ -1,0 +1,25 @@
+---
+/// <reference path="../../.astro/db-types.d.ts" />
+import { Ingredient, Recipe, db, eq } from 'astro:db';
+
+const ingredientsByRecipe = await db
+	.select({
+		name: Ingredient.name,
+		recipeName: Recipe.title,
+	})
+	.from(Ingredient)
+	.innerJoin(Recipe, eq(Ingredient.recipeId, Recipe.id));
+
+console.log(ingredientsByRecipe);
+---
+
+<h2>Shopping list</h2>
+<ul>
+	{
+		ingredientsByRecipe.map(({ name, recipeName }) => (
+			<li>
+				{name} ({recipeName})
+			</li>
+		))
+	}
+</ul>

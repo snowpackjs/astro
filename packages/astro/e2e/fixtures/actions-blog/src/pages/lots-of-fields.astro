@@ -1,0 +1,47 @@
+---
+export const prerender = false;
+import { actions } from 'astro:actions';
+
+const result = Astro.getActionResult(actions.blog.lotsOfStuff);
+---
+
+<html>
+	<head>
+		<title>Actions</title>
+		<style>
+			form {
+				display: grid;
+				grid-row-gap: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<form
+			method="POST"
+			action={actions.blog.lotsOfStuff + '&actionCookieForwarding=true'}
+			data-testid="lots"
+		>
+			<input type="text" name="one" value="" />
+			<span class="one error">{result?.error?.fields.one}</span>
+			<input type="text" name="two" value="" />
+			<span class="two error">{result?.error?.fields.two}</span>
+			<input type="text" name="three" value="" />
+			<span class="three error">{result?.error?.fields.three}</span>
+			<input type="text" name="four" value="" />
+			<span class="four error">{result?.error?.fields.four}</span>
+			<input type="text" name="five" value="" />
+			<span class="five error">{result?.error?.fields.five}</span>
+			<input type="text" name="six" value="" />
+			<span class="six error">{result?.error?.fields.six}</span>
+			<input type="text" name="seven" value="" />
+			<span class="seven error">{result?.error?.fields.seven}</span>
+			<input type="text" name="eight" value="" />
+			<span class="eight error">{result?.error?.fields.eight}</span>
+			<input type="text" name="nine" value="" />
+			<span class="nine error">{result?.error?.fields.nine}</span>
+			<input type="text" name="ten" value="" />
+			<span class="ten error">{result?.error?.fields.ten}</span>
+			<button type="submit">Submit</button>
+		</form>
+	</body>
+</html>

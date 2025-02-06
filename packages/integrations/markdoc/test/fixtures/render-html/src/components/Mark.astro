@@ -1,0 +1,11 @@
+---
+
+export interface Props {
+	color?: 'hotpink' | 'blue';
+}
+
+const { color } = Astro.props;
+
+---
+
+<span style={`color: ${color}`} class="mark"><slot /></span>

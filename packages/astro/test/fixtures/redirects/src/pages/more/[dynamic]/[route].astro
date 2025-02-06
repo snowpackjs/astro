@@ -1,0 +1,8 @@
+---
+export function getStaticPaths() {
+  return [{ params: { dynamic:'hello', route:'world' } }]
+}
+---
+{JSON.stringify(Astro.params)}
+
+<a href="/">home</a>

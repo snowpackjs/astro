@@ -1,0 +1,40 @@
+{
+  "name": "@astrojs/underscore-redirects",
+  "description": "Utilities to generate _redirects files in Astro projects",
+  "version": "0.6.0",
+  "type": "module",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/underscore-redirects"
+  },
+  "bugs": "https://github.com/withastro/astro/issues",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "pnpm build",
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc -p tsconfig.json",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test": "astro-scripts test \"test/**/*.test.js\""
+  },
+  "devDependencies": {
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*"
+  },
+  "keywords": [
+    "astro",
+    "astro-component"
+  ],
+  "publishConfig": {
+    "provenance": true
+  }
+}

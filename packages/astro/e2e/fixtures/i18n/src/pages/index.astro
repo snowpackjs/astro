@@ -1,0 +1,7 @@
+---
+import { getLocaleByPath } from "astro:i18n";
+---
+
+<p>Locale: {getLocaleByPath("en")}</p> <!-- will log "en" -->
+<p>Locale: {getLocaleByPath("fr")}</p> <!-- will log "fr" -->
+<p>Locale: {getLocaleByPath("portuguese")}</p> <!-- will log "pt-AO" -->

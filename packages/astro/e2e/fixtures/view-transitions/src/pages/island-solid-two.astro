@@ -1,0 +1,11 @@
+---
+import Layout from '../components/Layout.astro';
+import Counter from '../components/solid/Counter.jsx';
+export const prerender = false;
+
+---
+<Layout>
+	<p id="island-two">Page 2</p>
+	<a id="click-one" href="/island-solid-one">go to 1</a>
+	<Counter prefix="B" postfix="!" client:load transition:persist transition:name="counter" />
+</Layout>

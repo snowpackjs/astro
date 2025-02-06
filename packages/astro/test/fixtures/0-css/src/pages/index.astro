@@ -1,0 +1,85 @@
+---
+import '../styles/default.css'
+
+import AstroComponent from '../components/Astro.astro';
+import AstroComponentNone from '../components/AstroNone.astro';
+import AstroSass from '../components/AstroSass.astro';
+import AstroScss from '../components/AstroScss.astro';
+import ModuleOrdering from '../components/ModuleOrdering.jsx';
+import ReactCSS from '../components/ReactCSS.jsx';
+import ReactDynamic from '../components/ReactDynamic.jsx';
+import ReactModules from '../components/ReactModules.jsx';
+import ReactModulesSass from '../components/ReactModulesSass.jsx';
+import ReactModulesScss from '../components/ReactModulesScss.jsx';
+import ReactSass from '../components/ReactSass.jsx';
+import ReactScss from '../components/ReactScss.jsx';
+import SvelteCSS from '../components/SvelteCSS.svelte';
+import SvelteDynamic from '../components/SvelteDynamic.svelte';
+import SvelteSass from '../components/SvelteSass.svelte';
+import SvelteScss from '../components/SvelteScss.svelte';
+import VueCSS from '../components/VueCSS.vue';
+import VueModules from '../components/VueModules.vue';
+import VueSass from '../components/VueSass.vue';
+import VueScoped from '../components/VueScoped.vue';
+import VueScss from '../components/VueScss.vue';
+
+import '../styles/imported-url.css';
+import '../styles/imported.sass';
+import '../styles/imported.scss';
+import raw from '../styles/raw.css?raw'
+---
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style lang="scss">
+      .wrapper {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1200px;
+      }
+      .outer {
+        color: red;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/global.css">
+		<style>
+			@import '../styles/linked.css';
+		</style>
+		<style lang="scss">
+			@import '../styles/linked.scss';
+		</style>
+		<style lang="sass">
+			@import '../styles/linked.sass'
+		</style>
+    <style lang="scss">
+			@import '../styles/partial-main.scss';
+		</style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <AstroComponent class="outer" />
+      <AstroComponentNone />
+      <AstroSass />
+      <AstroScss />
+      <ReactCSS />
+      <ReactModules />
+      <ReactModulesSass />
+      <ReactModulesScss />
+      <ReactSass />
+      <ReactScss />
+      <SvelteCSS />
+      <SvelteSass />
+      <SvelteScss />
+      <VueCSS />
+      <VueModules />
+      <VueSass />
+      <VueScoped />
+      <VueScss />
+      <ReactDynamic client:load />
+      <SvelteDynamic client:load />
+      <pre id="css-raw">{raw}</pre>
+      <ModuleOrdering />
+    </div>
+  </body>
+</html>

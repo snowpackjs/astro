@@ -1,0 +1,86 @@
+name: Sync examples
+
+on:
+  workflow_dispatch:
+    inputs:
+      checkout-ref:
+        type: string
+        required: false
+      skip-unchanged-check:
+        type: boolean
+        default: false
+      dry-run:
+        type: boolean
+        default: false
+  push:
+    branches:
+      - main
+
+# Automatically cancel in-progress actions on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  # Allow auto-branch-sync-action to git push
+  contents: write
+
+jobs:
+  sync:
+    name: Sync branches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # fetch 2 to compare with previous commit for changes
+          ref: ${{ inputs.checkout-ref }}
+
+      - name: Detect changesets
+        uses: bluwy/detect-changesets-action@v1
+        id: detect
+
+      - name: Get pre mode of changesets
+        id: pre
+        run: |
+          if [ -f ./.changeset/pre.json ]; then
+            pre_value=$(jq -r '.tag' ./.changeset/pre.json)
+            echo "value=$pre_value" >> $GITHUB_OUTPUT
+          fi
+
+      # We only do sync if there are no changesets, so we don't accidentally allow users
+      # to clone examples that may rely on unreleased code
+
+      - name: Sync stable to latest and examples/* branches
+        if: steps.detect.outputs.has-changesets == 'false' && github.ref == 'refs/heads/main' && steps.pre.outputs.value == ''
+        uses: bluwy/auto-branch-sync-action@v1
+        with:
+          map: |
+            / -> latest
+            /examples/* -> examples/*
+          skip-unchanged-check: ${{ inputs.skip-unchanged-check == true }}
+          dry-run: ${{ inputs.dry-run == true }}
+
+      - name: Sync prerelease to alpha branch
+        if: steps.detect.outputs.has-changesets == 'false' && steps.pre.outputs.value == 'alpha'
+        uses: bluwy/auto-branch-sync-action@v1
+        with:
+          map: / -> alpha
+          skip-unchanged-check: ${{ inputs.skip-unchanged-check == true }}
+          dry-run: ${{ inputs.dry-run == true }}
+
+      - name: Sync prerelease to beta branch
+        if: steps.detect.outputs.has-changesets == 'false' && steps.pre.outputs.value == 'beta'
+        uses: bluwy/auto-branch-sync-action@v1
+        with:
+          map: / -> beta
+          skip-unchanged-check: ${{ inputs.skip-unchanged-check == true }}
+          dry-run: ${{ inputs.dry-run == true }}
+
+      - name: Sync prerelease to rc branch
+        if: steps.detect.outputs.has-changesets == 'false' && steps.pre.outputs.value == 'rc'
+        uses: bluwy/auto-branch-sync-action@v1
+        with:
+          map: / -> rc
+          skip-unchanged-check: ${{ inputs.skip-unchanged-check == true }}
+          dry-run: ${{ inputs.dry-run == true }}

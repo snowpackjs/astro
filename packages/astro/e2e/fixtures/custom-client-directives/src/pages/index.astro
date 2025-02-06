@@ -1,0 +1,11 @@
+---
+import Counter from '../components/Counter.jsx';
+---
+
+<html>
+<body>
+  <Counter id="client-click" client:click>client:click</Counter>
+  <Counter id="client-password" client:password="hunter2">client:password</Counter>
+	<Counter id="client-has-options" client:options={{message: "Hello! I was passed as an option"}}>client:options</Counter>
+</body>
+</html>

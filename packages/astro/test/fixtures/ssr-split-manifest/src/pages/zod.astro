@@ -1,0 +1,17 @@
+---
+import { manifest } from 'astro:ssr-manifest';
+---
+<html>
+<head>
+    <title>Testing</title>
+    <style>
+        body {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<h1>Testing</h1>
+<div id="assets" set:html={JSON.stringify([...manifest.assets])}></div>
+</body>
+</html>

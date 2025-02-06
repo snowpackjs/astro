@@ -1,0 +1,10 @@
+import * as ns from '../components/PreactCounter.tsx';
+import { components } from '../components/PreactCounter.tsx';
+
+<ns.components.PreactCounter id="preact-counter-namespace" client:load>
+  preact (namespace import)
+</ns.components.PreactCounter>
+
+<components.PreactCounter id="preact-counter-named" client:load>
+  preact (named import)
+</components.PreactCounter>

@@ -1,0 +1,5 @@
+👋 Welcome to "Astro" in GitHub Codespaces!
+
+🛠️  Your environment is fully setup with all the required software.
+
+🚀 The example app should automatically start soon in a new terminal tab.

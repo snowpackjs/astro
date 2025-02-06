@@ -1,0 +1,2 @@
+// Having a `tsconfig.json`, even empty speeds up the test massively since TypeScript does not have to look for one
+{}

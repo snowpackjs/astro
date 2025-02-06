@@ -1,0 +1,25 @@
+---
+import { Image, Picture } from "astro:assets";
+
+const penguin = "https://images.unsplash.com/photo-1670392957807-b0504fc5160a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+
+---
+
+
+
+<div id="small">
+	<Image src={penguin} alt="a penguin" width={300} height={400}/>
+</div>
+
+<div id="constrained">
+	<Image src={penguin} alt="a penguin" width={800} height={600} />
+</div>
+
+<div id="fixed">
+	<Image src={penguin} alt="a penguin" width={800} height={600} layout="fixed"/>
+</div>
+
+<div id="full-width">
+	<Image src={penguin} alt="a penguin" width={800} height={600} layout="full-width"/>
+</div>
+

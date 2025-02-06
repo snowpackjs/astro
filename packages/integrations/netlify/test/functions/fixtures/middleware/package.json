@@ -1,0 +1,9 @@
+{
+  "name": "@test/netlify-middleware-without-handler-file",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/netlify": "workspace:",
+    "sharp": "^0.33.5"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@test/custom-404-injected-from-dep",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@test/custom-404-pkg": "workspace:*"
+  }
+}

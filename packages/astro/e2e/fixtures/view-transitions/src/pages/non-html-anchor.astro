@@ -1,0 +1,22 @@
+---
+import Layout from '../components/Layout.astro';
+---
+<Layout>
+<h1>SVGA and Image Map links</h1>
+
+<svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+  <a href="/two" id="svga">
+    <text x="10" y="25" id="insidesvga">text within a svga</text>
+  </a>
+</svg>
+
+
+<map name="map">
+  <area shape="default" href="/two" alt="logo" id="area"/>
+</map>
+<img id="logo" usemap="#map" src="/logo.svg" alt="logo" />
+<style>
+	body {
+		background: #888;
+	}
+</style>

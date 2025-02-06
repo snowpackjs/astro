@@ -1,0 +1,23 @@
+---
+//! astro-head-inject
+import type { Config, RenderableTreeNodes } from '@markdoc/markdoc';
+import Markdoc from '@markdoc/markdoc';
+import { ComponentNode, createTreeNode } from './TreeNode.js';
+
+type Props = {
+	config: Config;
+	stringifiedAst: string;
+};
+
+const { stringifiedAst, config } = Astro.props as Props;
+
+const ast = Markdoc.Ast.fromJSON(stringifiedAst);
+// The AST may be an array, and `transform` has overloads for arrays and non-array cases,
+// However TypeScript seems to struggle to combine both overloads into a single signature.
+// Also, `transform` returns a promise here but the types don't reflect that.
+// @ts-expect-error
+const content = (await Markdoc.transform(ast, config)) as RenderableTreeNodes;
+const treeNode = await createTreeNode(content);
+---
+
+<ComponentNode treeNode={treeNode} />

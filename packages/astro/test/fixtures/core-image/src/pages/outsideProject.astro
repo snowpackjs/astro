@@ -1,0 +1,8 @@
+---
+import { Image } from "astro:assets";
+import imageOutsideProject from "../../../core-image-base/src/assets/penguin1.jpg";
+---
+
+<Image src={imageOutsideProject} alt="outside project" />
+
+<img src={imageOutsideProject.src} />

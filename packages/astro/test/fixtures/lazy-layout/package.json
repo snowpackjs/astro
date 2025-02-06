@@ -1,0 +1,7 @@
+{
+  "name": "@test/lazy-layout",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*"
+  }
+}

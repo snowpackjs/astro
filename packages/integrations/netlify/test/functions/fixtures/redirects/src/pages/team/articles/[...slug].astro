@@ -1,0 +1,27 @@
+---
+export const prerender = false;
+
+export const getStaticPaths = (async () => {
+  const posts = [
+		{ slug: 'one', data: {draft: false, title: 'One'} },
+		{ slug: 'two', data: {draft: false, title: 'Two'} }
+	];
+  return posts.map((post) => {
+    return {
+      params: { slug: post.slug },
+      props: { draft: post.data.draft, title: post.data.title },
+    };
+  });
+})
+
+const { slug } = Astro.params;
+const { title } = Astro.props;
+---
+<html>
+	<head>
+		<title>{ title }</title>
+	</head>
+	<body>
+		<h1>{ title }</h1>
+	</body>
+</html>

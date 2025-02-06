@@ -1,0 +1,136 @@
+---
+import { type LocalImageProps, type RemoteImageProps, getImage, imageConfig } from 'astro:assets';
+import * as mime from 'mrmime';
+import { applyResponsiveAttributes } from '../dist/assets/utils/imageAttributes';
+import { isESMImportedImage, resolveSrc } from '../dist/assets/utils/imageKind';
+import { AstroError, AstroErrorData } from '../dist/core/errors/index.js';
+import type {
+	GetImageResult,
+	ImageOutputFormat,
+	UnresolvedImageTransform,
+} from '../dist/types/public/index.js';
+import type { HTMLAttributes } from '../types';
+
+export type Props = (LocalImageProps | RemoteImageProps) & {
+	formats?: ImageOutputFormat[];
+	fallbackFormat?: ImageOutputFormat;
+	pictureAttributes?: HTMLAttributes<'picture'>;
+};
+
+const defaultFormats = ['webp'] as const;
+const defaultFallbackFormat = 'png' as const;
+
+// Certain formats don't want PNG fallbacks:
+// - GIF will typically want to stay as a gif, either for animation or for the lower amount of colors
+// - SVGs can't be converted to raster formats in most cases
+// - JPEGs compress photographs and high-noise images better than PNG in most cases
+// For those, we'll use the original format as the fallback instead.
+const specialFormatsFallback = ['gif', 'svg', 'jpg', 'jpeg'] as const;
+
+const { formats = defaultFormats, pictureAttributes = {}, fallbackFormat, ...props } = Astro.props;
+
+if (props.alt === undefined || props.alt === null) {
+	throw new AstroError(AstroErrorData.ImageMissingAlt);
+}
+
+// Picture attribute inherit scoped styles from class and attributes
+const scopedStyleClass = props.class?.match(/\bastro-\w{8}\b/)?.[0];
+if (scopedStyleClass) {
+	if (pictureAttributes.class) {
+		pictureAttributes.class = `${pictureAttributes.class} ${scopedStyleClass}`;
+	} else {
+		pictureAttributes.class = scopedStyleClass;
+	}
+}
+
+const layout = props.layout ?? imageConfig.experimentalLayout ?? 'none';
+const useResponsive = imageConfig.experimentalResponsiveImages && layout !== 'none';
+
+if (useResponsive) {
+	// Apply defaults from imageConfig if not provided
+	props.layout ??= imageConfig.experimentalLayout;
+	props.fit ??= imageConfig.experimentalObjectFit ?? 'cover';
+	props.position ??= imageConfig.experimentalObjectPosition ?? 'center';
+}
+
+for (const key in props) {
+	if (key.startsWith('data-astro-cid')) {
+		pictureAttributes[key] = props[key];
+	}
+}
+
+const originalSrc = await resolveSrc(props.src);
+const optimizedImages: GetImageResult[] = await Promise.all(
+	formats.map(
+		async (format) =>
+			await getImage({
+				...props,
+				src: originalSrc,
+				format: format,
+				widths: props.widths,
+				densities: props.densities,
+			} as UnresolvedImageTransform),
+	),
+);
+
+let resultFallbackFormat = fallbackFormat ?? defaultFallbackFormat;
+if (
+	!fallbackFormat &&
+	isESMImportedImage(originalSrc) &&
+	(specialFormatsFallback as ReadonlyArray<string>).includes(originalSrc.format)
+) {
+	resultFallbackFormat = originalSrc.format;
+}
+
+const fallbackImage = await getImage({
+	...props,
+	format: resultFallbackFormat,
+	widths: props.widths,
+	densities: props.densities,
+} as UnresolvedImageTransform);
+
+const imgAdditionalAttributes: HTMLAttributes<'img'> = {};
+const sourceAdditionalAttributes: HTMLAttributes<'source'> = {};
+
+// Propagate the `sizes` attribute to the `source` elements
+if (props.sizes) {
+	sourceAdditionalAttributes.sizes = props.sizes;
+}
+
+if (fallbackImage.srcSet.values.length > 0) {
+	imgAdditionalAttributes.srcset = fallbackImage.srcSet.attribute;
+}
+
+const { class: className, ...attributes } = useResponsive
+	? applyResponsiveAttributes({
+			layout,
+			image: fallbackImage,
+			props,
+			additionalAttributes: imgAdditionalAttributes,
+		})
+	: { ...imgAdditionalAttributes, ...fallbackImage.attributes };
+
+if (import.meta.env.DEV) {
+	imgAdditionalAttributes['data-image-component'] = 'true';
+}
+---
+
+<picture {...pictureAttributes}>
+	{
+		Object.entries(optimizedImages).map(([_, image]) => {
+			const srcsetAttribute =
+				props.densities || (!props.densities && !props.widths && !useResponsive)
+					? `${image.src}${image.srcSet.values.length > 0 ? ', ' + image.srcSet.attribute : ''}`
+					: image.srcSet.attribute;
+			return (
+				<source
+					srcset={srcsetAttribute}
+					type={mime.lookup(image.options.format ?? image.src) ?? `image/${image.options.format}`}
+					{...sourceAdditionalAttributes}
+				/>
+			);
+		})
+	}
+	{/* Applying class outside of the spread prevents it from applying unnecessary astro-* classes */}
+	<img src={fallbackImage.src} {...attributes} class={className} />
+</picture>

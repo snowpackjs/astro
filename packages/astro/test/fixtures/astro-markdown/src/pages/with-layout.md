@@ -1,0 +1,8 @@
+---
+title: 'With layout'
+layout: '../layouts/Base.astro'
+---
+
+## Section 1
+
+## Section 2

@@ -1,0 +1,16 @@
+---
+import MyImage from 'src/components/MyImage.astro';
+import MDX from '../components/Component.mdx';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Renderer</title>
+</head>
+<body>
+	<MDX components={{ img: MyImage }} />
+</body>
+</html>

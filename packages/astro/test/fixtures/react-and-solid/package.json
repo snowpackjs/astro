@@ -1,0 +1,12 @@
+{
+  "name": "@test/react-and-solid",
+  "private": true,
+  "dependencies": {
+    "@astrojs/react": "workspace:*",
+    "@astrojs/solid-js": "workspace:*",
+    "astro": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "solid-js": "^1.9.4"
+  }
+}

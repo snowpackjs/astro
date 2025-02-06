@@ -1,0 +1,11 @@
+{
+  "name": "@e2e/preact-lazy-component",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "@astrojs/preact": "workspace:*",
+    "astro": "workspace:*",
+    "preact": "^10.25.4"
+  }
+}

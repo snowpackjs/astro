@@ -1,0 +1,16 @@
+import CaretCounter from '../components/^--with-carets/Counter'
+import RocketCounter from '../components/and-rockets-🚀/Counter'
+// Not supported in Vite
+// import PercentCounter from '../components/now-100%-better/Counter'
+import SpaceCounter from '../components/with some spaces/Counter'
+import RoundBracketCounter from '../components/with-(round-brackets)/Counter'
+import SquareBracketCounter from '../components/with-[square-brackets]/Counter'
+
+# Special chars in component import paths from an .mdx file
+
+<CaretCounter id="caret" client:visible />
+<RocketCounter id="rocket" client:visible />
+{/* <PercentCounter id="percent" client:visible /> */}
+<SpaceCounter id="space" client:visible />
+<RoundBracketCounter id="round-bracket" client:visible />
+<SquareBracketCounter id="square-bracket" client:visible />

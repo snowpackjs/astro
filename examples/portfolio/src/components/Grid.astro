@@ -1,0 +1,65 @@
+---
+interface Props {
+	variant?: 'offset' | 'small';
+}
+
+const { variant } = Astro.props;
+---
+
+<ul class:list={['grid', { offset: variant === 'offset', small: variant === 'small' }]}>
+	<slot />
+</ul>
+
+<style>
+	.grid {
+		display: grid;
+		grid-auto-rows: 1fr;
+		gap: 1rem;
+		list-style: none;
+		padding: 0;
+	}
+
+	.grid.small {
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5rem;
+	}
+
+	/* If last row contains only one item, make it span both columns. */
+	.grid.small > :global(:last-child:nth-child(odd)) {
+		grid-column: 1 / 3;
+	}
+
+	@media (min-width: 50em) {
+		.grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
+		}
+
+		.grid.offset {
+			--row-offset: 7.5rem;
+			padding-bottom: var(--row-offset);
+		}
+
+		/* Shift first item in each row vertically to create staggered effect. */
+		.grid.offset > :global(:nth-child(odd)) {
+			transform: translateY(var(--row-offset));
+		}
+
+		/* If last row contains only one item, display it in the second column. */
+		.grid.offset > :global(:last-child:nth-child(odd)) {
+			grid-column: 2 / 3;
+			transform: none;
+		}
+
+		.grid.small {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 2rem;
+		}
+
+		.grid.small > :global(*) {
+			flex-basis: 20rem;
+		}
+	}
+</style>

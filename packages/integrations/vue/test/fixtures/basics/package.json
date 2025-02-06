@@ -1,0 +1,9 @@
+{
+  "name": "@test/vue-basics",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/vue": "workspace:*"
+  }
+}

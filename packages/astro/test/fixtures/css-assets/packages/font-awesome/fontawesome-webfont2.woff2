@@ -1,0 +1,19 @@
+HTTP/2 200 
+date: Tue, 24 May 2022 14:15:13 GMT2
+content-type: font/woff2
+content-length: 77160
+access-control-allow-origin: *
+cache-control: public, max-age=31536000
+last-modified: Mon, 24 Oct 2016 21:33:21 GMT
+etag: "12d68-1vSMun0Hb7by/Wupk6dbncHsvww"
+via: 1.1 fly.io
+fly-request-id: 01FDSA73RWTQANDR54ZMWPKC4B
+cf-cache-status: HIT
+age: 23685787
+accept-ranges: bytes
+expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-content-type-options: nosniff
+server: cloudflare
+cf-ray: 7106a46819b78005-IAD
+

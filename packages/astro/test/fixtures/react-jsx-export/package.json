@@ -1,0 +1,13 @@
+{
+  "name": "@test/react-jsx-export",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@astrojs/react": "workspace:*",
+    "astro": "workspace:*"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

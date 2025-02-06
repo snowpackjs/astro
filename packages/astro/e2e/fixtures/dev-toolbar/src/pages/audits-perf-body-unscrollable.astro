@@ -1,0 +1,38 @@
+---
+import { Image } from "astro:assets";
+import walrus from "../light_walrus.avif";
+---
+
+<body>
+    <div id="scroll-container">
+        <Image src={walrus} loading="lazy" alt="A walrus" />
+        <div style="height: 9000px;"></div>
+
+        <Image src={walrus} loading="lazy" alt="A walrus" />
+        <button id="mutation-button">Mutation</button>
+        <div style="height: 9000px;"></div>
+    </div>
+</body>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100dvh;
+        overflow-y: hidden;
+    }
+    #scroll-container {
+        height: 100dvh;
+        overflow-y: auto;
+    }
+</style>
+
+<script>
+    const mutationButton = document.getElementById('mutation-button');
+    mutationButton?.addEventListener('click', () => {
+        const dummyElement = document.createElement('div');
+        document.body.appendChild(dummyElement);
+
+        console.log('mutation');
+    });
+</script>

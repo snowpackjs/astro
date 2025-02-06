@@ -1,0 +1,21 @@
+---
+import Client2 from '../components/Client2.jsx';
+import One from '../components/One.astro';
+import Two from '../components/Two.astro';
+---
+<html>
+<head>
+	<title>Test</title>
+	<One />
+	<Two />
+	<style>
+		body {
+			background: whitesmoke;
+		}
+	</style>
+</head>
+<body>
+	<h1>Test</h1>
+	<Client2 client:only="react" />
+</body>
+</html>

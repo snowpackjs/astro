@@ -1,0 +1,14 @@
+---
+type: with-react-components
+title: Post with React components
+---
+
+import { LikeButton, HydratedLikeButton } from '@performance/utils';
+
+# This render clickable like components
+
+<LikeButton liked={true} />
+<LikeButton liked={false} />
+
+<HydratedLikeButton liked={true} />
+<HydratedLikeButton liked={false} />

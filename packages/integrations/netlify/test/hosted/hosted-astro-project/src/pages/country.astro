@@ -1,0 +1,7 @@
+---
+const country = Astro.locals.middleware;
+---
+
+<h1>{country}</h1>
+<h3>{country ? 'has context' : 'no context'}</h3>
+<h2>{Astro.locals.runtime}</h2>

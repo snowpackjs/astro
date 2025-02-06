@@ -1,0 +1,19 @@
+---
+import Falsey from '../components/falsy.astro';
+---
+<html lang="en">
+<head>
+  <title>My site</title>
+</head>
+<body>
+  {false && <span id="false" />}
+  {null && <span id="null" />}
+  {undefined && <span id="undefined" />}
+  {true && <span id="true" />}
+  <span id="zero">{0 && "VALUE"}</span>
+
+  <section id="fragment-container">
+    <Falsey />
+  </section>
+</body>
+</html>

@@ -1,0 +1,18 @@
+---
+import Inner from '../components/react/Inner'
+import Parent from '../components/react/Parent'
+---
+
+<html lang="en">
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<main>
+			<!-- Try to remove client:load to see it work -->
+			<Parent client:load>
+				<Inner client:load />
+			</Parent>
+		</main>
+	</body>
+</html>

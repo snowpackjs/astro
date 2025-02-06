@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets'
+import p1Image from '../assets/penguin1.jpg';
+import Counter from '../components/Counter.jsx';
+---
+
+<html lang="en">
+  <head>
+    <title>Assets Prefix</title>
+  </head>
+  <body>
+    <h1>I am red</h1>
+    <img id="image-asset" src={p1Image.src} width={p1Image.width} height={p1Image.height} alt="penguin" />
+    <Image src={p1Image} alt="penguin" />
+    <Counter client:load />
+    <p id="assets-prefix-env">{typeof import.meta.env.ASSETS_PREFIX === 'string' ? import.meta.env.ASSETS_PREFIX : JSON.stringify(import.meta.env.ASSETS_PREFIX)}</p>
+    <style>
+      h1 {
+        color: red;
+      }
+    </style>
+  </body>
+</html>

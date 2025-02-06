@@ -1,0 +1,51 @@
+---
+import { Image, getImage} from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+	const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const myImage = await getImage({src: entry.data.image});
+---
+<html>
+	<head>
+		<title>Testing</title>
+	</head>
+	<body>
+		<h1>Testing</h1>
+
+		<div id="direct-image">
+			<img src={entry.data.image.src} width={entry.data.image.width} height={entry.data.image.height} />
+		</div>
+
+		<div id="nested-image">
+			<img src={entry.data.cover.image.src} width={entry.data.cover.image.width} height={entry.data.cover.image.height} />
+		</div>
+
+		<div id="array-of-images">
+			{
+				entry.data.arrayOfImages.map((image) => <img src={image.src} />)
+			}
+		</div>
+
+		<div id="refined-image">
+			<img src={entry.data.refinedImage.src} />
+		</div>
+
+		<div id="optimized-image-get-image">
+			<img src={myImage.src} {...myImage.attributes} />
+		</div>
+
+		<div id="optimized-image-component">
+			<Image src={entry.data.image} alt="A penguin!" />
+		</div>
+
+		<Content />
+	</body>
+</html>

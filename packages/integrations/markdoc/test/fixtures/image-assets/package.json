@@ -1,0 +1,9 @@
+{
+  "name": "@test/image-assets",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/markdoc": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

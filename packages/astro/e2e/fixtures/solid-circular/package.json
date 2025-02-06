@@ -1,0 +1,12 @@
+{
+  "name": "@e2e/solid-circular",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/solid-js": "workspace:*",
+    "astro": "workspace:*"
+  },
+  "devDependencies": {
+    "solid-js": "^1.9.4"
+  }
+}

@@ -1,0 +1,35 @@
+---
+import Nav from '../components/Nav.astro';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro - Hacker News</title>
+		<meta name="description" content="Hacker News Clone built with Astro" />
+	</head>
+	<body>
+		<Nav />
+		<slot />
+		<style is:global>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+					Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+				font-size: 15px;
+				background-color: rgb(226 232 240);
+				margin: 0;
+				padding-top: 55px;
+				color: rgb(15 23 42);
+				overflow-y: scroll;
+			}
+
+			a {
+				color: rgb(15 23 42);
+				text-decoration: none;
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+<script type="module">
+	import { h, render } from 'preact';
+	import '../scripts/inline-script.js';
+
+	const mount = document.querySelector('#inline-script');
+
+	function App() {
+		return h('strong', null, 'Hello again');
+	}
+
+	render(h(App), mount);
+</script>
+<div id="inline-script"></div>
+<div id="inline-script-two"></div>

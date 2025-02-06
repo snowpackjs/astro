@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import { getEntries, getEntry } from 'astro:content';
+
+const welcomePost = await getEntry('blog', 'welcome');
+
+if (!welcomePost?.data) {
+	throw new Error('Render - blog/welcome did not return `data`.');
+}
+
+const author = await getEntry(welcomePost.data.author);
+const banner = await getEntry(welcomePost.data.banner);
+const relatedPosts = await getEntries(welcomePost.data.relatedPosts ?? []);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<Image data-banner {...banner.data} />
+		<a href={author.data.twitter} data-author-name>{author.data.name}</a>
+
+		<h2>Related posts</h2>
+		<ul data-related-posts>
+			{
+				relatedPosts.map((post) => (
+					<li>
+						<a href={`/blog/${post.slug}`}>{post.data.title}</a>
+					</li>
+				))
+			}
+		</ul>
+	</body>
+</html>

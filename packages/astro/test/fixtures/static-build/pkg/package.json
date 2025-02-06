@@ -1,0 +1,12 @@
+{
+  "name": "@test/static-build-pkg",
+  "private": true,
+  "main": "./oops.cjs",
+  "version": "0.0.0",
+  "exports": {
+    ".": {
+      "import": "./pkg.mjs",
+      "require": "./oops.cjs"
+    }
+  }
+}

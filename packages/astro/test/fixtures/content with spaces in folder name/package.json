@@ -1,0 +1,9 @@
+{
+  "name": "@test/content-with-spaces-in-folder-name",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/mdx": "workspace:*"
+  }
+}

@@ -1,0 +1,33 @@
+---
+import Header from '../components/Header.astro';
+import Container from '../components/Container.astro';
+import ProductListing from '../components/ProductListing.astro';
+import { getProducts } from '../api';
+import '../styles/common.css';
+
+const products = await getProducts(Astro.request);
+---
+
+<html lang="en">
+	<head>
+		<title>Online Store</title>
+		<style>
+			h1 {
+				font-size: 36px;
+			}
+
+			.product-listing-title {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+
+		<Container tag="main">
+			<ProductListing products={products}>
+				<h2 class="product-listing-title" slot="title">Product Listing</h2>
+			</ProductListing>
+		</Container>
+	</body>
+</html>

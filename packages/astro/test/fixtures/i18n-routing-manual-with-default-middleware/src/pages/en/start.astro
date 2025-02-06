@@ -1,0 +1,13 @@
+---
+import {getRelativeLocaleUrl} from "astro:i18n";
+
+const customUrl = getRelativeLocaleUrl("en", "/blog/title")
+---
+<html>
+<head>
+	<title>Astro</title>
+</head>
+<body>
+Hello <p>{customUrl}</p>
+</body>
+</html>

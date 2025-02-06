@@ -1,0 +1,49 @@
+{
+  "name": "@astrojs/sitemap",
+  "description": "Generate a sitemap for your Astro site",
+  "version": "3.2.1",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/integrations/sitemap"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "seo",
+    "sitemap"
+  ],
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/sitemap/",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test": "astro-scripts test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "sitemap": "^8.0.0",
+    "stream-replace-string": "^2.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@astrojs/node": "^9.0.0",
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*",
+    "xml2js": "0.6.2"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

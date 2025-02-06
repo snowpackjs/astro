@@ -1,0 +1,24 @@
+---
+const origin = Astro.url.origin;
+const requestPathname = new URL(Astro.request.url).pathname;
+const pathname = Astro.url.pathname;
+---
+
+<html>
+<head>
+	<title>Testing</title>
+	<style>
+		body {
+			background: orangered;
+		}
+	</style>
+	<script>
+		console.log('hello world');
+	</script>
+</head>
+<body>
+<p id="origin">{origin}</p>
+<p id="pathname">{pathname}</p>
+<p id="request-pathname">{requestPathname}</p>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "name": "@astrojs/alpinejs",
+  "description": "Use Alpine within Astro",
+  "version": "0.4.3",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/integrations/alpinejs"
+  },
+  "keywords": [
+    "astro-integration",
+    "astro-component",
+    "renderer",
+    "alpinejs",
+    "performance"
+  ],
+  "bugs": "https://github.com/withastro/astro/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/alpinejs",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test:e2e": "playwright test"
+  },
+  "peerDependencies": {
+    "@types/alpinejs": "^3.0.0",
+    "alpinejs": "^3.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.50.1",
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*",
+    "vite": "^6.0.11"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

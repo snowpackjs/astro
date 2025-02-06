@@ -1,0 +1,49 @@
+{
+  "name": "@astrojs/web-vitals",
+  "description": "Track your website’s performance with Astro DB",
+  "version": "3.0.1",
+  "type": "module",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/withastro/astro.git",
+    "directory": "packages/integrations/web-vitals"
+  },
+  "keywords": [
+    "withastro",
+    "astro-integration"
+  ],
+  "bugs": "https://github.com/withastro/astro/issues",
+  "exports": {
+    ".": "./dist/index.js",
+    "./middleware": "./dist/middleware.js",
+    "./endpoint": "./dist/endpoint.js",
+    "./client-script": "./dist/client-script.js",
+    "./db-config": "./dist/db-config.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc",
+    "build:ci": "astro-scripts build \"src/**/*.ts\"",
+    "dev": "astro-scripts dev \"src/**/*.ts\"",
+    "test": "astro-scripts test --timeout 50000 \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "web-vitals": "^4.2.4"
+  },
+  "peerDependencies": {
+    "@astrojs/db": "^0.14.0"
+  },
+  "devDependencies": {
+    "@astrojs/db": "workspace:*",
+    "astro": "workspace:*",
+    "astro-scripts": "workspace:*",
+    "linkedom": "^0.18.7"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

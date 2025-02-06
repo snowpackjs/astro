@@ -1,0 +1,16 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<title>Astro + TailwindCSS</title>
+	</head>
+	<body class="bg-dawn text-midnight">
+    <slot/>
+  </body>
+</html>
+
+<style is:global>
+  @tailwind base;
+
+  @tailwind utilities;
+</style>

@@ -1,0 +1,11 @@
+---
+/// <reference path="../../.astro/db-types.d.ts" />
+import { db, menu } from 'astro:db';
+
+const menuItems = await db.select().from(menu);
+---
+
+<h2>Menu</h2>
+<ul class="menu">
+	{menuItems.map((item) => <li>{item.name}</li>)}
+</ul>

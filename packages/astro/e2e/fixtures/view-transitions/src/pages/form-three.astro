@@ -1,0 +1,21 @@
+---
+import Layout from '../components/Layout.astro';
+let formData: FormData | undefined;
+if(Astro.request.method === 'POST') {
+	formData = await Astro.request.formData();
+}
+export const prerender = false
+---
+<Layout>
+	{
+		Astro.request.method === 'GET' ? (
+			<h2>Contact Form</h2>
+			<form action="/contact" method="get">
+				<input type="hidden" name="name" value="Testing">
+				<button id="submit" type="submit" formmethod="post" formaction="/form-three">Submit</button>
+			</form>
+		) : (
+			<div id="three-result">Got: {formData?.get('name')}</div>
+		)
+	}
+</Layout>

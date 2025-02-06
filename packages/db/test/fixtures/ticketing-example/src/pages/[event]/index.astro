@@ -1,0 +1,50 @@
+---
+import { Event, Ticket, db, eq } from 'astro:db';
+import Layout from '../../layouts/Layout.astro';
+import { TicketForm, ticketForm } from './_Ticket';
+
+const eventId = Number(Astro.params.event);
+
+if (isNaN(eventId)) return Astro.redirect('/');
+
+const event = await db.select().from(Event).where(eq(Event.id, eventId)).get();
+
+if (!event) return Astro.redirect('/');
+
+const res = await Astro.locals.form.getData(ticketForm);
+
+if (res?.data) {
+	await db.insert(Ticket).values({
+		eventId,
+		email: res.data.email,
+		quantity: res.data.quantity,
+		newsletter: res.data.newsletter,
+	});
+}
+
+const ticket = await db.select().from(Ticket).where(eq(Ticket.eventId, eventId)).get();
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<h1>{event.name}</h1>
+		<p>
+			{event.description}
+		</p>
+
+		<TicketForm price={event.ticketPrice} client:load />
+		{
+			ticket && (
+				<section class="youre-going">
+					<h2>You're going 🙌</h2>
+					<p>
+						You have purchased {ticket.quantity} tickets for {event.name}!
+					</p>
+					<p>
+						Check <strong>{ticket.email}</strong> for your tickets.
+					</p>
+				</section>
+			)
+		}
+	</main>
+</Layout>

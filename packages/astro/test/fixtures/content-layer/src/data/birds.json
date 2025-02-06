@@ -1,0 +1,34 @@
+{
+  "birds": [
+    {
+      "id": "bluejay",
+      "name": "Blue Jay",
+      "breed": "Cyanocitta cristata",
+      "age": 3
+    },
+    {
+      "id": "robin",
+      "name": "Robin",
+      "breed": "Turdus migratorius",
+      "age": 2
+    },
+    {
+      "id": "sparrow",
+      "name": "Sparrow",
+      "breed": "Passer domesticus",
+      "age": 1
+    },
+    {
+      "id": "cardinal",
+      "name": "Cardinal",
+      "breed": "Cardinalis cardinalis",
+      "age": 4
+    },
+    {
+      "id": "goldfinch",
+      "name": "Goldfinch",
+      "breed": "Spinus tristis",
+      "age": 2
+    }
+  ]
+}

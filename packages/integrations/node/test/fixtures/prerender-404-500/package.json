@@ -1,0 +1,10 @@
+{
+  "name": "@test/nodejs-prerender-404-500",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@astrojs/node": "workspace:*",
+    "astro": "^5.1.6"
+  }
+}

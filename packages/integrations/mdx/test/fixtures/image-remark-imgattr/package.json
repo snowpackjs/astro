@@ -1,0 +1,12 @@
+{
+  "name": "@test/image-remark-imgattr",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/mdx": "workspace:*",
+    "astro": "workspace:*"
+  },
+  "scripts": {
+    "dev": "astro dev"
+  }
+}

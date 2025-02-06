@@ -1,0 +1,17 @@
+---
+import { LazyCounter } from '../components/LazyCounter.jsx';
+import { AsyncComponent } from '../components/async-components.jsx';
+---
+
+<html>
+	<head><title>Solid</title></head>
+	<body>
+		<div>
+			<!-- client:load should generate exactly one hydration script per page -->
+			<AsyncComponent client:load />
+			<AsyncComponent client:load />
+			<!-- Lazy copmonents should render consistently, even on first render. -->
+			<LazyCounter client:load />
+		</div>
+	</body>
+</html>

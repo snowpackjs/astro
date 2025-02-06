@@ -1,0 +1,12 @@
+{
+  "name": "@test/core-image-svg",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "workspace:*",
+    "@astrojs/mdx": "workspace:*"
+  },
+  "scripts": {
+    "dev": "astro dev"
+  }
+}

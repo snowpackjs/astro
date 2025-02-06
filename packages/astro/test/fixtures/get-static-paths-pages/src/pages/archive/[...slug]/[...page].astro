@@ -1,0 +1,37 @@
+---
+export async function getStaticPaths({ paginate }) {
+
+  const paths = [
+    {
+      slug: 'news/july-2024',
+      items: ['item 1', 'item 2', 'item 3', 'item 4', 'item 5', 'item 6'],
+      contentType: 'news',
+      monthYear: 'july-2024',
+    }
+  ];
+
+  return paths.flatMap((path) => {
+    return paginate(path.items, {
+      params: { slug: path.slug },
+      props: {
+        contentType: path.contentType,
+        monthYear: path.monthYear,
+      },
+      pageSize: 2,
+    });
+  });
+}
+
+const { slug, page } = Astro.params;
+---
+
+<html>
+  <head>
+    <title>Testing</title>
+  </head>
+  <body>
+    <h1>Testing</h1>
+    <p id="slug">{slug}</p>
+    <p id="page">{page}</p>
+  </body>
+</html>

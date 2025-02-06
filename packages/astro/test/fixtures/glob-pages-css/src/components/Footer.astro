@@ -1,0 +1,12 @@
+---
+// The side-effect of this happening is needed for the test.
+await Astro.glob("../pages/**/*.astro");
+---
+<style>
+	.box {
+		height: 50px;
+		width: 100%;
+		background: yellow;
+	}
+</style>
+<div class="box"></div>

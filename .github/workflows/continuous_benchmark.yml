@@ -1,0 +1,56 @@
+name: Continuous benchmark
+
+on:
+  workflow_dispatch:
+  pull_request: 
+    branches:
+      - main
+    paths:
+      - 'packages/astro/src/**/*.ts'
+      - 'benchmark/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/astro/src/**/*.ts'
+      - 'benchmark/**'
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  FORCE_COLOR: true
+  CODSPEED: true
+
+jobs:
+  codspeed:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+        
+      - name: Run the benchmarks
+        uses: CodSpeedHQ/action@513a19673a831f139e8717bf45ead67e47f00044 # v3.2.0
+        timeout-minutes: 30
+        with:
+          working-directory: ./benchmark
+          run: pnpm bench
+          token: ${{ secrets.CODSPEED_TOKEN }}
+               

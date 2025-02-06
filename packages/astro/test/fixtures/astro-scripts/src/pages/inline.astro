@@ -1,0 +1,21 @@
+---
+import '../styles/global.css';
+import Inline from '../components/Inline.astro';
+---
+
+<html lang="en">
+<head>
+  <title>My Page</title>
+</head>
+<body>
+  <Inline />
+  <Inline />
+  <Inline />
+  <Inline />
+  <Inline />
+	<script>
+		// This must be relative for the test
+		import '../scripts/hoist_external_imported_inline.js';
+	</script>
+</body>
+</html>

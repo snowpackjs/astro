@@ -1,0 +1,7 @@
+---
+import { actions } from 'astro:actions';
+
+const res = Astro.getActionResult(actions.getUser);
+---
+
+<h1 id="user">{res?.data?.name}</h1>

@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Cereal",
+      "price": 3.99,
+      "image": "/images/products/cereal.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Yogurt",
+      "price": 3.97,
+      "image": "/images/products/yogurt.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Rolled Oats",
+      "price": 2.89,
+      "image": "/images/products/oats.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Muffins",
+      "price": 4.39,
+      "image": "/images/products/muffins.jpg"
+    }
+  ]
+}

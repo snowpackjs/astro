@@ -1,0 +1,53 @@
+{
+  "name": "@astrojs/node",
+  "description": "Deploy your site to a Node.js server",
+  "version": "9.0.2",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "author": "withastro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/withastro/adapters.git",
+    "directory": "packages/node"
+  },
+  "keywords": [
+    "withastro",
+    "astro-adapter"
+  ],
+  "bugs": "https://github.com/withastro/adapters/issues",
+  "homepage": "https://docs.astro.build/en/guides/integrations-guide/node/",
+  "exports": {
+    ".": "./dist/index.js",
+    "./server.js": "./dist/server.js",
+    "./preview.js": "./dist/preview.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "astro-scripts build \"src/**/*.ts\" && tsc",
+    "test": "astro-scripts test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "send": "^1.1.0",
+    "server-destroy": "^1.0.1"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.6",
+    "@types/send": "^0.17.4",
+    "@types/server-destroy": "^1.0.4",
+    "astro": "^5.1.6",
+    "astro-scripts": "workspace:*",
+    "cheerio": "1.0.0",
+    "express": "^4.21.2",
+    "node-mocks-http": "^1.16.2"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

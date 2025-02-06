@@ -1,0 +1,18 @@
+---
+const title = 'My Title';
+---
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <title set:html={title}></title>
+    <meta name="theme-color" content="#ffffff" />
+    <style>
+      body {
+        font-family: Arial;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen font-sans bg-indigo-50 dark:bg-slate-900">
+    <slot />
+  </body>
+  </html>

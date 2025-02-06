@@ -1,0 +1,18 @@
+---
+const {
+  type: initialType,
+  ...props
+} = {
+  ...Astro.props
+} as {
+  [K: string]: any;
+};
+
+const isSelect = /^select$/i.test(initialType);
+const isTextarea = /^textarea$/i.test(initialType);
+
+const Control = isSelect ? 'select' : isTextarea ? 'textarea' : 'input';
+
+if (Control === 'input' && initialType) props.type = initialType;
+---
+<Control {...props}>{'default' in Astro.slots ? <slot /> : null}</Control>

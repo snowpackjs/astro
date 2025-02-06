@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    // preserveSymlinks set to true so the augmented `declare module 'astro'` works.
+    // This is only needed because we link Astro locally.
+    "preserveSymlinks": true
+  },
+  "include": [".astro/types.d.ts", "./src/**/*"],
+  "exclude": ["dist"]
+}

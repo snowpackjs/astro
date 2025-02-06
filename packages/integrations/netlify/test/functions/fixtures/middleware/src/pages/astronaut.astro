@@ -1,0 +1,9 @@
+---
+import { Image } from 'astro:assets';
+import astronautImage from "../astronaut.jpg"
+
+export const prerender = true;
+---
+
+<Image src={astronautImage} alt="an astronaut floating in space" />
+

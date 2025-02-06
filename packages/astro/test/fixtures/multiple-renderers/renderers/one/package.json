@@ -1,0 +1,6 @@
+{
+  "name": "@test/astro-renderer-one",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.mjs"
+}

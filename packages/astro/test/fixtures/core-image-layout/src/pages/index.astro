@@ -1,0 +1,56 @@
+---
+import { Image, Picture } from "astro:assets";
+import penguin from "../assets/penguin.jpg";
+---
+
+
+<div id="local">
+	<Image src={penguin} alt="a penguin" />
+</div>
+<div id="local-priority">
+	<Image src={penguin} alt="a penguin" priority />
+</div>
+
+<div id="local-width">
+	<Image src={penguin} alt="a penguin" width={350} />
+</div>
+
+<div id="local-height">
+	<Image src={penguin} alt="a penguin" height={200}/>
+</div>
+
+<div id="local-both">
+	<Image src={penguin} alt="a penguin" width={300} height={400}/>
+</div>
+
+<div id="local-class">
+	<Image src={penguin} alt="a penguin" width={300} height={400} class="green"/>
+</div>
+
+<div id="local-style">
+	<Image src={penguin} alt="a penguin" width={300} height={400} style="border: 2px red solid"/>
+</div>
+
+<div id="local-style-object">
+	<Image src={penguin} alt="a penguin" width={300} height={400} style={{
+		border: '2px red solid',
+	}}/>
+</div>
+
+<div id="local-constrained">
+	<Image src={penguin} alt="a penguin" width={800} height={600} />
+</div>
+
+<div id="local-fixed">
+	<Image src={penguin} alt="a penguin" width={800} height={600} layout="fixed"/>
+</div>
+
+<div id="local-full-width">
+	<Image src={penguin} alt="a penguin" width={800} height={600} layout="full-width"/>
+</div>
+
+<style>
+	.green {
+		border: 2px green solid;
+	}
+</style>

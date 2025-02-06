@@ -1,0 +1,45 @@
+---
+title: The Frontmatter Title
+keywords: [Keyword 1, Keyword 2, Keyword 3]
+tags:
+  - Tag 1
+  - Tag 2
+  - Tag 3
+items:
+  - value: Item 1
+  - value: Item 2
+  - value: Item 3
+nested_items:
+  nested:
+    - value: Nested Item 1
+    - value: Nested Item 2
+    - value: Nested Item 3
+---
+
+# {frontmatter.title}
+
+This ID should be the frontmatter title.
+
+## frontmatter.title
+
+The ID should not be the frontmatter title.
+
+### {frontmatter.keywords[1]}
+
+The ID should be the frontmatter keyword #2.
+
+### {frontmatter.tags[0]}
+
+The ID should be the frontmatter tag #1.
+
+#### {frontmatter.items[1].value}
+
+The ID should be the frontmatter item #2.
+
+##### {frontmatter.nested_items.nested[2].value}
+
+The ID should be the frontmatter nested item #3.
+
+###### {frontmatter.unknown}
+
+This ID should not reference the frontmatter.

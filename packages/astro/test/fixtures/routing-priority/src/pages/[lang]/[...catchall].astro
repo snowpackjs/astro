@@ -1,0 +1,23 @@
+---
+export async function getStaticPaths() {
+		return [
+			{ params: { lang: 'de', catchall: '1/2' } },
+			{ params: { lang: 'en', catchall: '1/2' } }
+		]
+	}
+---
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Routing</title>
+</head>
+
+<body>
+	<h1>[lang]/[...catchall].astro</h1>
+	<p>{Astro.params.lang} | {Astro.params.catchall}</p>
+</body>
+
+</html>

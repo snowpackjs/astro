@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "jsxImportSource": "solid-js",
+    "types": ["astro/client"]
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}

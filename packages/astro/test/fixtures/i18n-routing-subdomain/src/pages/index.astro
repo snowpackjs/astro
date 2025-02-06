@@ -1,0 +1,19 @@
+---
+import { getAbsoluteLocaleUrl, getLocaleByPath, getPathByLocale, getRelativeLocaleUrl } from "astro:i18n";
+
+let absoluteLocaleUrl_pt = getAbsoluteLocaleUrl("pt", "about");
+let absoluteLocaleUrl_it = getAbsoluteLocaleUrl("it");
+
+---
+
+<html>
+<head>
+	<title>Astro</title>
+</head>
+	<body>
+		Virtual module doesn't break
+		
+		Absolute URL pt: {absoluteLocaleUrl_pt}
+		Absolute URL it: {absoluteLocaleUrl_it}
+	</body>
+</html>

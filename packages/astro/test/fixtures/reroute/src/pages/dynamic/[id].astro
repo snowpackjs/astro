@@ -1,0 +1,21 @@
+---
+
+export function getStaticPaths() {
+	return [
+		{ params: { id: 'hello' } },
+	];
+}
+
+
+return Astro.rewrite("/")
+
+---
+
+<html>
+<head>
+	<title>Dynamic [id].astro</title>
+</head>
+<body>
+<h1>/dynamic/[id].astro</h1>
+</body>
+</html>
