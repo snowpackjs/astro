@@ -1,0 +1,25 @@
+---
+// TODO: remove dynamic import when fonts are stabilized
+const { fontsData } = await import('virtual:astro:assets/fonts/internal').catch(() => {
+	throw new Error('experimental.fonts not enabled');
+});
+
+interface Props {
+	family: string;
+	preload?: boolean;
+}
+
+const { family, preload = false } = Astro.props;
+const data = fontsData.get(family);
+if (!data) {
+	throw new Error(`No data for ${family}`);
+}
+---
+
+<style set:html={data.css}></style>
+{
+	preload &&
+		data.preloadData.map(({ url, type }) => (
+			<link rel="preload" href={url} as="font" type={`font/${type}`} crossorigin />
+		))
+}

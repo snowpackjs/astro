@@ -9,7 +9,7 @@ import { type BuildInternals, createBuildInternals } from '../../core/build/inte
 import { emptyDir, removeEmptyDirs } from '../../core/fs/index.js';
 import { appendForwardSlash, prependForwardSlash } from '../../core/path.js';
 import { runHookBuildSetup } from '../../integrations/hooks.js';
-import { getOutputDirectory } from '../../prerender/utils.js';
+import { getServerOutputDirectory } from '../../prerender/utils.js';
 import type { RouteData } from '../../types/public/internal.js';
 import { PAGE_SCRIPT_ID } from '../../vite-plugin-scripts/index.js';
 import { routeIsRedirect } from '../redirects/index.js';
@@ -142,7 +142,7 @@ async function ssrBuild(
 ) {
 	const { allPages, settings, viteConfig } = opts;
 	const ssr = settings.buildOutput === 'server';
-	const out = getOutputDirectory(settings);
+	const out = getServerOutputDirectory(settings);
 	const routes = Object.values(allPages).flatMap((pageData) => pageData.route);
 	const { lastVitePlugins, vitePlugins } = await container.runBeforeHook('server', input);
 	const viteBuildConfig: vite.InlineConfig = {

@@ -611,10 +611,15 @@ export const AstroConfigSchema = z.object({
 								.strict(),
 						)
 						.optional(),
+					// TODO: allow string and transform
+					// TODO: dedupe based on name and as
 					families: z.array(
 						z
 							.object({
+								name: z.string(),
 								provider: z.string(),
+								// TODO: discriminated union
+								src: z.string().optional(),
 							})
 							.strict(),
 					),

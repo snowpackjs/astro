@@ -1,4 +1,4 @@
-import { getOutputDirectory } from '../../prerender/utils.js';
+import { getServerOutputDirectory } from '../../prerender/utils.js';
 import type { AstroSettings, ComponentInstance } from '../../types/astro.js';
 import type { RewritePayload } from '../../types/public/common.js';
 import type {
@@ -115,7 +115,7 @@ export class BuildPipeline extends Pipeline {
 		settings: AstroSettings,
 		internals: BuildInternals,
 	): Promise<SSRManifest> {
-		const baseDirectory = getOutputDirectory(settings);
+		const baseDirectory = getServerOutputDirectory(settings);
 		const manifestEntryUrl = new URL(
 			`${internals.manifestFileName}?time=${Date.now()}`,
 			baseDirectory,

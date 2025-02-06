@@ -1,5 +1,5 @@
 import type { Plugin as VitePlugin } from 'vite';
-import { getOutputDirectory } from '../../prerender/utils.js';
+import { getServerOutputDirectory } from '../../prerender/utils.js';
 import type { AstroSettings } from '../../types/astro.js';
 import { addRollupInput } from '../build/add-rollup-input.js';
 import type { BuildInternals } from '../build/internal.js';
@@ -112,7 +112,7 @@ export function vitePluginMiddlewareBuild(
 		writeBundle(_, bundle) {
 			for (const [chunkName, chunk] of Object.entries(bundle)) {
 				if (chunk.type !== 'asset' && chunk.facadeModuleId === MIDDLEWARE_MODULE_ID) {
-					const outputDirectory = getOutputDirectory(opts.settings);
+					const outputDirectory = getServerOutputDirectory(opts.settings);
 					internals.middlewareEntryPoint = new URL(chunkName, outputDirectory);
 				}
 			}

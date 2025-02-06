@@ -17,7 +17,7 @@ import {
 } from '../../core/path.js';
 import { toFallbackType, toRoutingStrategy } from '../../i18n/utils.js';
 import { runHookBuildGenerated } from '../../integrations/hooks.js';
-import { getOutputDirectory } from '../../prerender/utils.js';
+import { getServerOutputDirectory } from '../../prerender/utils.js';
 import type { AstroSettings, ComponentInstance } from '../../types/astro.js';
 import type { GetStaticPathsItem, MiddlewareHandler } from '../../types/public/common.js';
 import type { AstroConfig } from '../../types/public/config.js';
@@ -57,7 +57,7 @@ export async function generatePages(options: StaticBuildOptions, internals: Buil
 	if (ssr) {
 		manifest = await BuildPipeline.retrieveManifest(options.settings, internals);
 	} else {
-		const baseDirectory = getOutputDirectory(options.settings);
+		const baseDirectory = getServerOutputDirectory(options.settings);
 		const renderersEntryUrl = new URL('renderers.mjs', baseDirectory);
 		const renderers = await import(renderersEntryUrl.toString());
 		const middleware: MiddlewareHandler = internals.middlewareEntryPoint

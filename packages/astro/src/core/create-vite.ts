@@ -164,7 +164,7 @@ export async function createVite(
 			astroContentAssetPropagationPlugin({ settings }),
 			vitePluginMiddleware({ settings }),
 			vitePluginSSRManifest(),
-			astroAssetsPlugin({ settings }),
+			astroAssetsPlugin({ settings, sync, logger }),
 			astroPrefetch({ settings }),
 			astroTransitions({ settings }),
 			astroDevToolbar({ settings, logger }),
