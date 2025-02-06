@@ -1,9 +1,49 @@
+import { AstroJSX, jsx } from 'astro/jsx-runtime';
+
 import type { NamedSSRLoadedRendererValue } from 'astro';
 import { AstroError } from 'astro/errors';
-import { AstroJSX, jsx } from 'astro/jsx-runtime';
 import { renderJSX } from 'astro/runtime/server/index.js';
+import type { SSRResult } from '../../../astro/src/types/public/internal.js';
 
 const slotName = (str: string) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
+
+const mockSSRResult: SSRResult = {
+	cancelled: false,
+	base: '/',
+	styles: new Set(),
+	scripts: new Set(),
+	links: new Set(),
+	componentMetadata: new Map(),
+	inlinedScripts: new Map(),
+	createAstro: () => {
+		throw new Error('createAstro is not implemented in mock');
+	},
+	params: {},
+	resolve: async (s: string) => s,
+	response: new Response(),
+	request: new Request('http://localhost'),
+	renderers: [],
+	clientDirectives: new Map(),
+	compressHTML: false,
+	partial: false,
+	pathname: '/',
+	cookies: undefined,
+	serverIslandNameMap: new Map(),
+	trailingSlash: 'ignore',
+	key: Promise.resolve(
+		crypto.subtle.generateKey({ name: 'HMAC', hash: 'SHA-256' }, true, ['sign', 'verify']),
+	),
+	_metadata: {
+		propagators: new Set(),
+		hasHydrationScript: false,
+		rendererSpecificHydrationScripts: new Set<string>(),
+		renderedScripts: new Set<string>(),
+		hasDirectives: new Set<string>(),
+		hasRenderedHead: false,
+		headInTree: false,
+		extraHead: [],
+	},
+};
 
 // NOTE: In practice, MDX components are always tagged with `__astro_tag_component__`, so the right renderer
 // is used directly, and this check is not often used to return true.
@@ -13,14 +53,19 @@ export async function check(
 	{ default: children = null, ...slotted } = {},
 ) {
 	if (typeof Component !== 'function') return false;
+
 	const slots: Record<string, any> = {};
 	for (const [key, value] of Object.entries(slotted)) {
 		const name = slotName(key);
 		slots[name] = value;
 	}
+
 	try {
-		const result = await Component({ ...props, ...slots, children });
-		return result[AstroJSX];
+		const vnode = jsx(Component, { ...props, ...slots, children });
+
+		const rendered = await renderJSX(mockSSRResult, vnode);
+
+		return rendered[AstroJSX];
 	} catch (e) {
 		throwEnhancedErrorIfMdxComponent(e as Error, Component);
 	}
