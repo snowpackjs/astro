@@ -1,5 +1,6 @@
 import type { InStatement } from '@libsql/client';
 import { type Config as LibSQLConfig, createClient } from '@libsql/client';
+import { createClient as createLibSQLWebClient } from '@libsql/client/web';
 import type { LibSQLDatabase } from 'drizzle-orm/libsql';
 import { drizzle as drizzleLibsql } from 'drizzle-orm/libsql';
 import { type SqliteRemoteDatabase, drizzle as drizzleProxy } from 'drizzle-orm/sqlite-proxy';
@@ -46,6 +47,7 @@ type RemoteDbClientOptions = {
 	dbType: 'studio' | 'libsql';
 	appToken: string;
 	remoteUrl: string | URL;
+	remoteClientMode?: 'native' | 'web';
 };
 
 export function createRemoteDatabaseClient(options: RemoteDbClientOptions) {
@@ -53,10 +55,24 @@ export function createRemoteDatabaseClient(options: RemoteDbClientOptions) {
 
 	return options.dbType === 'studio'
 		? createStudioDatabaseClient(options.appToken, remoteUrl)
-		: createRemoteLibSQLClient(options.appToken, remoteUrl, options.remoteUrl.toString());
+		: createRemoteLibSQLClient({
+			appToken: options.appToken,
+			remoteDbURL: remoteUrl,
+			rawUrl: options.remoteUrl.toString(),
+			remoteClientMode: options.remoteClientMode,
+		});
 }
 
-function createRemoteLibSQLClient(appToken: string, remoteDbURL: URL, rawUrl: string) {
+type RemoteLibSQLClientOptions = {
+	appToken: string;
+	remoteDbURL: URL;
+	rawUrl: string;
+	remoteClientMode?: 'native' | 'web';
+}
+
+function createRemoteLibSQLClient({
+	appToken, remoteDbURL, rawUrl, remoteClientMode,
+}: RemoteLibSQLClientOptions) {
 	const options: Partial<LibSQLConfig> = Object.fromEntries(remoteDbURL.searchParams.entries());
 	remoteDbURL.search = '';
 
@@ -81,7 +97,11 @@ function createRemoteLibSQLClient(appToken: string, remoteDbURL: URL, rawUrl: st
 		url = 'file:' + remoteDbURL.pathname.substring(1);
 	}
 
-	const client = createClient({
+	const client = (
+		remoteClientMode === 'web'
+			? createLibSQLWebClient
+			: createClient
+	)({
 		...options,
 		authToken: appToken,
 		url,

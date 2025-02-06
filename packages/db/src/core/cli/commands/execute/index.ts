@@ -11,7 +11,7 @@ import {
 } from '../../../errors.js';
 import {
 	getLocalVirtualModContents,
-	getStudioVirtualModContents,
+	getRemoteVirtualModContents,
 } from '../../../integration/vite-plugin-db.js';
 import { bundleFile, importBundledFile } from '../../../load-file.js';
 import type { DBConfig } from '../../../types.js';
@@ -41,7 +41,7 @@ export async function cmd({
 	let virtualModContents: string;
 	if (flags.remote) {
 		const appToken = await getManagedRemoteToken(flags.token);
-		virtualModContents = getStudioVirtualModContents({
+		virtualModContents = getRemoteVirtualModContents({
 			tables: dbConfig.tables ?? {},
 			appToken: appToken.token,
 			isBuild: false,
