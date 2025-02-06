@@ -370,7 +370,7 @@ describe('Config Validation', () => {
 						},
 					},
 					process.cwd(),
-				).catch((err) => err),
+				),
 			);
 		});
 
@@ -385,7 +385,7 @@ describe('Config Validation', () => {
 						},
 					},
 					process.cwd(),
-				).catch((err) => err),
+				),
 			);
 		});
 
@@ -425,6 +425,75 @@ describe('Config Validation', () => {
 				),
 				true,
 			);
+		});
+	});
+
+	describe('fonts', () => {
+		it('Should allow empty providers and families', () => {
+			assert.doesNotThrow(() =>
+				validateConfig(
+					{
+						experimental: {
+							fonts: {
+								providers: [],
+								families: [],
+							},
+						},
+					},
+					process.cwd(),
+				),
+			);
+		});
+
+		it('Should not allow providers with reserved names', async () => {
+			let configError = await validateConfig(
+				{
+					experimental: {
+						fonts: {
+							providers: [{ name: 'google', entrypoint: '' }],
+							families: [],
+						},
+					},
+				},
+				process.cwd(),
+			).catch((err) => err);
+			assert.equal(configError instanceof z.ZodError, true);
+			assert.equal(
+				configError.errors[0].message.includes('"google" is a reserved provider name'),
+				true,
+			);
+
+			configError = await validateConfig(
+				{
+					experimental: {
+						fonts: {
+							providers: [{ name: 'local', entrypoint: '' }],
+							families: [],
+						},
+					},
+				},
+				process.cwd(),
+			).catch((err) => err);
+			assert.equal(configError instanceof z.ZodError, true);
+			assert.equal(
+				configError.errors[0].message.includes('"local" is a reserved provider name'),
+				true,
+			);
+		});
+
+		it('Should not allow using non registed providers', async () => {
+			const configError = await validateConfig(
+				{
+					experimental: {
+						fonts: {
+							families: [{ provider: 'custom' }],
+						},
+					},
+				},
+				process.cwd(),
+			).catch((err) => err);
+			assert.equal(configError instanceof z.ZodError, true);
+			assert.equal(configError.errors[0].message.includes('Invalid provider "custom"'), true);
 		});
 	});
 });

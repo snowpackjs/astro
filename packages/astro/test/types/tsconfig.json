@@ -1,6 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "include": ["test/types"],
+  "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "allowJs": true,
     "emitDeclarationOnly": false,
