@@ -30,7 +30,13 @@ export const rehypeAnalyzeAstroMetadata: RehypePlugin = () => {
 			if (node.type !== 'mdxJsxFlowElement' && node.type !== 'mdxJsxTextElement') return;
 
 			const tagName = node.name;
-			if (!tagName || !isComponent(tagName) || !hasClientDirective(node)) return;
+			if (
+				!tagName ||
+				!isComponent(tagName) ||
+				!hasClientDirective(node) ||
+				!hasServerDeferDirective(node)
+			)
+				return;
 
 			// From this point onwards, `node` is confirmed to be an island component
 
@@ -70,7 +76,7 @@ export const rehypeAnalyzeAstroMetadata: RehypePlugin = () => {
 				});
 				// Mutate node with additional island attributes
 				addClientOnlyMetadata(node, matchedImport, resolvedPath);
-			} else {
+			} else if (hasClientDirective(node)) {
 				// Add this component to the metadata
 				metadata.hydratedComponents.push({
 					exportName: '*',
@@ -80,6 +86,15 @@ export const rehypeAnalyzeAstroMetadata: RehypePlugin = () => {
 				});
 				// Mutate node with additional island attributes
 				addClientMetadata(node, matchedImport, resolvedPath);
+			} else if (hasServerDeferDirective(node)) {
+				metadata.serverComponents.push({
+					exportName: '*',
+					localName: '',
+					specifier: tagName,
+					resolvedPath,
+				});
+				// Mutate node with additional island attributes
+				addServerDeferMetadata(node, matchedImport, resolvedPath);
 			}
 		});
 
@@ -172,6 +187,12 @@ function isComponent(tagName: string) {
 function hasClientDirective(node: MdxJsxFlowElementHast | MdxJsxTextElementHast) {
 	return node.attributes.some(
 		(attr) => attr.type === 'mdxJsxAttribute' && attr.name.startsWith('client:'),
+	);
+}
+
+function hasServerDeferDirective(node: MdxJsxFlowElementHast | MdxJsxTextElementHast) {
+	return node.attributes.some(
+		(attr) => attr.type === 'mdxJsxAttribute' && attr.name === 'server:defer',
 	);
 }
 
@@ -319,4 +340,39 @@ function addClientOnlyMetadata(
 	}
 
 	node.name = ClientOnlyPlaceholder;
+}
+
+function addServerDeferMetadata(
+	node: MdxJsxFlowElementHast | MdxJsxTextElementHast,
+	meta: { path: string; name: string },
+	resolvedPath: string,
+) {
+	const attributeNames = node.attributes
+		.map((attr) => (attr.type === 'mdxJsxAttribute' ? attr.name : null))
+		.filter(Boolean);
+
+	if (!attributeNames.includes('server:component-directive')) {
+		node.attributes.push({
+			type: 'mdxJsxAttribute',
+			name: 'server:directive',
+			value: 'server:defer',
+		});
+	}
+	if (!attributeNames.includes('server:component-path')) {
+		node.attributes.push({
+			type: 'mdxJsxAttribute',
+			name: 'server:component-path',
+			value: resolvedPath,
+		});
+	}
+	if (!attributeNames.includes('server:component-export')) {
+		if (meta.name === '*') {
+			meta.name = node.name!.split('.').slice(1).join('.')!;
+		}
+		node.attributes.push({
+			type: 'mdxJsxAttribute',
+			name: 'server:component-export',
+			value: meta.name,
+		});
+	}
 }
