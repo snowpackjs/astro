@@ -13,8 +13,9 @@ const getConfigAlias = (settings: AstroSettings): Alias[] | null => {
 	const { tsConfig, tsConfigPath } = settings;
 	if (!tsConfig || !tsConfigPath || !tsConfig.compilerOptions) return null;
 
-	const { baseUrl, paths } = tsConfig.compilerOptions as CompilerOptions;
-	if (!baseUrl) return null;
+	// TypeScript resolves `paths` relative to the tsconfig file if `baseUrl` is not set
+	// https://www.typescriptlang.org/docs/handbook/modules/reference.html#relationship-to-baseurl
+	const { baseUrl = '.', paths } = tsConfig.compilerOptions as CompilerOptions;
 
 	// resolve the base url from the configuration file directory
 	const resolvedBaseUrl = path.resolve(path.dirname(tsConfigPath), baseUrl);

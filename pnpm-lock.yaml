@@ -1798,6 +1798,23 @@ importers:
         specifier: ^5.19.7
         version: 5.19.7
 
+  packages/astro/test/fixtures/alias-tsconfig-no-baseurl:
+    dependencies:
+      '@astrojs/svelte':
+        specifier: workspace:*
+        version: link:../../../../integrations/svelte
+      '@test/namespace-package-no-baseurl':
+        specifier: workspace:*
+        version: link:deps/namespace-package
+      astro:
+        specifier: workspace:*
+        version: link:../../..
+      svelte:
+        specifier: ^5.2.9
+        version: 5.2.9
+
+  packages/astro/test/fixtures/alias-tsconfig-no-baseurl/deps/namespace-package: {}
+
   packages/astro/test/fixtures/alias-tsconfig/deps/namespace-package: {}
 
   packages/astro/test/fixtures/api-routes:
