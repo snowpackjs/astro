@@ -25,6 +25,7 @@ export class AstroTelemetry {
 	private debug = debug('astro:telemetry');
 	private isCI = isCI;
 	private env = process.env;
+	private disabledForSession = false;
 
 	private get astroVersion() {
 		return this.opts.astroVersion;
@@ -85,7 +86,7 @@ export class AstroTelemetry {
 	}
 
 	private get isDisabled(): boolean {
-		if (Boolean(this.ASTRO_TELEMETRY_DISABLED || this.TELEMETRY_DISABLED)) {
+		if (this.ASTRO_TELEMETRY_DISABLED || this.TELEMETRY_DISABLED || this.disabledForSession) {
 			return true;
 		}
 		return this.enabled === false;
@@ -93,6 +94,11 @@ export class AstroTelemetry {
 
 	setEnabled(value: boolean) {
 		this.config.set(KEY.TELEMETRY_ENABLED, value);
+	}
+
+	disableForSession() {
+		this.debug('[notify] telemetry has been disabled for this session');
+		this.disabledForSession = true;
 	}
 
 	clear() {

@@ -81,4 +81,15 @@ describe('AstroTelemetry', () => {
 		assert.notEqual(log, undefined);
 		assert.match(logs.join(''), /enabled/);
 	});
+
+	it('respects disabling per session', async () => {
+		const { telemetry, logs } = setup();
+		telemetry.disableForSession();
+		assert.equal(telemetry.isDisabled, true);
+		const result = await telemetry.record(['TEST']);
+		assert.equal(result, undefined);
+		const [log] = logs;
+		assert.notEqual(log, undefined);
+		assert.match(logs.join(''), /disabled/);
+	});
 });

@@ -88,6 +88,7 @@ export const ASTRO_CONFIG_DEFAULTS = {
 	security: {
 		checkOrigin: true,
 	},
+	disableTelemetry: false,
 	env: {
 		schema: {},
 		validateSecrets: false,
@@ -522,6 +523,7 @@ export const AstroConfigSchema = z.object({
 		.strict()
 		.optional()
 		.default(ASTRO_CONFIG_DEFAULTS.env),
+	disableTelemetry: z.boolean().optional().default(ASTRO_CONFIG_DEFAULTS.disableTelemetry),
 	experimental: z
 		.object({
 			clientPrerender: z

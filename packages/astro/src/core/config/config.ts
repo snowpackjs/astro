@@ -147,6 +147,11 @@ export async function resolveConfig(
 
 	const userConfig = await loadConfig(root, inlineOnlyConfig.configFile, fsMod);
 	const mergedConfig = mergeConfig(userConfig, inlineUserConfig);
+
+	if (mergedConfig.disableTelemetry) {
+		telemetry.disableForSession();
+	}
+
 	// First-Pass Validation
 	let astroConfig: AstroConfig;
 	try {
