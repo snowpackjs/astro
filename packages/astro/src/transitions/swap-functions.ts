@@ -6,6 +6,14 @@ export type SavedFocus = {
 
 const PERSIST_ATTR = 'data-astro-transition-persist';
 
+const scriptsAlreadyRan = new Set<string>();
+export function detectScriptExecuted(script: HTMLScriptElement) {
+	const key = script.src ? new URL(script.src, location.href).href : script.textContent!;
+	if (scriptsAlreadyRan.has(key)) return true;
+	scriptsAlreadyRan.add(key);
+	return false;
+}
+
 /*
  * 	Mark new scripts that should not execute
  */
@@ -15,6 +23,8 @@ export function deselectScripts(doc: Document) {
 			if (
 				// Check if the script should be rerun regardless of it being the same
 				!s2.hasAttribute('data-astro-rerun') &&
+				// Check if the script has already been executed
+				detectScriptExecuted(s2) &&
 				// Inline
 				((!s1.src && s1.textContent === s2.textContent) ||
 					// External

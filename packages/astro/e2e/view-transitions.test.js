@@ -647,13 +647,28 @@ test.describe('View Transitions', () => {
 	test('Scripts are only executed once', async ({ page, astro }) => {
 		// Go to page 1
 		await page.goto(astro.resolveUrl('/one'));
-		const p = page.locator('#one');
+		let p = page.locator('#one');
 		await expect(p, 'should have content').toHaveText('Page 1');
 
 		// go to page 2
 		await page.click('#click-two');
 		const article = page.locator('#twoarticle');
 		await expect(article, 'should have script content').toHaveText('works');
+
+		// Go back to page 1
+		await page.goBack();
+		p = page.locator('#one');
+		await expect(p, 'should have content').toHaveText('Page 1');
+
+		// Go to page 8
+		await page.click('#click-eight');
+		const article8 = page.locator('#eight');
+		await expect(article8, 'should have content').toHaveText('Page 8');
+
+		// Go back to page 1
+		await page.goBack();
+		p = page.locator('#one');
+		await expect(p, 'should have content').toHaveText('Page 1');
 
 		const meta = page.locator('[name="script-executions"]');
 		await expect(meta).toHaveAttribute('content', '0');

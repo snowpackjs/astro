@@ -1,0 +1,16 @@
+---
+import Layout from '../components/Layout.astro';
+import { ClientRouter } from 'astro:transitions';
+
+Astro.response.headers.set('Content-Type', 'text/html ; charset=utf-8');
+---
+<html>
+	<head>
+		<ClientRouter handleForms />
+	</head>
+	<body>
+		<p id="eight">Page 8</p>
+
+		<a id="click-one" href="/one">go to 1</a>
+	</body>
+</html>
