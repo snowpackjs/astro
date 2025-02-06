@@ -5,7 +5,7 @@ import type { RouteData } from '../types/public/internal.js';
 import type { DevPipeline } from '../vite-plugin-astro-server/pipeline.js';
 import { getPrerenderStatus } from './metadata.js';
 
-type GetSortedPreloadedMatchesParams = {
+export type GetSortedPreloadedMatchesParams = {
 	pipeline: DevPipeline;
 	matches: RouteData[];
 	settings: AstroSettings;
