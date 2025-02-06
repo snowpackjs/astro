@@ -16,6 +16,10 @@ describe('Attributes', async () => {
 		const $ = cheerio.load(html);
 
 		const attrs = {
+			'popover-auto': { attribute: 'popover', value: 'auto' },
+			'popover-true': { attribute: 'popover', value: '' },
+			'popover-false': { attribute: 'popover', value: undefined },
+			'popover-string-empty': { attribute: 'popover', value: '' },
 			'boolean-attr-true': { attribute: 'allowfullscreen', value: '' },
 			'boolean-attr-false': { attribute: 'allowfullscreen', value: undefined },
 			'boolean-attr-string-truthy': { attribute: 'allowfullscreen', value: '' },

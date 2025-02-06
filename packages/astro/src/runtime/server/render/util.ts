@@ -114,6 +114,11 @@ Make sure to use the static attribute syntax (\`${key}={value}\`) instead of the
 		return markHTMLString(` ${key}`);
 	}
 
+	// Popover seems to be boolean, but it can actually have the value "auto" or "manual"
+	if (key === 'popover' && typeof value === 'boolean') {
+		return markHTMLString(value ? ` popover` : '');
+	}
+
 	return markHTMLString(` ${key}="${toAttributeString(value, shouldEscape)}"`);
 }
 
