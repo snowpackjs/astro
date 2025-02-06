@@ -46,8 +46,13 @@ interface Item {
 // eslint-disable-next-line regexp/no-super-linear-backtracking
 const ROUTE_DYNAMIC_SPLIT = /\[(.+?\(.+?\)|.+?)\]/;
 const ROUTE_SPREAD = /^\.{3}.+$/;
+const ROUTE_GROUP = /^\(.+\)$/;
 
 export function getParts(part: string, file: string) {
+	// Skip route group segments
+	if (ROUTE_GROUP.test(part)) {
+		return [];
+	}
 	const result: RoutePart[] = [];
 	part.split(ROUTE_DYNAMIC_SPLIT).map((str, i) => {
 		if (!str) return;
@@ -160,6 +165,13 @@ function createFileBasedRoutes(
 			}
 			const segment = isDir ? basename : name;
 			validateSegment(segment, file);
+
+			// Check if this is a route group, if yes skip group folder name but process its content
+			const isRouteGroup = ROUTE_GROUP.test(segment);
+			if (isRouteGroup && isDir) {
+				walk(fsMod ?? fs, path.join(dir, basename), parentSegments, parentParams);
+				continue;
+			}
 
 			const parts = getParts(segment, file);
 			const isIndex = isDir ? false : basename.substring(0, basename.lastIndexOf('.')) === 'index';
