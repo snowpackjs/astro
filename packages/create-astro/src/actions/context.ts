@@ -34,6 +34,13 @@ export interface Context {
 }
 
 export async function getContext(argv: string[]): Promise<Context> {
+	const packageSpecifier = argv
+		.find((argItem) => /^(astro|create-astro)@/.exec(argItem))
+		?.split('@')[1];
+	// Fallback to 'latest' if it's a version number
+	const packageTag =
+		packageSpecifier && /^v?\d[^a-zA-Z]*$/.test(packageSpecifier) ? 'latest' : packageSpecifier;
+
 	const flags = arg(
 		{
 			'--template': String,
@@ -93,7 +100,7 @@ export async function getContext(argv: string[]): Promise<Context> {
 		prompt,
 		packageManager,
 		username: getName(),
-		version: getVersion(packageManager, 'astro', process.env.ASTRO_VERSION),
+		version: getVersion(packageManager, 'astro', packageTag, process.env.ASTRO_VERSION),
 		skipHouston,
 		fancy,
 		add,
