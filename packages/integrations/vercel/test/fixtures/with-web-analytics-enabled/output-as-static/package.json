@@ -1,0 +1,9 @@
+{
+  "name": "@test/astro-vercel-with-web-analytics-enabled-output-as-static",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/vercel": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

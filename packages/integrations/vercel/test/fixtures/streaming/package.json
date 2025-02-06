@@ -1,0 +1,9 @@
+{
+  "name": "@test/vercel-streaming",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/vercel": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

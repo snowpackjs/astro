@@ -1,0 +1,12 @@
+{
+  "name": "@test/astro-vercel-image",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

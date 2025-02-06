@@ -1,0 +1,12 @@
+{
+  "name": "vercel-hosted-astro-project",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "astro build"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "workspace:*",
+    "astro": "^5.1.6"
+  }
+}

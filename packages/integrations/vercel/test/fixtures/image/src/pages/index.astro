@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+import astro from "../assets/astro.jpeg";
+import penguin from "../assets/penguin.svg";
+---
+
+<div id="basic-image">
+	<Image src={astro} alt="Astro" />
+</div>
+
+<div id="svg">
+	<Image src={penguin} alt="Astro" />
+</div>

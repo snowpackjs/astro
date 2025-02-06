@@ -1,0 +1,9 @@
+{
+  "name": "@test/vercel-edge-middleware-without-edge-file",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/vercel": "workspace:*",
+    "astro": "workspace:*"
+  }
+}

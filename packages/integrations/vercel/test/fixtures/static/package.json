@@ -1,0 +1,9 @@
+{
+  "name": "@test/astro-vercel-static",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/vercel": "workspace:*",
+    "astro": "workspace:*"
+  }
+}
