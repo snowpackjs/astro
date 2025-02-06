@@ -49,6 +49,7 @@ process.env.ASTRO_TELEMETRY_DISABLED = true;
  * @property {typeof check} check
  * @property {typeof sync} sync
  * @property {AstroConfig} config
+ * @property {() => void} resetAllFiles
  *
  * This function returns an instance of the Check
  *

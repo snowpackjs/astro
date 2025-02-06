@@ -1,0 +1,16 @@
+---
+const start = performance.now();
+const value = await Astro.session.get('value');
+const end = performance.now();
+---
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Hi</title>
+</head>
+
+<h1>Hi</h1>
+<p>{value}</p>
+<p>Time taken: {end - start}ms</p>
+<a href="/cart" style="font-size: 36px">🛒</a>
+</html>

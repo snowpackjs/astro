@@ -14,6 +14,7 @@ import { buildClientDirectiveEntrypoint } from '../core/client-directive/index.j
 import { mergeConfig } from '../core/config/index.js';
 import { validateSetAdapter } from '../core/dev/adapter-validation.js';
 import type { AstroIntegrationLogger, Logger } from '../core/logger/core.js';
+import { validateSessionConfig } from '../core/session.js';
 import type { AstroSettings } from '../types/astro.js';
 import type { AstroConfig } from '../types/public/config.js';
 import type {
@@ -369,6 +370,7 @@ export async function runHookConfigDone({
 			});
 		}
 	}
+	validateSessionConfig(settings);
 }
 
 export async function runHookServerSetup({

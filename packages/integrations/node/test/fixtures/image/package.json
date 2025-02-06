@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@astrojs/node": "workspace:*",
-    "astro": "^5.1.6"
+    "astro": "workspace:*"
   },
   "peerDependencies": {
     "sharp": "^0.33.5"

@@ -54,9 +54,7 @@ function vitePluginManifest(options: StaticBuildOptions, internals: BuildInterna
 					`import { _privateSetManifestDontUseThis } from 'astro:ssr-manifest'`,
 				];
 
-				const resolvedDriver = await resolveSessionDriver(
-					options.settings.config.experimental?.session?.driver,
-				);
+				const resolvedDriver = await resolveSessionDriver(options.settings.config.session?.driver);
 
 				const contents = [
 					`const manifest = _deserializeManifest('${manifestReplace}');`,
@@ -304,6 +302,6 @@ function buildManifest(
 			(settings.config.security?.checkOrigin && settings.buildOutput === 'server') ?? false,
 		serverIslandNameMap: Array.from(settings.serverIslandNameMap),
 		key: encodedKey,
-		sessionConfig: settings.config.experimental.session,
+		sessionConfig: settings.config.session,
 	};
 }

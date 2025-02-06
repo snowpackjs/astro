@@ -36,8 +36,8 @@
     "test:hosted": "astro-scripts test \"test/hosted/*.test.js\""
   },
   "dependencies": {
-    "@astrojs/internal-helpers": "0.5.1",
-    "@astrojs/underscore-redirects": "^0.6.0",
+    "@astrojs/internal-helpers": "workspace:*",
+    "@astrojs/underscore-redirects": "workspace:*",
     "@netlify/functions": "^2.8.0",
     "@vercel/nft": "^0.29.0",
     "esbuild": "^0.24.0",
@@ -50,7 +50,7 @@
     "@netlify/edge-functions": "^2.11.1",
     "@netlify/edge-handler-types": "^0.34.1",
     "@types/node": "^22.10.6",
-    "astro": "^5.1.6",
+    "astro": "workspace:*",
     "astro-scripts": "workspace:*",
     "cheerio": "1.0.0",
     "execa": "^8.0.1",

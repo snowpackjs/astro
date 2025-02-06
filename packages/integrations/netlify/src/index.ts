@@ -443,13 +443,39 @@ export default function netlifyIntegration(
 	return {
 		name: '@astrojs/netlify',
 		hooks: {
-			'astro:config:setup': async ({ config, updateConfig }) => {
+			'astro:config:setup': async ({ config, updateConfig, logger }) => {
 				rootDir = config.root;
 				await cleanFunctions();
 
 				outDir = new URL('./dist/', rootDir);
 
 				const enableImageCDN = isRunningInNetlify && (integrationConfig?.imageCDN ?? true);
+
+				let session = config.session;
+
+				if (config.experimental.session && !session?.driver) {
+					logger.info(
+						`Configuring experimental session support using ${isRunningInNetlify ? 'Netlify Blobs' : 'filesystem storage'}`,
+					);
+					session = isRunningInNetlify
+						? {
+								...session,
+								driver: 'netlify-blobs',
+								options: {
+									name: 'astro-sessions',
+									consistency: 'strong',
+									...session?.options,
+								},
+							}
+						: {
+								...session,
+								driver: 'fs-lite',
+								options: {
+									base: fileURLToPath(new URL('sessions', config.cacheDir)),
+									...session?.options,
+								},
+							};
+				}
 
 				updateConfig({
 					outDir,
@@ -458,6 +484,7 @@ export default function netlifyIntegration(
 						client: outDir,
 						server: ssrBuildDir(),
 					},
+					session,
 					vite: {
 						server: {
 							watch: {

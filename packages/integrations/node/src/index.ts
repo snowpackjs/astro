@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import type { AstroAdapter, AstroIntegration } from 'astro';
 import { AstroError } from 'astro/errors';
 import type { Options, UserOptions } from './types.js';
@@ -33,11 +34,25 @@ export default function createIntegration(userOptions: UserOptions): AstroIntegr
 	return {
 		name: '@astrojs/node',
 		hooks: {
-			'astro:config:setup': async ({ updateConfig, config }) => {
+			'astro:config:setup': async ({ updateConfig, config, logger }) => {
+				let session = config.session;
+
+				if (config.experimental.session && !session?.driver) {
+					logger.info('Configuring experimental session support using filesystem storage');
+					session = {
+						...session,
+						driver: 'fs-lite',
+						options: {
+							base: fileURLToPath(new URL('sessions', config.cacheDir)),
+						},
+					};
+				}
+
 				updateConfig({
 					image: {
 						endpoint: config.image.endpoint ?? 'astro/assets/endpoint/node',
 					},
+					session,
 					vite: {
 						ssr: {
 							noExternal: ['@astrojs/node'],

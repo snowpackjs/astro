@@ -1,5 +1,5 @@
 {
-  "name": "@test/nodejs-prerender",
+  "name": "@test/session",
   "version": "0.0.0",
   "private": true,
   "dependencies": {

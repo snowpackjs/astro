@@ -92,12 +92,14 @@ export const ASTRO_CONFIG_DEFAULTS = {
 		schema: {},
 		validateSecrets: false,
 	},
+	session: undefined,
 	experimental: {
 		clientPrerender: false,
 		contentIntellisense: false,
 		responsiveImages: false,
 		svg: false,
 		serializeConfig: false,
+		session: false,
 	},
 } satisfies AstroUserConfig & { server: { open: boolean } };
 
@@ -522,6 +524,30 @@ export const AstroConfigSchema = z.object({
 		.strict()
 		.optional()
 		.default(ASTRO_CONFIG_DEFAULTS.env),
+	session: z
+		.object({
+			driver: z.string(),
+			options: z.record(z.any()).optional(),
+			cookie: z
+				.object({
+					name: z.string().optional(),
+					domain: z.string().optional(),
+					path: z.string().optional(),
+					maxAge: z.number().optional(),
+					sameSite: z.union([z.enum(['strict', 'lax', 'none']), z.boolean()]).optional(),
+					secure: z.boolean().optional(),
+				})
+				.or(z.string())
+				.transform((val) => {
+					if (typeof val === 'string') {
+						return { name: val };
+					}
+					return val;
+				})
+				.optional(),
+			ttl: z.number().optional(),
+		})
+		.optional(),
 	experimental: z
 		.object({
 			clientPrerender: z
@@ -536,32 +562,7 @@ export const AstroConfigSchema = z.object({
 				.boolean()
 				.optional()
 				.default(ASTRO_CONFIG_DEFAULTS.experimental.responsiveImages),
-			session: z
-				.object({
-					driver: z.string(),
-					options: z.record(z.any()).optional(),
-					cookie: z
-						.union([
-							z.object({
-								name: z.string().optional(),
-								domain: z.string().optional(),
-								path: z.string().optional(),
-								maxAge: z.number().optional(),
-								sameSite: z.union([z.enum(['strict', 'lax', 'none']), z.boolean()]).optional(),
-								secure: z.boolean().optional(),
-							}),
-							z.string(),
-						])
-						.transform((val) => {
-							if (typeof val === 'string') {
-								return { name: val };
-							}
-							return val;
-						})
-						.optional(),
-					ttl: z.number().optional(),
-				})
-				.optional(),
+			session: z.boolean().optional(),
 			svg: z
 				.union([
 					z.boolean(),

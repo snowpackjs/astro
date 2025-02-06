@@ -6,6 +6,7 @@ import {
 	builtinDrivers,
 	createStorage,
 } from 'unstorage';
+import type { AstroSettings } from '../types/astro.js';
 import type {
 	ResolvedSessionConfig,
 	SessionConfig,
@@ -13,7 +14,13 @@ import type {
 } from '../types/public/config.js';
 import type { AstroCookies } from './cookies/cookies.js';
 import type { AstroCookieSetOptions } from './cookies/cookies.js';
-import { SessionStorageInitError, SessionStorageSaveError } from './errors/errors-data.js';
+import {
+	SessionConfigMissingError,
+	SessionConfigWithoutFlagError,
+	SessionStorageInitError,
+	SessionStorageSaveError,
+	SessionWithoutServerOutputError,
+} from './errors/errors-data.js';
 import { AstroError } from './errors/index.js';
 
 export const PERSIST_SYMBOL = Symbol();
@@ -473,4 +480,23 @@ export function resolveSessionDriver(driver: string | undefined): Promise<string
 		return import.meta.resolve(builtinDrivers[driver as keyof typeof builtinDrivers]);
 	}
 	return driver;
+}
+
+export function validateSessionConfig(settings: AstroSettings): void {
+	const { experimental, session } = settings.config;
+	const { buildOutput } = settings;
+	let error: AstroError | undefined;
+	if (experimental.session) {
+		if (!session?.driver) {
+			error = new AstroError(SessionConfigMissingError);
+		} else if (buildOutput === 'static') {
+			error = new AstroError(SessionWithoutServerOutputError);
+		}
+	} else if (session?.driver) {
+		error = new AstroError(SessionConfigWithoutFlagError);
+	}
+	if (error) {
+		error.stack = undefined;
+		throw error;
+	}
 }

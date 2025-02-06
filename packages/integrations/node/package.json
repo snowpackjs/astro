@@ -41,7 +41,7 @@
     "@types/node": "^22.10.6",
     "@types/send": "^0.17.4",
     "@types/server-destroy": "^1.0.4",
-    "astro": "^5.1.6",
+    "astro": "workspace:*",
     "astro-scripts": "workspace:*",
     "cheerio": "1.0.0",
     "express": "^4.21.2",

@@ -1,0 +1,15 @@
+{
+  "name": "@test/netlify-session",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@astrojs/netlify": "workspace:*"
+  },
+  "devDependencies": {
+    "astro": "workspace:*"
+  },
+  "scripts": {
+    "build": "astro build",
+    "start": "astro dev"
+  }
+}
