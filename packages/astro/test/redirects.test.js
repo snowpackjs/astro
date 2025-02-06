@@ -268,6 +268,11 @@ describe('Astro.redirect', () => {
 				const response = await fixture.fetch('/more/old/welcome/world', { redirect: 'manual' });
 				assert.equal(response.headers.get('Location'), '/more/new/welcome/world');
 			});
+
+			it('provides isRedirect to the context', async () => {
+				const response = await fixture.fetch('/one', { redirect: 'manual' });
+				assert.equal(response.headers.get("X-Is-Redirect"), "true");
+			});
 		});
 
 		describe('with i18n, build step', () => {

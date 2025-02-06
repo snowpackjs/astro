@@ -354,6 +354,11 @@ interface AstroSharedContext<
 	 * Whether the current route is prerendered or not.
 	 */
 	isPrerendered: boolean;
+
+	/**
+	 * Whether the current route is a redirect or not.
+	 */
+	isRedirect: boolean;
 }
 
 /**
